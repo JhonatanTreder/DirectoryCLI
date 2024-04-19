@@ -1,0 +1,7 @@
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\DirectoryCLI.exe.config
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\DirectoryCLI.exe
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\DirectoryCLI.pdb
+D:\[PROJETOS]\DirectoryCLI\obj\Debug\DirectoryCLI.csproj.AssemblyReference.cache
+D:\[PROJETOS]\DirectoryCLI\obj\Debug\DirectoryCLI.csproj.CoreCompileInputs.cache
+D:\[PROJETOS]\DirectoryCLI\obj\Debug\DirectoryCLI.exe
+D:\[PROJETOS]\DirectoryCLI\obj\Debug\DirectoryCLI.pdb
