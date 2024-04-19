@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "D:\\[PROJETOS]\\DirectoryCLI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|D:\\[PROJETOS]\\DirectoryCLI\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|D:\\[PROJETOS]\\DirectoryCLI\\commands\\createfolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commands\\createfolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\commands\\deletefile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commands\\deletefile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|D:\\[PROJETOS]\\DirectoryCLI\\commands\\createfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\commands\\createfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commands\\createfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\commands\\command.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commands\\command.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\commands\\deletefolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commands\\deletefolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
@@ -67,14 +67,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Command.cs",
-              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\Command.cs",
-              "RelativeDocumentMoniker": "Commands\\Command.cs",
-              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\Command.cs",
-              "RelativeToolTip": "Commands\\Command.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAdAAAA",
+              "Title": "DeleteFolder.cs",
+              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\DeleteFolder.cs",
+              "RelativeDocumentMoniker": "Commands\\DeleteFolder.cs",
+              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\DeleteFolder.cs",
+              "RelativeToolTip": "Commands\\DeleteFolder.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABUAAABXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-19T00:17:11.996Z",
+              "WhenOpened": "2024-04-19T20:04:56.715Z",
               "EditorCaption": ""
             },
             {
@@ -85,9 +85,22 @@
               "RelativeDocumentMoniker": "Commands\\CreateFile.cs",
               "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CreateFile.cs",
               "RelativeToolTip": "Commands\\CreateFile.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAgAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABMAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-18T22:47:17.724Z",
+              "WhenOpened": "2024-04-19T20:01:03.105Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DeleteFile.cs",
+              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\DeleteFile.cs",
+              "RelativeDocumentMoniker": "Commands\\DeleteFile.cs",
+              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\DeleteFile.cs",
+              "RelativeToolTip": "Commands\\DeleteFile.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-19T17:13:01.653Z",
               "EditorCaption": ""
             },
             {
@@ -98,22 +111,9 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAiwBcAAAARAAAA",
+              "ViewState": "AQIAABkAAAAAAAAAAAAiwC8AAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-18T22:39:40.461Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CreateFolder.cs",
-              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CreateFolder.cs",
-              "RelativeDocumentMoniker": "Commands\\CreateFolder.cs",
-              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CreateFolder.cs",
-              "RelativeToolTip": "Commands\\CreateFolder.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-18T22:19:14.051Z",
               "EditorCaption": ""
             }
           ]

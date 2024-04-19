@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
+using DirectoryCLI.Exceptions;
 
 namespace DirectoryCLI
 {
@@ -31,14 +32,26 @@ namespace DirectoryCLI
                                 createFolder.Execute(directoryPath);
                             break;
 
+                            case "--delete-folder":
+                                DeleteFolder deleteFolder = new DeleteFolder(args[2]);
+                                deleteFolder.Execute(directoryPath);
+
+                            break;
+
                             case "--create-file":
-                                CreateFile createFile = new CreateFile(directoryPath);
+                                CreateFile createFile = new CreateFile(args[2]);
+                                createFile.Execute(directoryPath);
+                            break;
+
+                            case "--delete-file":
+                                DeleteFile deleteFile = new DeleteFile(args[2]);
+                                deleteFile.Execute(directoryPath);
                             break;
                         }
                     }
-                    catch (Exception)
+                    catch (DirectoryException ex)
                     {
-
+                        Console.WriteLine("An error as ocurred: " + ex.Message);
                     }
                 }
             }

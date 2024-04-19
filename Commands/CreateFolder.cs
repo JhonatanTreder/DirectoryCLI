@@ -9,7 +9,7 @@ namespace DirectoryCLI.Commands
 {
     internal class CreateFolder : Command
     {
-        public string DirectoryName { get; set; }
+        public string DirectoryName { get; }
 
         public CreateFolder(string directoryName)
         {
