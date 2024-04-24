@@ -15,12 +15,12 @@ namespace DirectoryCLI.Commands
         {
             DirectoryName = directoryName;
         }
-        public override void Execute(FileInfo directoryPath)
+        public void Execute(FileInfo directoryPath)
         {
             if (IsValidDirectoryPath(directoryPath) == true)
             {
-                string directory = Path.Combine(directoryPath.FullName, DirectoryName);
-                Directory.Delete(directory, true);
+                string fullPath = Path.Combine(directoryPath.FullName, DirectoryName);
+                Directory.Delete(fullPath, true);
             }
 
             else

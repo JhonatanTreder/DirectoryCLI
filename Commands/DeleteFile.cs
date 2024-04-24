@@ -19,7 +19,7 @@ namespace DirectoryCLI.Commands
             PathFile = pathFile;
 
         }
-        public override void Execute(FileInfo directoryPath)
+        public void Execute(FileInfo directoryPath)
         {
             string fullPath = Path.Combine(directoryPath.FullName, ArchiveName);
             File.Delete(fullPath);

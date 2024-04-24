@@ -15,10 +15,10 @@ namespace DirectoryCLI.Commands
         {
             DirectoryName = directoryName;
         }
-        public override void Execute(FileInfo directoryPath)
+        public void Execute(FileInfo directoryPath)
         {
-            string directory = Path.Combine(directoryPath.FullName, DirectoryName);
-            Directory.CreateDirectory(directory);
+            string fullPath = Path.Combine(directoryPath.FullName, DirectoryName);
+            Directory.CreateDirectory(fullPath);
         }
     }
 }

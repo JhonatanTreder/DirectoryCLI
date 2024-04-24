@@ -14,7 +14,7 @@ namespace DirectoryCLI.Commands
         {
             ArchiveName = archiveName;
         }
-        public override void Execute(FileInfo directoryPath)
+        public void Execute(FileInfo directoryPath)
         {
             string fullPath = Path.Combine(directoryPath.FullName, ArchiveName);
             File.Create(fullPath).Close();

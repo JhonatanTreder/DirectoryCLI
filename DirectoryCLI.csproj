@@ -48,6 +48,8 @@
     <Compile Include="Commands\CreateFolder.cs" />
     <Compile Include="Commands\DeleteFile.cs" />
     <Compile Include="Commands\DeleteFolder.cs" />
+    <Compile Include="Commands\Open.cs" />
+    <Compile Include="Commands\OpenSite.cs" />
     <Compile Include="Exceptions\DirectoryException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

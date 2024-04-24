@@ -12,12 +12,33 @@ namespace DirectoryCLI
             while (true)
             {
                 string[] args = Console.ReadLine().Split(' ');
+                string cmd;
 
                 Console.WriteLine();
-                string cmd = args[1];
+
+                switch(args.Length)
+                {
+                    
+                    case 2:
+
+                        cmd = args[0];
+                        
+                    break;
+
+                    case 1: 
+
+                        cmd = args[0];
+
+                    break;
+
+                    default:
+
+                        cmd = args[1];
+
+                    break;
+
+                }
                 FileInfo directoryPath = new FileInfo(args[0]);
-
-
 
                 try
                 {
@@ -85,12 +106,43 @@ namespace DirectoryCLI
                                 Console.ResetColor();
 
                             break;
+
+                            case "open":
+
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Write("using arguments: <directory> <command> <conclusion>");
+
+                                
+                                Open open = new Open(args[2]);
+                                open.Execute(directoryPath);
+
+                                Console.WriteLine();
+                                Console.ResetColor();
+
+                            break;
                         }
+                    }
+
+                    switch(cmd) 
+                    {
+                        case "open-site":
+
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Write("using arguments: <command> <site>");
+
+                            OpenSite openSite = new OpenSite();
+                            openSite.Execute(args[1]);
+
+                            Console.WriteLine();
+                            Console.ResetColor();
+
+                        break;
                     }
                 }
                 catch (DirectoryException ex)
                 {
                     Console.WriteLine("An error as ocurred: " + ex.Message);
+                    
                 }
             }
         }

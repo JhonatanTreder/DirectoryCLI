@@ -1,7 +1,20 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\[PROJETOS]\\DirectoryCLI\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\commands\\opensite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commands\\opensite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\commands\\createfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commands\\createfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,6 +59,45 @@
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OpenSite.cs",
+              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\OpenSite.cs",
+              "RelativeDocumentMoniker": "Commands\\OpenSite.cs",
+              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\OpenSite.cs",
+              "RelativeToolTip": "Commands\\OpenSite.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAgwAsAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T19:38:36.958Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CreateFile.cs",
+              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CreateFile.cs",
+              "RelativeDocumentMoniker": "Commands\\CreateFile.cs",
+              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CreateFile.cs",
+              "RelativeToolTip": "Commands\\CreateFile.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T19:33:25.267Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAE0AAAAAAAAAAAAcwIMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T18:03:19.437Z",
+              "EditorCaption": ""
             }
           ]
         }
