@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DirectoryCLI.Commands
 {
-    internal class DeleteFolder : Command
+    internal class DeleteFolder : CommandsConfig
     {
         public string DirectoryName { get; }
         public DeleteFolder(string directoryName)
@@ -20,7 +20,7 @@ namespace DirectoryCLI.Commands
             if (IsValidDirectoryPath(directoryPath) == true)
             {
                 string directory = Path.Combine(directoryPath.FullName, DirectoryName);
-                Directory.Delete(directory);
+                Directory.Delete(directory, true);
             }
 
             else

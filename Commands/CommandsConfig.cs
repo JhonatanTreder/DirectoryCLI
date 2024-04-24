@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DirectoryCLI.Commands
 {
-    abstract class Command
+    abstract class CommandsConfig
     {
         public string DirectoryPath { get; set; }
         public abstract void Execute(FileInfo directoryPath);

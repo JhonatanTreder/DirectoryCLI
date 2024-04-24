@@ -8,19 +8,21 @@ using System.Threading.Tasks;
 
 namespace DirectoryCLI.Commands
 {
-    internal class DeleteFile : Command
+    internal class DeleteFile : CommandsConfig
     {
         public string ArchiveName { get; }
+        public string PathFile { get; }
 
-        public DeleteFile(string archiveName)
+        public DeleteFile(string pathFile, string archiveName)
         {
             ArchiveName = archiveName;
+            PathFile = pathFile;
+
         }
         public override void Execute(FileInfo directoryPath)
         {
             string fullPath = Path.Combine(directoryPath.FullName, ArchiveName);
             File.Delete(fullPath);
-                
         }
     }
 }

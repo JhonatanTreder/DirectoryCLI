@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DirectoryCLI.Commands
 {
-    internal class CreateFolder : Command
+    internal class CreateFolder : CommandsConfig
     {
         public string DirectoryName { get; }
 

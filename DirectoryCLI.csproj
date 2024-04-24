@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\CommandsConfig.cs" />
     <Compile Include="Commands\CreateFile.cs" />
     <Compile Include="Commands\CreateFolder.cs" />
     <Compile Include="Commands\DeleteFile.cs" />

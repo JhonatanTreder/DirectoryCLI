@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DirectoryCLI.Commands
 {
-    internal class CreateFile : Command
+    internal class CreateFile : CommandsConfig
     {
         public string ArchiveName { get; }
         public CreateFile(string archiveName)
