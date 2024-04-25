@@ -10,18 +10,17 @@ namespace DirectoryCLI.Commands
     abstract class CommandsConfig
     {
         public string DirectoryPath { get; set; }
-        
+
         public static bool IsValidDirectoryPath(FileInfo path)
         {
-            try
+            if (Directory.Exists(path.FullName) == true)
             {
-                string fullPath = Path.GetFullPath(path.DirectoryName);
                 return true;
             }
 
-            catch (Exception)
+            else
             {
-                return false;
+                throw new DirectoryNotFoundException();
             }
         }
     }

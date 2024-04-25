@@ -17,8 +17,17 @@ namespace DirectoryCLI.Commands
         }
         public void Execute(FileInfo directoryPath)
         {
-            string fullPath = Path.Combine(directoryPath.FullName, DirectoryName);
-            Directory.CreateDirectory(fullPath);
+            if(IsValidDirectoryPath(directoryPath) == true)
+            {
+                string fullPath = Path.Combine(directoryPath.FullName, DirectoryName);
+                Directory.CreateDirectory(fullPath);
+            }
+
+            else
+            {
+                throw new Exception();
+            }
+            
         }
     }
 }

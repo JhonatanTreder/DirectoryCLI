@@ -42,5 +42,10 @@ namespace DirectoryCLI.Commands
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
         }
+
+        public void Orange()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+        }
     }
 }
