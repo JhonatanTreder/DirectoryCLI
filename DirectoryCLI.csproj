@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Colors.cs" />
     <Compile Include="Commands\CommandsConfig.cs" />
     <Compile Include="Commands\CreateFile.cs" />
     <Compile Include="Commands\CreateFolder.cs" />

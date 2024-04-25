@@ -23,7 +23,6 @@ namespace DirectoryCLI.Commands
             {
                 return false;
             }
-
         }
     }
 }

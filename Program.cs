@@ -48,8 +48,17 @@ namespace DirectoryCLI
                         {
                             case "create-folder":
 
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.Write("using arguments: <directory> <command> <conclusion>");
+                                Colors colors = new Colors();
+                                colors.Green();
+                                Console.Write("#");
+
+                                Console.ResetColor();
+
+                                colors.DarkPurple();
+                                Console.Write(System.Environment.UserName);
+
+                                colors.Yellow();
+                                Console.Write(" using arguments: <directory> <command> <conclusion>");
 
                                 for (int i = 0; i <= args.Length - 3; i++)
                                 {
@@ -64,8 +73,17 @@ namespace DirectoryCLI
 
                             case "delete-folder":
 
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.Write("using arguments: <directory> <command> <conclusion>");
+                                colors = new Colors();
+                                colors.Green();
+                                Console.Write("#");
+
+                                Console.ResetColor();
+
+                                colors.DarkPurple();
+                                Console.Write(System.Environment.UserName);
+
+                                colors.Yellow();
+                                Console.Write(" using arguments: <directory> <command> <conclusion>");
 
                                 for (int i = 0; i <= args.Length - 3; i++)
                                 {
@@ -79,8 +97,17 @@ namespace DirectoryCLI
 
                             case "create-file":
 
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.Write("using arguments: <directory> <command> <conclusion>");
+                                colors = new Colors();
+                                colors.Green();
+                                Console.Write("#");
+
+                                Console.ResetColor();
+
+                                colors.DarkPurple();
+                                Console.Write(System.Environment.UserName);
+
+                                colors.Yellow();
+                                Console.Write(" using arguments: <directory> <command> <conclusion>");
 
                                 for (int i = 0; i <= args.Length - 3; i++)
                                 {
@@ -89,13 +116,23 @@ namespace DirectoryCLI
                                 }
                                 Console.WriteLine();
                                 Console.ResetColor();
+                                
 
                             break;
 
                             case "delete-file":
 
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.Write("using arguments: <directory> <command> <conclusion>");
+                                colors = new Colors();
+                                colors.Green();
+                                Console.Write("#");
+
+                                Console.ResetColor();
+
+                                colors.DarkPurple();
+                                Console.Write(System.Environment.UserName);
+
+                                colors.Yellow();
+                                Console.Write(" using arguments: <directory> <command> <conclusion>");
 
                                 for (int i = 0; i <= args.Length - 3; i++)
                                 {
@@ -109,10 +146,18 @@ namespace DirectoryCLI
 
                             case "open":
 
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.Write("using arguments: <directory> <command> <conclusion>");
+                                colors = new Colors();
+                                colors.Green();
+                                Console.Write("#");
 
-                                
+                                Console.ResetColor();
+
+                                colors.DarkPurple();
+                                Console.Write(System.Environment.UserName);
+
+                                colors.Yellow();
+                                Console.Write(" using arguments: <directory> <command> <conclusion>");
+
                                 Open open = new Open(args[2]);
                                 open.Execute(directoryPath);
 
@@ -127,8 +172,18 @@ namespace DirectoryCLI
                     {
                         case "open-site":
 
-                            Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.Write("using arguments: <command> <site>");
+                            Colors colors = new Colors();
+
+                            colors.Green();
+                            Console.Write("#");
+
+                            Console.ResetColor();
+
+                            colors.DarkPurple();
+                            Console.Write(System.Environment.UserName);
+                            
+                            colors.Yellow();
+                            Console.Write(" using arguments: <command> <site/domain name>");
 
                             OpenSite openSite = new OpenSite();
                             openSite.Execute(args[1]);
