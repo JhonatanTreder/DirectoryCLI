@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DirectoryCLI.Commands
+namespace DirectoryCLI.CommandStyles
 {
     internal class Colors
     {
-        public Colors() 
+        public Colors()
         {
 
         }
@@ -23,22 +23,22 @@ namespace DirectoryCLI.Commands
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
         }
 
-        public void Blue() 
+        public void Blue()
         {
             Console.ForegroundColor = ConsoleColor.Blue;
         }
 
-        public void Red() 
+        public void Red()
         {
             Console.ForegroundColor = ConsoleColor.Red;
         }
 
-        public void Green() 
+        public void Green()
         {
             Console.ForegroundColor = ConsoleColor.Green;
         }
 
-        public void Yellow() 
+        public void Yellow()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
         }
@@ -46,6 +46,15 @@ namespace DirectoryCLI.Commands
         public void Orange()
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
+        }
+        public void DarkGray()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+        }
+
+        public void Gray()
+        {
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
     }
 }
