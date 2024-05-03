@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandStyles\Colors.cs" />
+    <Compile Include="CommandStyles\Format.cs" />
     <Compile Include="Commands\CommandsConfig.cs" />
     <Compile Include="Commands\Contents.cs" />
     <Compile Include="Commands\CreateFile.cs" />
@@ -53,7 +54,7 @@
     <Compile Include="Commands\Open.cs" />
     <Compile Include="Commands\OpenSite.cs" />
     <Compile Include="Commands\Scan.cs" />
-    <Compile Include="Exceptions\DirectoryException.cs" />
+    <Compile Include="Exceptions\OpenCommandException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

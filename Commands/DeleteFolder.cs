@@ -25,7 +25,7 @@ namespace DirectoryCLI.Commands
 
             else
             {
-                throw new DirectoryException("Path not found");
+                throw new DirectoryNotFoundException();
             }
 
         }

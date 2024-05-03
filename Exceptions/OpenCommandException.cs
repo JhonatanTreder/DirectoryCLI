@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DirectoryCLI.Exceptions
 {
-    internal class DirectoryException : Exception
+    internal class OpenCommandException : Exception
     {
-        public DirectoryException(string directoryException) :base(directoryException)
+        public OpenCommandException(string exception) : base(exception)
         {
 
         }

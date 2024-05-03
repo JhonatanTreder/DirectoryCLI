@@ -11,29 +11,29 @@ namespace DirectoryCLI
     {
         static void Main()
         {
-            Colors colors = new Colors();
+            Format formatLogs = new Format();
 
-            colors.Blue();
+            formatLogs.UserAndMachineName();
 
-            Console.Write("#");
-
-            colors.DarkPurple();
-
-            Console.WriteLine(System.Environment.UserName + " - " + System.Environment.MachineName);
-
-            Console.ResetColor();
+            //----------------------------------------------------------------------------------------
+            //Uso do "while" para deixar o programa rodando em looping
 
             while (true)
             {
-                colors = new Colors();
+            //----------------------------------------------------------------------------------------
+
+                formatLogs = new Format();
+                Colors colors = new Colors();
                 string[] args = Console.ReadLine().Split(' ');
                 string cmd;
 
                 Console.WriteLine();
+                //----------------------------------------------------------------------------------------
+                //Switch para atribuir qual é o comando para a variável "cmd"
 
                 switch (args.Length)
                 {
-
+                
                     case 2:
 
                         if (args[1] == "scan" || args[1] == "list")
@@ -45,7 +45,6 @@ namespace DirectoryCLI
                             cmd = args[0];
                         }
                         
-
                     break;
 
                     case 1:
@@ -59,15 +58,27 @@ namespace DirectoryCLI
                         cmd = args[1];
 
                     break;
-
+                    
+                    
                 }
+                //----------------------------------------------------------------------------------------
+
+                //----------------------------------------------------------------------------------------
+                //Essa variável do tipo "FileInfo" será usada apenas nos comandos que usam diretórios
+
                 FileInfo directoryPath = new FileInfo(args[0]);
 
+                //----------------------------------------------------------------------------------------
                 try
                 {
+                    //----------------------------------------------------------------------------------------
+                    //Switch uado para identificar qual é o comando e continuar dependendo de qual comando seja
 
                     switch (cmd)
                     {
+                    //----------------------------------------------------------------------------------------
+
+                        //CREATE-FOLDER
                         case "create-folder":
 
                             for (int i = 0; i <= args.Length - 3; i++)
@@ -78,28 +89,12 @@ namespace DirectoryCLI
                                 Console.WriteLine($"Folder [{args[2 + i]}] created in [{args[0]}]");
                             }
 
-                            Console.ResetColor();
-
-                            Console.WriteLine();
-
-                            colors.Yellow();
-
-                            Console.WriteLine("arguments used: <directory> <command> <conclusion>");
-
-                            Console.ResetColor();
-
-                            Console.WriteLine();
-
-                            colors.Blue();
-
-                            Console.Write("#");
-
-                            colors.DarkPurple();
-                            Console.WriteLine(System.Environment.UserName + " - " + System.Environment.MachineName);
-                            Console.ResetColor();
+                            formatLogs.DirectoryLog();
+                            formatLogs.UserAndMachineName();
 
                         break;
 
+                        //DELETE-FOLDER
                         case "delete-folder":
 
                             for (int i = 0; i <= args.Length - 3; i++)
@@ -109,28 +104,13 @@ namespace DirectoryCLI
                                 colors.Red();
                                 Console.WriteLine($"Folder [{args[2 + i]}] deleted in [{args[0]}]");
                             }
-                            Console.ResetColor();
 
-                            Console.WriteLine();
+                            formatLogs.DirectoryLog();
+                            formatLogs.UserAndMachineName();
 
-                            colors.Yellow();
-                            Console.WriteLine("arguments used: <directory> <command> <conclusion>");
+                            break;
 
-                            Console.ResetColor();
-                            
-                            Console.WriteLine();
-
-                            colors.Blue();
-
-                            Console.Write("#");
-
-                            colors.DarkPurple();
-
-                            Console.WriteLine(System.Environment.UserName + " - " + System.Environment.MachineName);
-                            Console.ResetColor();
-
-                        break;
-
+                        //CREATE-FILE
                         case "create-file":
 
                             for (int i = 0; i <= args.Length - 3; i++)
@@ -143,27 +123,12 @@ namespace DirectoryCLI
                                 Console.ResetColor();
                             }
 
-                            Console.ResetColor();
+                            formatLogs.DirectoryLog();
+                            formatLogs.UserAndMachineName();
 
-                            Console.WriteLine();
+                            break;
 
-                            colors.Yellow();
-                            Console.WriteLine("arguments used: <directory> <command> <conclusion>");
-                            
-                            Console.ResetColor();
-
-                            Console.WriteLine();
-
-                            colors.Blue();
-
-                            Console.Write("#");
-
-                            colors.DarkPurple();
-                            Console.WriteLine(System.Environment.UserName + " - " + System.Environment.MachineName);
-                            Console.ResetColor();
-
-                        break;
-
+                        //DELETE-FILE
                         case "delete-file":
                             
                             for (int i = 0; i <= args.Length - 3; i++)
@@ -173,98 +138,73 @@ namespace DirectoryCLI
                                 colors.Red();
                                 Console.WriteLine();
                                 Console.Write($"File [{args[2 + i]}] deleted in [{args[0]}]");
-                                Console.ResetColor();
                             }
 
-                            Console.WriteLine();
-
-                            colors.Yellow();
-                            Console.WriteLine("arguments used: <directory> <command> <conclusion>");
-                            
-                            Console.ResetColor();
-
-                            Console.WriteLine();
-
-                            colors.Blue();
-
-                            Console.Write("#");
-
-                            colors.DarkPurple();
-                            Console.WriteLine(System.Environment.UserName + " - " + System.Environment.MachineName);
-                            Console.ResetColor();
+                            formatLogs.DirectoryLog();
+                            formatLogs.UserAndMachineName();
 
                         break;
 
+                        //OPEN
                         case "open":
+                            //----------------------------------------------------------------------------------------
+                            //Algoritmo para identificar se existe um diretório com pastas ou arquivos 
 
-                            colors.Yellow();
-                            Console.WriteLine("arguments used: <directory> <command> <conclusion>");
+                            //Apenas diminui as verificações em duas variávies: "folderExist" e "fileExist"
 
-                            Open open = new Open(args[2]);
-                            open.Execute(directoryPath);
-                            Console.ResetColor();
+                            bool folderExist = Directory.Exists(args[0]) && Directory.Exists(Path.Combine(args[0], args[2]));
+                            bool fileExist = Directory.Exists(args[0]) && File.Exists(Path.Combine(args[0], args[2]));
 
-                            Console.WriteLine();
+                            if (folderExist || fileExist )
+                            {
+                                Open open = new Open(args[2]);
+                                formatLogs.DirectoryLog();
+                                open.Execute(directoryPath);
+                                formatLogs.UserAndMachineName();
+                            }
 
-                            colors.Blue();
+                            //Lança uma exceção personalizada se isso não ocorrer
 
-                            Console.Write("#");
-
-                            colors.DarkPurple();
-                            Console.WriteLine(System.Environment.UserName + " - " + System.Environment.MachineName);
-                            Console.ResetColor();
-
+                            else
+                            {
+                                throw new OpenCommandException("Error when opening a file or directory");
+                            }
+                            //----------------------------------------------------------------------------------------
                         break;
                     
+                        //OPEN-SITE
                         case "open-site":
 
-                            colors.Yellow();
-                            Console.WriteLine("arguments used: <command> <site/domain name>");
-                            Console.ResetColor();
-
                             OpenSite openSite = new OpenSite();
+
+                            formatLogs.SiteLog();
+                            
                             openSite.Execute(args[1]);
 
                             Console.WriteLine();
 
-                            Console.ResetColor();
-
-                            colors.Blue();
-
-                            Console.Write("#");
-
-                            colors.DarkPurple();
-                            Console.WriteLine(System.Environment.UserName + " - " + System.Environment.MachineName);
-                            Console.ResetColor();
+                            formatLogs.UserAndMachineName();
 
                         break;
 
+                        //SCAN
                         case "scan": 
 
                             Scan scan = new Scan();
 
                             long size = scan.Execute(args[0]);
-                            string format = scan.FormatBytes(size);
+                            string formatedBytes = scan.FormatBytes(size);
 
-                            Console.WriteLine(size + format);
+                            Console.WriteLine(size + formatedBytes);
 
                             Console.WriteLine();
 
-                            Console.ResetColor();
-
-                            colors.Blue();
-
-                            Console.Write("#");
-
-                            colors.DarkPurple();
-                            Console.WriteLine(System.Environment.UserName + " - " + System.Environment.MachineName);
-                            Console.ResetColor();
-
-                            colors.Yellow();
-                            Console.WriteLine("arguments used: <directory> <command>");
+                            formatLogs.UserAndMachineName();
+                            formatLogs.ScanAndListLogs();
 
                         break;
                     
+                        //COMMANDS
                         case "commands":
 
                             CommandsConfig commandsConfig = new CommandsConfig();
@@ -272,30 +212,25 @@ namespace DirectoryCLI
 
                         break;
 
+                        //LIST
                         case "list":
 
                             Contents list = new Contents();
                             list.Execute(args[0]);
 
-                            colors.Yellow();
-                            Console.WriteLine("arguments used: <directory> <command>");
-
+                            formatLogs.ScanAndListLogs();
                             Console.WriteLine();
-
-                            Console.ResetColor();
-
-                            colors.Blue();
-
-                            Console.Write("#");
-
-                            colors.DarkPurple();
-                            Console.WriteLine(System.Environment.UserName + " - " + System.Environment.MachineName);
-                            Console.ResetColor();
+                            formatLogs.UserAndMachineName();
 
                         break;
                     }
-
                 }
+                //----------------------------------------------------------------------------------------
+
+                //----------------------------------------------------------------------------------------
+                //Tratando exceções
+
+                //Quando o programa não encontra um diretório
                 catch (DirectoryNotFoundException)
                 {
 
@@ -304,34 +239,24 @@ namespace DirectoryCLI
                     Console.ResetColor();
                     Console.WriteLine();
 
-                    Console.ResetColor();
-
-                    colors.Blue();
-
-                    Console.Write("#");
-
-                    colors.DarkPurple();
-                    Console.WriteLine(System.Environment.UserName + " - " + System.Environment.MachineName);
-                    Console.ResetColor();
+                    formatLogs.UserAndMachineName();
                 }
 
-                catch (System.ComponentModel.Win32Exception )
+                //Quando o prorama não encontra algo para abrir
+                catch (OpenCommandException ex)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("Path not found to open!" );
-                    Console.ResetColor();
-                    Console.WriteLine();
+                    Console.Write(ex.Message + ":");
 
-                    Console.ResetColor();
+                    string pathNotFound = Path.Combine(args[0], args[2]);
 
-                    colors.Blue();
+                    colors.Red();
+                    Console.WriteLine($" The path '{pathNotFound}' does not exist");
 
-                    Console.Write("#");
-
-                    colors.DarkPurple();
-                    Console.WriteLine(System.Environment.UserName + " - " + System.Environment.MachineName);
-                    Console.ResetColor();
+                    formatLogs.DirectoryLog();
+                    formatLogs.UserAndMachineName();
                 }
+                //----------------------------------------------------------------------------------------
             }
         }
     }
