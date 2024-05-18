@@ -33,6 +33,11 @@ namespace DirectoryCLI.CommandStyles
             Console.ForegroundColor = ConsoleColor.Red;
         }
 
+        public void DarkRed()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+        }
+
         public void Green()
         {
             Console.ForegroundColor = ConsoleColor.Green;

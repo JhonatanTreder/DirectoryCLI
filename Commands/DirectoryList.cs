@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DirectoryCLI.Commands
 {
-    internal class Contents : CommandsConfig
+    internal class DirectoryList : CommandsConfig
     {
-        public Contents() 
+        public DirectoryList() 
         {
 
         }
@@ -44,7 +44,7 @@ namespace DirectoryCLI.Commands
                 Console.ResetColor();
             }
 
-            foreach(string item in files)
+            foreach (string item in files)
             {
                 Console.Write("File: ");
                 colors.DarkGray();

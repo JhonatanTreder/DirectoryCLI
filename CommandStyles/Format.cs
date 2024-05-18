@@ -39,5 +39,11 @@ namespace DirectoryCLI.CommandStyles
             colors.Yellow();
             Console.WriteLine("arguments used: <directory> <command>");
         }
+
+        public void CommandLog()
+        {
+            colors.Yellow();
+            Console.WriteLine("argument used: <command>");
+        }
     }
 }

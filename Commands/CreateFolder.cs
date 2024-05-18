@@ -15,6 +15,7 @@ namespace DirectoryCLI.Commands
         {
             DirectoryName = directoryName;
         }
+
         public void Execute(FileInfo directoryPath)
         {
             if(IsValidDirectoryPath(directoryPath) == true)

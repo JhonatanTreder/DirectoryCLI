@@ -11,13 +11,10 @@ namespace DirectoryCLI.Commands
     internal class DeleteFile : CommandsConfig
     {
         public string ArchiveName { get; }
-        public string PathFile { get; }
 
-        public DeleteFile(string pathFile, string archiveName)
+        public DeleteFile(string archiveName)
         {
             ArchiveName = archiveName;
-            PathFile = pathFile;
-
         }
         public void Execute(FileInfo directoryPath)
         {

@@ -8,10 +8,17 @@ using System.Threading;
 namespace DirectoryCLI
 {
     internal class Program
-    {
+    {//----------------------------------------------------------------------------------------
+        /*Resumo do projeto:
+         
+        (FAZER QUANDO TERMINAR)
+
+        */
+        //----------------------------------------------------------------------------------------
         static void Main()
         {
-            Format formatLogs = new Format();
+            //Caminho no projeto: DirectoryCLI.CommandStyles
+            Format formatLogs = new Format();//Classe para formatar a CLI no final de cada comando
 
             formatLogs.UserAndMachineName();
 
@@ -23,11 +30,15 @@ namespace DirectoryCLI
             //----------------------------------------------------------------------------------------
 
                 formatLogs = new Format();
-                Colors colors = new Colors();
+
+                //Caminho no projeto: DirectoryCLI.CommandStyles
+                Colors colors = new Colors();//Classe para facilitar o acesso às cores
+
                 string[] args = Console.ReadLine().Split(' ');
                 string cmd;
 
                 Console.WriteLine();
+
                 //----------------------------------------------------------------------------------------
                 //Switch para atribuir qual é o comando para a variável "cmd"
 
@@ -59,7 +70,6 @@ namespace DirectoryCLI
 
                     break;
                     
-                    
                 }
                 //----------------------------------------------------------------------------------------
 
@@ -84,8 +94,10 @@ namespace DirectoryCLI
                             for (int i = 0; i <= args.Length - 3; i++)
                             {
                                 CreateFolder createFolder = new CreateFolder(args[2 + i]);
+
                                 createFolder.Execute(directoryPath);
                                 colors.Green();
+
                                 Console.WriteLine($"Folder [{args[2 + i]}] created in [{args[0]}]");
                             }
 
@@ -100,15 +112,17 @@ namespace DirectoryCLI
                             for (int i = 0; i <= args.Length - 3; i++)
                             {
                                 DeleteFolder deleteFolder = new DeleteFolder(args[2 + i]);
+
                                 deleteFolder.Execute(directoryPath);
                                 colors.Red();
+
                                 Console.WriteLine($"Folder [{args[2 + i]}] deleted in [{args[0]}]");
                             }
 
                             formatLogs.DirectoryLog();
                             formatLogs.UserAndMachineName();
 
-                            break;
+                        break;
 
                         //CREATE-FILE
                         case "create-file":
@@ -116,8 +130,10 @@ namespace DirectoryCLI
                             for (int i = 0; i <= args.Length - 3; i++)
                             {
                                 CreateFile createFile = new CreateFile(args[2 + i]);
+
                                 createFile.Execute(directoryPath);
                                 colors.Green();
+
                                 Console.WriteLine();
                                 Console.Write($"File [{args[2 + i]}] created in [{args[0]}]");
                                 Console.ResetColor();
@@ -126,14 +142,14 @@ namespace DirectoryCLI
                             formatLogs.DirectoryLog();
                             formatLogs.UserAndMachineName();
 
-                            break;
+                        break;
 
                         //DELETE-FILE
                         case "delete-file":
                             
                             for (int i = 0; i <= args.Length - 3; i++)
                             {
-                                DeleteFile deleteFile = new DeleteFile(args[0], args[2 + i]);
+                                DeleteFile deleteFile = new DeleteFile(args[2 + i]);
                                 deleteFile.Execute(directoryPath);
                                 colors.Red();
                                 Console.WriteLine();
@@ -158,10 +174,12 @@ namespace DirectoryCLI
                             if (folderExist || fileExist )
                             {
                                 Open open = new Open(args[2]);
+
                                 formatLogs.DirectoryLog();
                                 open.Execute(directoryPath);
                                 formatLogs.UserAndMachineName();
                             }
+                            //----------------------------------------------------------------------------------------
 
                             //Lança uma exceção personalizada se isso não ocorrer
 
@@ -178,7 +196,6 @@ namespace DirectoryCLI
                             OpenSite openSite = new OpenSite();
 
                             formatLogs.SiteLog();
-                            
                             openSite.Execute(args[1]);
 
                             Console.WriteLine();
@@ -195,31 +212,103 @@ namespace DirectoryCLI
                             long size = scan.Execute(args[0]);
                             string formatedBytes = scan.FormatBytes(size);
 
-                            Console.WriteLine(size + formatedBytes);
+                            Console.Write("Size: ");
 
+                            colors.DarkGray();
+
+                            Console.WriteLine(size + formatedBytes);
+                            Console.ResetColor();
                             Console.WriteLine();
 
-                            formatLogs.UserAndMachineName();
                             formatLogs.ScanAndListLogs();
+                            formatLogs.UserAndMachineName();
 
                         break;
                     
                         //COMMANDS
                         case "commands":
 
-                            CommandsConfig commandsConfig = new CommandsConfig();
-                            Console.Write(commandsConfig);
+                            CommandsInfo commandInfo = new CommandsInfo();
+
+                            commandInfo.Execute();
+                            formatLogs.CommandLog();
+                            formatLogs.UserAndMachineName();
+
+                        break;
+
+                        //CMD-SINTAXE
+                        case "commands-sintaxe":
+
+                            commandInfo = new CommandsInfo();
+
+                            commandInfo.CommandSintaxe();
+                            formatLogs.CommandLog();
+                            formatLogs.UserAndMachineName();
 
                         break;
 
                         //LIST
                         case "list":
 
-                            Contents list = new Contents();
+                            DirectoryList list = new DirectoryList();
                             list.Execute(args[0]);
-
                             formatLogs.ScanAndListLogs();
+
                             Console.WriteLine();
+
+                            formatLogs.UserAndMachineName();
+
+                        break;
+
+                        case "move":
+
+                            for (int i = 2; i < args.Length - 2; i++)
+                            {
+                                try
+                                {
+                                    FileInfo item = new FileInfo(args[i]);
+                                    FileInfo destiny = new FileInfo(args[args.Length - 1]);
+                                    Move move = new Move();
+
+                                    string directoryExists = Path.Combine(directoryPath.FullName, destiny.Name);
+
+                                    bool itemExists = Directory.Exists(Path.Combine(directoryPath.FullName, item.Name));
+                                    bool itemExistsInDirectory = Directory.Exists(Path.Combine(directoryExists, item.Name));
+                                    
+                                    if (!itemExistsInDirectory)
+                                    {
+                                        move.Execute(directoryPath, item, destiny);
+                                        colors.Blue();
+
+                                        Console.Write($"Item [{item}] moved to [{args[0]}\\{destiny}]");
+                                        Console.WriteLine();
+                                    }
+                                    
+                                    else
+                                    {
+                                        throw new ExistingItemException($"Item '[{args[i]}]' cannot be moved");
+                                    }
+                                }
+
+                                //Coloquei a captura de exceção aqui para facilitar a busca pelo item já existente
+                                catch (ExistingItemException ex)
+                                {
+                                    colors.DarkRed();
+
+                                    Console.Write(ex.Message);
+
+                                    colors.Red();
+
+                                    Console.WriteLine($": The item '{args[i]}' already exists in the final directory");
+                                    Console.ResetColor();
+
+                                    colors.Red();
+
+                                    Console.WriteLine();
+                                }
+                            }
+
+                            formatLogs.DirectoryLog();
                             formatLogs.UserAndMachineName();
 
                         break;
@@ -251,10 +340,17 @@ namespace DirectoryCLI
                     string pathNotFound = Path.Combine(args[0], args[2]);
 
                     colors.Red();
-                    Console.WriteLine($" The path '{pathNotFound}' does not exist");
+
+                    Console.WriteLine($"The path '{pathNotFound}' does not exist");
 
                     formatLogs.DirectoryLog();
                     formatLogs.UserAndMachineName();
+                }
+
+                catch (UnauthorizedAccessException ex)
+                {
+
+                   
                 }
                 //----------------------------------------------------------------------------------------
             }

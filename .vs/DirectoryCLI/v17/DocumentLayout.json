@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "D:\\[PROJETOS]\\DirectoryCLI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\commands\\contents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commands\\contents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\commands\\commandsinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commands\\commandsinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|D:\\[PROJETOS]\\DirectoryCLI\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\commandstyles\\format.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commandstyles\\format.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -63,27 +59,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Contents.cs",
-              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\Contents.cs",
-              "RelativeDocumentMoniker": "Commands\\Contents.cs",
-              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\Contents.cs",
-              "RelativeToolTip": "Commands\\Contents.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAQwAAAAAAAAAAA",
+              "Title": "CommandsInfo.cs",
+              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CommandsInfo.cs",
+              "RelativeDocumentMoniker": "Commands\\CommandsInfo.cs",
+              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CommandsInfo.cs",
+              "RelativeToolTip": "Commands\\CommandsInfo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-03T00:33:37.048Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Format.cs",
-              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\CommandStyles\\Format.cs",
-              "RelativeDocumentMoniker": "CommandStyles\\Format.cs",
-              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\CommandStyles\\Format.cs",
-              "RelativeToolTip": "CommandStyles\\Format.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACAAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-02T23:12:34.177Z",
+              "WhenOpened": "2024-05-18T18:37:46.905Z",
               "EditorCaption": ""
             },
             {
@@ -94,7 +77,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcBAAAAAAAA",
+              "ViewState": "AQIAAMgAAAAAAAAAAAAAANMAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-01T19:33:45.888Z",
               "EditorCaption": ""

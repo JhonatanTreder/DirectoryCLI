@@ -45,15 +45,18 @@
   <ItemGroup>
     <Compile Include="CommandStyles\Colors.cs" />
     <Compile Include="CommandStyles\Format.cs" />
+    <Compile Include="Commands\CommandsInfo.cs" />
     <Compile Include="Commands\CommandsConfig.cs" />
-    <Compile Include="Commands\Contents.cs" />
+    <Compile Include="Commands\DirectoryList.cs" />
     <Compile Include="Commands\CreateFile.cs" />
     <Compile Include="Commands\CreateFolder.cs" />
     <Compile Include="Commands\DeleteFile.cs" />
     <Compile Include="Commands\DeleteFolder.cs" />
+    <Compile Include="Commands\Move.cs" />
     <Compile Include="Commands\Open.cs" />
     <Compile Include="Commands\OpenSite.cs" />
     <Compile Include="Commands\Scan.cs" />
+    <Compile Include="Exceptions\ExistingItemException.cs" />
     <Compile Include="Exceptions\OpenCommandException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
