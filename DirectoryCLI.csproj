@@ -35,6 +35,17 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandStyles\Colors.cs" />
-    <Compile Include="CommandStyles\Format.cs" />
+    <Compile Include="CommandStyles\FormatLogs.cs" />
     <Compile Include="Commands\CommandsInfo.cs" />
     <Compile Include="Commands\CommandsConfig.cs" />
     <Compile Include="Commands\DirectoryList.cs" />
@@ -52,17 +63,22 @@
     <Compile Include="Commands\CreateFolder.cs" />
     <Compile Include="Commands\DeleteFile.cs" />
     <Compile Include="Commands\DeleteFolder.cs" />
+    <Compile Include="Commands\Extract.cs" />
     <Compile Include="Commands\Move.cs" />
     <Compile Include="Commands\Open.cs" />
     <Compile Include="Commands\OpenSite.cs" />
+    <Compile Include="Commands\Rename.cs" />
     <Compile Include="Commands\Scan.cs" />
+    <Compile Include="Commands\Zip.cs" />
     <Compile Include="Exceptions\ExistingItemException.cs" />
+    <Compile Include="Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Exceptions\OpenCommandException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

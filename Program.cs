@@ -2,23 +2,20 @@
 using DirectoryCLI.CommandStyles;
 using DirectoryCLI.Exceptions;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using System.Xml.Linq;
 
 namespace DirectoryCLI
 {
     internal class Program
     {//----------------------------------------------------------------------------------------
-        /*Resumo do projeto:
-         
-        (FAZER QUANDO TERMINAR)
-
-        */
-        //----------------------------------------------------------------------------------------
+       
         static void Main()
         {
-            //Caminho no projeto: DirectoryCLI.CommandStyles
-            Format formatLogs = new Format();//Classe para formatar a CLI no final de cada comando
+            //Classe para formatar a CLI no final de cada comando
+            FormatLogs formatLogs = new FormatLogs();
 
             formatLogs.UserAndMachineName();
 
@@ -27,11 +24,10 @@ namespace DirectoryCLI
 
             while (true)
             {
-            //----------------------------------------------------------------------------------------
+                //----------------------------------------------------------------------------------------
 
-                formatLogs = new Format();
+                formatLogs = new FormatLogs();
 
-                //Caminho no projeto: DirectoryCLI.CommandStyles
                 Colors colors = new Colors();//Classe para facilitar o acesso às cores
 
                 string[] args = Console.ReadLine().Split(' ');
@@ -44,7 +40,7 @@ namespace DirectoryCLI
 
                 switch (args.Length)
                 {
-                
+
                     case 2:
 
                         if (args[1] == "scan" || args[1] == "list")
@@ -55,21 +51,21 @@ namespace DirectoryCLI
                         {
                             cmd = args[0];
                         }
-                        
-                    break;
+
+                        break;
 
                     case 1:
 
                         cmd = args[0];
 
-                    break;
+                        break;
 
                     default:
 
                         cmd = args[1];
 
-                    break;
-                    
+                        break;
+
                 }
                 //----------------------------------------------------------------------------------------
 
@@ -86,37 +82,85 @@ namespace DirectoryCLI
 
                     switch (cmd)
                     {
-                    //----------------------------------------------------------------------------------------
+                        //----------------------------------------------------------------------------------------
 
                         //CREATE-FOLDER
                         case "create-folder":
 
                             for (int i = 0; i <= args.Length - 3; i++)
                             {
-                                CreateFolder createFolder = new CreateFolder(args[2 + i]);
+                                try
+                                {
+                                    if (!Directory.Exists(Path.Combine(directoryPath.FullName, args[2 + i])))
+                                    {
+                                        CreateFolder createFolder = new CreateFolder(args[2 + i]);
 
-                                createFolder.Execute(directoryPath);
-                                colors.Green();
+                                        createFolder.Execute(directoryPath);
+                                        colors.Green();
 
-                                Console.WriteLine($"Folder [{args[2 + i]}] created in [{args[0]}]");
+                                        Console.WriteLine($"Folder [{args[2 + i]}] created in [{args[0]}]");
+                                    }
+
+                                    else
+                                    {
+                                        throw new IOException();
+                                    }
+                                }
+
+                                //Coloquei a captura de exceção aqui para facilitar a busca pelo item já existente
+                                catch (IOException)
+                                {
+                                    IOException ex = new IOException("Unable to create a folder: ");
+                                    colors.DarkRed();
+
+                                    Console.Write(ex.Message);
+
+                                    colors.Red();
+
+                                    Console.WriteLine($"The '{args[2 + i]}' folder already exists in this directory");
+                                    Console.ResetColor();
+                                }
                             }
 
                             formatLogs.DirectoryLog();
                             formatLogs.UserAndMachineName();
 
-                        break;
+                            break;
 
                         //DELETE-FOLDER
                         case "delete-folder":
 
                             for (int i = 0; i <= args.Length - 3; i++)
                             {
-                                DeleteFolder deleteFolder = new DeleteFolder(args[2 + i]);
+                                try
+                                {
+                                    if (Directory.Exists(Path.Combine(directoryPath.FullName, args[2 + i])))
+                                    {
+                                        DeleteFolder deleteFolder = new DeleteFolder(args[2 + i]);
 
-                                deleteFolder.Execute(directoryPath);
-                                colors.Red();
+                                        deleteFolder.Execute(directoryPath);
+                                        colors.Red();
 
-                                Console.WriteLine($"Folder [{args[2 + i]}] deleted in [{args[0]}]");
+                                        Console.WriteLine($"Folder [{args[2 + i]}] deleted in [{args[0]}]");
+                                    }
+
+                                    else
+                                    {
+                                        throw new ItemNotFoundException("Unable to delete a folder: ");
+                                    }
+                                }
+
+                                catch (ItemNotFoundException ex)
+                                {
+                                    colors.DarkRed();
+
+                                    Console.Write(ex.Message);
+
+                                    colors.Red();
+
+                                    Console.WriteLine($"The '{args[2 + i]}' folder does not exist in this directory");
+                                    Console.ResetColor();
+                                }
                             }
 
                             formatLogs.DirectoryLog();
@@ -129,49 +173,95 @@ namespace DirectoryCLI
 
                             for (int i = 0; i <= args.Length - 3; i++)
                             {
-                                CreateFile createFile = new CreateFile(args[2 + i]);
 
-                                createFile.Execute(directoryPath);
-                                colors.Green();
+                                try
+                                {
+                                    if (!File.Exists(Path.Combine(directoryPath.FullName, args[2 + i])))
+                                    {
+                                        CreateFile createFile = new CreateFile();
+                                        FileInfo archiveName = new FileInfo(args[2 + i]);
 
-                                Console.WriteLine();
-                                Console.Write($"File [{args[2 + i]}] created in [{args[0]}]");
-                                Console.ResetColor();
+                                        createFile.Execute(directoryPath, archiveName);
+                                        colors.Green();
+
+                                        Console.WriteLine($"File [{args[2 + i]}] created in [{args[0]}]");
+                                        Console.ResetColor();
+                                    }
+
+                                    else
+                                    {
+                                        throw new IOException();
+                                    }
+
+                                }
+                                catch (IOException)
+                                {
+                                    IOException ex = new IOException("Unable to create a file: ");
+                                    colors.DarkRed();
+
+                                    Console.Write(ex.Message);
+
+                                    colors.Red();
+
+                                    Console.WriteLine($"The file '{args[2 + i]}' already exists");
+                                    Console.ResetColor();
+                                }
                             }
 
                             formatLogs.DirectoryLog();
                             formatLogs.UserAndMachineName();
 
-                        break;
+                            break;
 
                         //DELETE-FILE
                         case "delete-file":
-                            
+
                             for (int i = 0; i <= args.Length - 3; i++)
                             {
-                                DeleteFile deleteFile = new DeleteFile(args[2 + i]);
-                                deleteFile.Execute(directoryPath);
-                                colors.Red();
-                                Console.WriteLine();
-                                Console.Write($"File [{args[2 + i]}] deleted in [{args[0]}]");
+                                try
+                                {
+                                    if (File.Exists(Path.Combine(directoryPath.FullName, args[2 + i])))
+                                    {
+                                        DeleteFile deleteFile = new DeleteFile(args[2 + i]);
+                                        deleteFile.Execute(directoryPath);
+                                        colors.Red();
+                                        Console.WriteLine($"File [{args[2 + i]}] deleted in [{args[0]}]");
+                                    }
+                                    else
+                                    {
+                                        throw new ItemNotFoundException("Unable to delete a file: ");
+                                    }
+                                }
+
+                                catch (ItemNotFoundException ex)
+                                {
+                                    colors.DarkRed();
+
+                                    Console.Write(ex.Message);
+
+                                    colors.Red();
+
+                                    Console.WriteLine($"The '{args[2 + i]}' file does not exist in this directory");
+                                    Console.ResetColor();
+                                }
                             }
 
                             formatLogs.DirectoryLog();
                             formatLogs.UserAndMachineName();
 
-                        break;
+                            break;
 
                         //OPEN
                         case "open":
                             //----------------------------------------------------------------------------------------
                             //Algoritmo para identificar se existe um diretório com pastas ou arquivos 
 
-                            //Apenas diminui as verificações em duas variávies: "folderExist" e "fileExist"
+                            //Apenas diminui as verificações em duas variávies: "folderExist" e "archiveExist"
 
                             bool folderExist = Directory.Exists(args[0]) && Directory.Exists(Path.Combine(args[0], args[2]));
-                            bool fileExist = Directory.Exists(args[0]) && File.Exists(Path.Combine(args[0], args[2]));
+                            bool archiveExist = Directory.Exists(args[0]) && File.Exists(Path.Combine(args[0], args[2]));
 
-                            if (folderExist || fileExist )
+                            if (folderExist || archiveExist)
                             {
                                 Open open = new Open(args[2]);
 
@@ -188,8 +278,8 @@ namespace DirectoryCLI
                                 throw new OpenCommandException("Error when opening a file or directory");
                             }
                             //----------------------------------------------------------------------------------------
-                        break;
-                    
+                            break;
+
                         //OPEN-SITE
                         case "open-site":
 
@@ -202,10 +292,10 @@ namespace DirectoryCLI
 
                             formatLogs.UserAndMachineName();
 
-                        break;
+                            break;
 
                         //SCAN
-                        case "scan": 
+                        case "scan":
 
                             Scan scan = new Scan();
 
@@ -223,8 +313,8 @@ namespace DirectoryCLI
                             formatLogs.ScanAndListLogs();
                             formatLogs.UserAndMachineName();
 
-                        break;
-                    
+                            break;
+
                         //COMMANDS
                         case "commands":
 
@@ -234,7 +324,7 @@ namespace DirectoryCLI
                             formatLogs.CommandLog();
                             formatLogs.UserAndMachineName();
 
-                        break;
+                            break;
 
                         //CMD-SINTAXE
                         case "commands-sintaxe":
@@ -245,22 +335,23 @@ namespace DirectoryCLI
                             formatLogs.CommandLog();
                             formatLogs.UserAndMachineName();
 
-                        break;
+                            break;
 
                         //LIST
                         case "list":
 
                             DirectoryList list = new DirectoryList();
+
                             list.Execute(args[0]);
                             formatLogs.ScanAndListLogs();
-
-                            Console.WriteLine();
-
                             formatLogs.UserAndMachineName();
 
-                        break;
+                            break;
 
                         case "move":
+
+                            Move move = new Move();
+                            List<string> items = new List<string>();
 
                             for (int i = 2; i < args.Length - 2; i++)
                             {
@@ -268,50 +359,128 @@ namespace DirectoryCLI
                                 {
                                     FileInfo item = new FileInfo(args[i]);
                                     FileInfo destiny = new FileInfo(args[args.Length - 1]);
-                                    Move move = new Move();
 
-                                    string directoryExists = Path.Combine(directoryPath.FullName, destiny.Name);
+                                    items.Add(args[i]);
+                                    move.Execute(directoryPath, item, destiny);
 
-                                    bool itemExists = Directory.Exists(Path.Combine(directoryPath.FullName, item.Name));
-                                    bool itemExistsInDirectory = Directory.Exists(Path.Combine(directoryExists, item.Name));
-                                    
-                                    if (!itemExistsInDirectory)
-                                    {
-                                        move.Execute(directoryPath, item, destiny);
-                                        colors.Blue();
+                                    Console.Write("Item:");
 
-                                        Console.Write($"Item [{item}] moved to [{args[0]}\\{destiny}]");
-                                        Console.WriteLine();
-                                    }
-                                    
-                                    else
-                                    {
-                                        throw new ExistingItemException($"Item '[{args[i]}]' cannot be moved");
-                                    }
+                                    colors.DarkGray();
+
+                                    Console.Write($" [{item}] moved to [{args[0]}\\{destiny}]");
+                                    Console.WriteLine();
+                                    Console.ResetColor();
                                 }
 
                                 //Coloquei a captura de exceção aqui para facilitar a busca pelo item já existente
-                                catch (ExistingItemException ex)
+                                catch (IOException)
                                 {
+                                    IOException ex = new IOException("Cannot move an item, because it already exists: ");
                                     colors.DarkRed();
 
                                     Console.Write(ex.Message);
 
                                     colors.Red();
 
-                                    Console.WriteLine($": The item '{args[i]}' already exists in the final directory");
+                                    Console.WriteLine($"The item '{args[i]}' already exists in the final directory");
                                     Console.ResetColor();
-
-                                    colors.Red();
-
-                                    Console.WriteLine();
                                 }
                             }
 
                             formatLogs.DirectoryLog();
                             formatLogs.UserAndMachineName();
 
+                            break;
+
+                        case "extract":
+
+                            Extract extract = new Extract();
+
+                            for (int i = 2; i < args.Length - 2; i++)
+                            {
+
+                                FileInfo item = new FileInfo(args[i]);
+                                FileInfo destiny = new FileInfo(args[args.Length - 1]);
+
+                                extract.Execute(directoryPath, item, destiny);
+                                colors.Blue();
+                            }
+
+                            formatLogs.DirectoryLog();
+                            formatLogs.UserAndMachineName();
+
+                            break;
+
+                        case "zip":
+
+                            Zip zip = new Zip();
+                            List<string> elements = new List<string>();
+
+                            for (int i = 2; i < args.Length - 2; i++)
+                            {
+
+                                FileInfo item = new FileInfo(args[i]);
+                                FileInfo destiny = new FileInfo(args[args.Length - 1]);
+
+                                elements.Add(args[i]);
+                                zip.Execute(directoryPath, item, destiny);
+                                colors.Blue();
+                            }
+
+                            foreach (string element in elements)
+                            {
+                                Console.ResetColor();
+                                Console.Write("Item:");
+
+                                colors.DarkGray();
+
+                                Console.WriteLine($" [{element}] zipped to [{args[0]}\\{args[args.Length - 1]}]");
+                            }
+
+                            formatLogs.DirectoryLog();
+                            formatLogs.UserAndMachineName();
+
+                            break;
+
+                        case "rename":
+
+                            Rename rename = new Rename();
+                            List<string> objects = new List<string>();
+
+                            FileInfo atualName = new FileInfo(args[2]);
+                            FileInfo finalName = new FileInfo(args[4]);
+
+                            rename.Execute(directoryPath, atualName, finalName);
+
+                            Console.ResetColor();
+                            Console.Write("Item:");
+
+                            colors.DarkGray();
+
+                            Console.WriteLine($" [{atualName}] renamed to [{finalName}]");
+
+                            formatLogs.DirectoryLog();
+                            formatLogs.UserAndMachineName();
+
                         break;
+                        //----------------------------------------------------------------------------------------
+                        //Comandos simples
+
+                        //CLEAR
+                        case "clear":
+
+                            Console.Clear();
+                            formatLogs.UserAndMachineName();
+
+                        break;
+
+                        //EXIT
+                        case "exit":
+
+                            Environment.Exit(0);
+
+                        break;
+                        //----------------------------------------------------------------------------------------
                     }
                 }
                 //----------------------------------------------------------------------------------------
@@ -341,16 +510,10 @@ namespace DirectoryCLI
 
                     colors.Red();
 
-                    Console.WriteLine($"The path '{pathNotFound}' does not exist");
+                    Console.WriteLine($" The path '{pathNotFound}' does not exist");
 
                     formatLogs.DirectoryLog();
                     formatLogs.UserAndMachineName();
-                }
-
-                catch (UnauthorizedAccessException ex)
-                {
-
-                   
                 }
                 //----------------------------------------------------------------------------------------
             }

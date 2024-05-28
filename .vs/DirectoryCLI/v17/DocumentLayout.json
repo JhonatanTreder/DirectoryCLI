@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "D:\\[PROJETOS]\\DirectoryCLI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\commands\\commandsinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commands\\commandsinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|D:\\[PROJETOS]\\DirectoryCLI\\commandstyles\\formatlogs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commandstyles\\formatlogs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\exceptions\\itemnotfoundexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:exceptions\\itemnotfoundexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -59,27 +63,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CommandsInfo.cs",
-              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CommandsInfo.cs",
-              "RelativeDocumentMoniker": "Commands\\CommandsInfo.cs",
-              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CommandsInfo.cs",
-              "RelativeToolTip": "Commands\\CommandsInfo.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-18T18:37:46.905Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAMgAAAAAAAAAAAAAANMAAAAuAAAA",
+              "ViewState": "AQIAAOUBAAAAAAAAAAAAAAACAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-01T19:33:45.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ItemNotFoundException.cs",
+              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Exceptions\\ItemNotFoundException.cs",
+              "RelativeDocumentMoniker": "Exceptions\\ItemNotFoundException.cs",
+              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Exceptions\\ItemNotFoundException.cs",
+              "RelativeToolTip": "Exceptions\\ItemNotFoundException.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-27T17:57:19.847Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FormatLogs.cs",
+              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\CommandStyles\\FormatLogs.cs",
+              "RelativeDocumentMoniker": "CommandStyles\\FormatLogs.cs",
+              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\CommandStyles\\FormatLogs.cs",
+              "RelativeToolTip": "CommandStyles\\FormatLogs.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAgwAkAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T16:59:23.693Z",
               "EditorCaption": ""
             }
           ]
