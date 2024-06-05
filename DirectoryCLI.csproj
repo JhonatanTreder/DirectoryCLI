@@ -58,6 +58,7 @@
     <Compile Include="CommandStyles\FormatLogs.cs" />
     <Compile Include="Commands\CommandsInfo.cs" />
     <Compile Include="Commands\CommandsConfig.cs" />
+    <Compile Include="Commands\CreateTemplate.cs" />
     <Compile Include="Commands\DirectoryList.cs" />
     <Compile Include="Commands\CreateFile.cs" />
     <Compile Include="Commands\CreateFolder.cs" />
@@ -71,6 +72,8 @@
     <Compile Include="Commands\Scan.cs" />
     <Compile Include="Commands\Zip.cs" />
     <Compile Include="Exceptions\ExistingItemException.cs" />
+    <Compile Include="Exceptions\FileWithoutExtensionException.cs" />
+    <Compile Include="Exceptions\InvalidDestinationPathException.cs" />
     <Compile Include="Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Exceptions\OpenCommandException.cs" />
     <Compile Include="Program.cs" />

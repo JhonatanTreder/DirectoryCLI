@@ -12,7 +12,7 @@ namespace DirectoryCLI.Commands
     {
         public string DirectoryPath { get; set; }
 
-        public static bool IsValidDirectoryPath(FileInfo path)
+        public static bool PathValidation(FileInfo path)
         {
             if (Directory.Exists(path.FullName) == true)
             {
@@ -23,6 +23,11 @@ namespace DirectoryCLI.Commands
             {
                 throw new DirectoryNotFoundException();
             }
+        }
+
+        public static void ExtensionValidation(FileInfo item)
+        {
+            
         }
     }
 }

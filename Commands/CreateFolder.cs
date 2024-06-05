@@ -18,7 +18,7 @@ namespace DirectoryCLI.Commands
 
         public void Execute(FileInfo directoryPath)
         {
-            if(IsValidDirectoryPath(directoryPath) == true)
+            if(PathValidation(directoryPath) == true)
             {
                 string fullPath = Path.Combine(directoryPath.FullName, DirectoryName);
                 Directory.CreateDirectory(fullPath);

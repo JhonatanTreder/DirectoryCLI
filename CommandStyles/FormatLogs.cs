@@ -27,7 +27,6 @@ namespace DirectoryCLI.CommandStyles
         public void DirectoryLog()
         {
             Console.ResetColor();
-            Console.WriteLine();
 
             colors.DarkGray();
 
