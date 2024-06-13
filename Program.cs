@@ -2,7 +2,9 @@
 using DirectoryCLI.CommandStyles;
 using DirectoryCLI.Exceptions;
 using System;
+using System.Management;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Xml.Linq;
@@ -14,10 +16,12 @@ namespace DirectoryCLI
 
         static void Main()
         {
+
             //Classe para formatar a CLI no final de cada comando
             FormatLogs formatLogs = new FormatLogs();
 
             formatLogs.UserAndMachineName();
+
 
             //----------------------------------------------------------------------------------------
             //Uso do "while" para deixar o programa rodando em looping
@@ -28,27 +32,27 @@ namespace DirectoryCLI
 
                 formatLogs = new FormatLogs();
 
-                Colors colors = new Colors();//Classe para facilitar o acesso às cores
+                //Classe para facilitar o acesso às cores
+                Colors colors = new Colors();
 
                 string[] arguments = Console.ReadLine().Split(' ');
-                string commands;
+                string command;
 
                 //----------------------------------------------------------------------------------------
                 //Switch para atribuir qual é o comando para a variável "cmd"
 
                 switch (arguments.Length)
                 {
-
                     case 2:
 
                         if (arguments[1] == "scan" || arguments[1] == "list")
                         {
-                            commands = arguments[1];
+                            command = arguments[1];
                             Console.WriteLine();
                         }
                         else
                         {
-                            commands = arguments[0];
+                            command = arguments[0];
                             Console.WriteLine();
                         }
 
@@ -56,38 +60,45 @@ namespace DirectoryCLI
 
                     case 1:
 
-                        commands = arguments[0];
+                        command = arguments[0];
+                        Console.WriteLine();
 
                     break;
 
                     default:
 
-                        if (arguments[0] == "create-template")
+                        if (arguments[0] == "ct")
                         {
-                            commands = arguments[0];
+                            command = arguments[0];
                             Console.WriteLine();
                         }
 
                         else
                         {
-                            commands = arguments[1];
+                            command = arguments[1];
                             Console.WriteLine();
                         }
                     break;
 
                 }
-                //----------------------------------------------------------------------------------------
 
-                //----------------------------------------------------------------------------------------
                 try
                 {
+                    //----------------------------------------------------------------------------------------
+                    //Verificação dos argumentos fornecidos
+                    CommandsConfig.ArgumentsValidation(arguments);
+                    //----------------------------------------------------------------------------------------
+
+                    //----------------------------------------------------------------------------------------
+                    //Verificação do comando fornecido
+                    CommandsConfig.CommandValidation(arguments);
+                    //----------------------------------------------------------------------------------------
+
                     //Essa variável do tipo "FileInfo" será usada apenas nos comandos que usam diretórios
                     FileInfo directoryPath = new FileInfo(arguments[0]);
 
-                    //----------------------------------------------------------------------------------------
                     //Switch uado para identificar qual é o comando e continuar dependendo de qual comando seja
-
-                    switch (commands)
+                    switch (command)
                     {
                         //----------------------------------------------------------------------------------------
 
@@ -141,8 +152,7 @@ namespace DirectoryCLI
                                 }
                             }
 
-                            Console.WriteLine();
-                            LogAndReset(commands);
+                            LogAndReset(command);
 
                         break;
 
@@ -182,7 +192,7 @@ namespace DirectoryCLI
                                 }
                             }
 
-                            LogAndReset(commands);
+                            LogAndReset(command);
 
                         break;
 
@@ -234,10 +244,7 @@ namespace DirectoryCLI
 
                                     colors.Red();
 
-
                                     Console.WriteLine($"The file '{arguments[2 + i]}' already exists in this directory.");
-
-
 
                                     Console.WriteLine($"This directory already has a folder with that name.");
                                     Console.ResetColor();
@@ -258,8 +265,7 @@ namespace DirectoryCLI
                                 }
                             }
 
-                            Console.WriteLine();
-                            LogAndReset(commands);
+                            LogAndReset(command);
 
                         break;
 
@@ -298,8 +304,7 @@ namespace DirectoryCLI
                                 }
                             }
 
-                            Console.WriteLine();
-                            LogAndReset(commands);
+                            LogAndReset(command);
 
                         break;
 
@@ -309,9 +314,13 @@ namespace DirectoryCLI
                             //Algoritmo para identificar se existe um diretório com pastas ou arquivos 
 
                             //Apenas diminui as verificações em duas variávies: "folderExist" e "archiveExist"
+                            FileInfo item = new FileInfo(Path.Combine(arguments[2]));
 
                             bool folderExist = Directory.Exists(arguments[0]) && Directory.Exists(Path.Combine(arguments[0], arguments[2]));
                             bool archiveExist = Directory.Exists(arguments[0]) && File.Exists(Path.Combine(arguments[0], arguments[2]));
+
+                            //Variável booleana para saber se o arquivo expecificado termina com uma extensão que não é nula.
+                            bool _NonExistentFile = !string.IsNullOrEmpty(item.Extension) && item.Name.EndsWith(item.Extension);
 
                             if (folderExist || archiveExist)
                             {
@@ -319,15 +328,20 @@ namespace DirectoryCLI
                                 
                                 open.Execute(directoryPath);
 
-                                LogAndReset(commands);
+                                LogAndReset(command);
                             }
                             //----------------------------------------------------------------------------------------
 
                             //Lança uma exceção personalizada se isso não ocorrer
 
+                            else if (_NonExistentFile)
+                            {
+                                throw new OpenCommandException("Erro ao abrir um arquivo: ");
+                            }
+
                             else
                             {
-                                throw new OpenCommandException("Error when opening a file or directory. ");
+                                throw new OpenCommandException("Erro ao abrir uma pasta: ");
                             }
                             //----------------------------------------------------------------------------------------
                             break;
@@ -362,7 +376,7 @@ namespace DirectoryCLI
                             Console.ResetColor();
                             Console.WriteLine();
 
-                            LogAndReset(commands);
+                            LogAndReset(command);
 
                         break;
 
@@ -374,7 +388,7 @@ namespace DirectoryCLI
                             Console.WriteLine();
                             commandInfo.Execute();
 
-                            LogAndReset(commands);
+                            LogAndReset(command);
 
                         break;
 
@@ -386,7 +400,7 @@ namespace DirectoryCLI
                             Console.WriteLine();
                             commandInfo.CommandSintaxe();
 
-                            LogAndReset(commands);
+                            LogAndReset(command);
 
                         break;
 
@@ -397,7 +411,7 @@ namespace DirectoryCLI
 
                             list.Execute(arguments[0]);
 
-                            LogAndReset(commands);
+                            LogAndReset(command);
 
                         break;
 
@@ -411,8 +425,31 @@ namespace DirectoryCLI
                             {
                                 try
                                 {
-                                    FileInfo item = new FileInfo(arguments[i]);
+                                    item = new FileInfo(arguments[i]);
                                     FileInfo destiny = new FileInfo(arguments[arguments.Length - 1]);
+
+                                    string destinyPath = Path.Combine(directoryPath.FullName, destiny.Name);
+                                    string itemPath = Path.Combine(directoryPath.FullName, item.Name);
+
+                                    //Variável para identificar se o usuário digitou outra coisa além de 'to'.
+                                    bool userArgument = arguments[arguments.Length - 1] != "to";
+
+                                    if (userArgument && File.Exists(itemPath))
+                                    {
+                                        throw new ArgumentException($"Erro ao tentar mover um arquivo, '{arguments[arguments.Length - 2]}' não é um identificador válido: ");
+                                    }
+
+                                    else if (userArgument && Directory.Exists(itemPath))
+                                    {
+                                        throw new ArgumentException($"Erro ao tentar mover uma pasta, '{arguments[arguments.Length - 2]}' não é um identificador válido: ");
+                                    }
+
+                                    //-----------------------------------------------------------------------
+                                    //Validando argumentos do comando 'move'
+
+                                    CommandsConfig.DataValidation(command, directoryPath, item, destiny);
+
+                                    //------------------------------------------------------------------------
 
                                     items.Add(arguments[i]);
                                     move.Execute(directoryPath, item, destiny);
@@ -424,9 +461,12 @@ namespace DirectoryCLI
                                     Console.Write($" [{item}] moved to [{arguments[0]}\\{destiny}]");
                                     Console.WriteLine();
                                     Console.ResetColor();
-                                }
 
-                                //Coloquei a captura de exceção aqui para facilitar a busca pelo item já existente
+                                    Console.WriteLine();
+
+                                    LogAndReset(command);
+                                }
+                                //Coloquei as capturas de exceções aqui para facilitar a busca pelo item já existente
                                 catch (IOException)
                                 {
                                     IOException ex = new IOException("Cannot move an item, because it already exists: ");
@@ -438,12 +478,20 @@ namespace DirectoryCLI
 
                                     Console.WriteLine($"The item '{arguments[i]}' already exists in the final directory");
                                     Console.ResetColor();
+
+                                    LogAndReset(command);
+                                }
+                                catch (InvalidDestinationPathException ex)
+                                {
+                                    colors.DarkRed();
+                                    Console.Write("Erro ao mover um item: ");
+
+                                    Console.ResetColor();
+                                    Console.WriteLine(ex.Message);
+
+                                    LogAndReset(command);
                                 }
                             }
-
-                            Console.WriteLine();
-
-                            LogAndReset(commands);
 
                         break;
 
@@ -454,16 +502,56 @@ namespace DirectoryCLI
 
                             for (int i = 2; i < arguments.Length - 2; i++)
                             {
+                                try
+                                {
+                                    item = new FileInfo(arguments[i]);
+                                    FileInfo destiny = new FileInfo(arguments[arguments.Length - 1]);
 
-                                FileInfo item = new FileInfo(arguments[i]);
-                                FileInfo destiny = new FileInfo(arguments[arguments.Length - 1]);
+                                    string destinyPath = Path.Combine(directoryPath.FullName, destiny.Name);
+                                    string itemPath = Path.Combine(directoryPath.FullName, item.Name);
 
-                                extract.Execute(directoryPath, item, destiny);
-                                colors.Blue();
+                                    //Variável para identificar se o usuário digitou outra coisa além de 'to'.
+                                    bool userArgument = arguments[arguments.Length - 1] != "to";
+
+                                    if (userArgument && File.Exists(itemPath))
+                                    {
+                                        throw new ArgumentException($"Erro ao tentar extrair um arquivo, '{arguments[arguments.Length - 2]}' não é um identificador válido: ");
+                                    }
+
+                                    //-----------------------------------------------------------------------
+                                    //Validação dos dados (item, destiny) - EXTRACT
+
+                                    CommandsConfig.DataValidation(command, directoryPath, item, destiny);
+
+                                    //------------------------------------------------------------------------
+
+                                    extract.Execute(directoryPath, item, destiny);
+                                    colors.Blue();
+
+                                    Console.Write("Item:");
+
+                                    colors.DarkGray();
+
+                                    Console.Write($" [{item}] extracted to [{arguments[0]}\\{destiny}]");
+                                    Console.WriteLine();
+                                    Console.ResetColor();
+
+                                    Console.WriteLine();
+
+                                    LogAndReset(command);
+
+                                }
+                                catch (InvalidDestinationPathException ex)
+                                {
+                                    colors.DarkRed();
+                                    Console.Write("Erro ao extrair um arquivo: ");
+
+                                    Console.ResetColor();
+                                    Console.WriteLine(ex.Message);
+
+                                    LogAndReset(command);
+                                }
                             }
-
-                            Console.WriteLine();
-                            LogAndReset(commands);
 
                         break;
 
@@ -477,29 +565,32 @@ namespace DirectoryCLI
                             {
                                 for (int i = 2; i < arguments.Length - 2; i++)
                                 {
-                                    
-                                    FileInfo item = new FileInfo(arguments[i]);
+
+                                    item = new FileInfo(arguments[i]);
                                     FileInfo destiny = new FileInfo(arguments[arguments.Length - 1]);
 
-                                    string pathValidation = (Path.Combine(directoryPath.FullName, destiny.Name));
+                                    string destinyPath = Path.Combine(directoryPath.FullName, destiny.Name);
+                                    string itemPath = Path.Combine(directoryPath.FullName, item.Name);
 
-                                    if (destiny.Extension != ".zip")
+                                    //Variável para identificar se o usuário digitou outra coisa além de 'to'.
+                                    bool userArgument = arguments[arguments.Length - 1] != "to";
+
+                                    if (userArgument && File.Exists(itemPath))
                                     {
-                                        if (File.Exists(pathValidation))
-                                        {
-                                            throw new InvalidDestinationPathException($"Você não pode zipar o item '{item}' em um arquivo '{destiny.Extension}'");
-                                        }
-
-                                        else if (Directory.Exists(pathValidation))
-                                        {
-                                            throw new InvalidDestinationPathException($"Você não pode zipar o item '{item}' na pasta '{destiny}'");
-                                        }
-
-                                        else
-                                        {
-                                            throw new InvalidDestinationPathException($"O lugar de destino '{destiny}' não existe no diretório {directoryPath.FullName}");
-                                        }
+                                        throw new ArgumentException($"Erro ao tentar zipar um arquivo, '{arguments[arguments.Length - 2]}' não é um identificador válido: ");
                                     }
+
+                                    else if (userArgument && Directory.Exists(itemPath))
+                                    {
+                                        throw new ArgumentException($"Erro ao tentar zipar uma pasta, '{arguments[arguments.Length - 2]}' não é um identificador válido: ");
+                                    }
+
+                                    //-----------------------------------------------------------------------
+                                    //Validação dos dados (item, destiny) - ZIP
+
+                                    CommandsConfig.DataValidation(command, directoryPath, item, destiny);
+
+                                    //------------------------------------------------------------------------
 
                                     elements.Add(arguments[i]);
                                     zip.Execute(directoryPath, item, destiny);
@@ -516,7 +607,7 @@ namespace DirectoryCLI
                                     Console.WriteLine($" [{element}] zipped to [{arguments[0]}\\{arguments[arguments.Length - 1]}]");
                                 }
 
-                                LogAndReset(commands);
+                                LogAndReset(command);
                             }
 
                             catch (InvalidDestinationPathException ex)
@@ -527,8 +618,9 @@ namespace DirectoryCLI
                                 Console.ResetColor();
                                 Console.WriteLine(ex.Message);
 
-                                LogAndReset(commands);
+                                LogAndReset(command);
                             }
+
                         break;
 
                         //RENAME
@@ -550,12 +642,13 @@ namespace DirectoryCLI
                             Console.WriteLine($" [{atualName}] renamed to [{finalName}]");
 
                             Console.WriteLine();
-                            LogAndReset(commands);
+                            LogAndReset(command);
 
                         break;
 
                         //CREATE-TEMPLATE
                         case "ct":
+
                             //ct dotnet new mvc --framework netcoreapp3.1 -o MyNewProject --auth Individual --use-local-db true
                             CreateTemplate createTemplate = new CreateTemplate();
                             Dictionary<string, string> additionalParams = new Dictionary<string, string> { { arguments[9], arguments[10] }, { arguments[11], arguments[12] } };
@@ -578,6 +671,24 @@ namespace DirectoryCLI
                         case "exit":
 
                             Environment.Exit(0);
+
+                        break;
+
+                        //SYSTEM-INFO
+                        case "system-info":
+
+                            Console.WriteLine("Informações do sistema: ");
+                            Console.WriteLine();
+
+                            colors.DarkGray();
+
+                            Console.WriteLine($"Nome do dispositivo: {SystemInfo.DeviceName()}");
+                            Console.WriteLine($"Processador: {SystemInfo.ProcessorName()}");
+                            Console.WriteLine($"RAM instalada: {SystemInfo.TotalRAM()}");
+
+                            Console.WriteLine();
+
+                            formatLogs.UserAndMachineName();
 
                         break;
                         //----------------------------------------------------------------------------------------
@@ -604,27 +715,24 @@ namespace DirectoryCLI
                 catch (OpenCommandException ex)
                 {
                     colors.DarkRed();
-                    Console.Write(ex.Message + ":");
+                    Console.Write(ex.Message);
 
-                    string pathNotFound = Path.Combine(arguments[0], arguments[2]);
+                    
 
-                    colors.Red();
+                    Console.ResetColor();
 
-                    Console.WriteLine($"The path '{pathNotFound}' does not exist");
+                    Console.WriteLine($"O item '{arguments[2]}' não existe neste diretório.");
 
-                    Console.WriteLine();
-                    LogAndReset(commands);
+                    LogAndReset(command);
                 }
-                catch (ArgumentException)
+                catch (ArgumentException ex)
                 {
-                    ArgumentException ex = new ArgumentException("Argumentos invalidos: ");
-
                     colors.DarkRed();
 
                     Console.Write(ex.Message);
 
                     Console.ResetColor();
-                    Console.WriteLine("Escreva 'commands' para ver a lista de comandos.");
+                    Console.WriteLine("Escreva 'commands' para ver a lista de comandos ou 'commands-sintaxe' para ver a sua sintaxe.");
                     Console.ResetColor();
 
                     Console.WriteLine();
@@ -634,6 +742,7 @@ namespace DirectoryCLI
                 //----------------------------------------------------------------------------------------
             }
         }
+
 
         public static void LogAndReset(string command)
         {

@@ -46,6 +46,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -70,6 +71,7 @@
     <Compile Include="Commands\OpenSite.cs" />
     <Compile Include="Commands\Rename.cs" />
     <Compile Include="Commands\Scan.cs" />
+    <Compile Include="Commands\SystemInfo.cs" />
     <Compile Include="Commands\Zip.cs" />
     <Compile Include="Exceptions\ExistingItemException.cs" />
     <Compile Include="Exceptions\FileWithoutExtensionException.cs" />

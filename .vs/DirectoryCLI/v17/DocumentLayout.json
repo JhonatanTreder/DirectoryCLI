@@ -3,24 +3,16 @@
   "WorkspaceRootPath": "D:\\[PROJETOS]\\DirectoryCLI\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\commands\\systeminfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commands\\systeminfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|D:\\[PROJETOS]\\DirectoryCLI\\commands\\createtemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commands\\createtemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|D:\\[PROJETOS]\\DirectoryCLI\\commands\\commandsconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commands\\commandsconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|D:\\[PROJETOS]\\DirectoryCLI\\commands\\commandsinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:commands\\commandsinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|D:\\[PROJETOS]\\DirectoryCLI\\exceptions\\invaliddestinationpathexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9ACC5375-9035-402D-AE42-AB841515EC06}|DirectoryCLI.csproj|solutionrelative:exceptions\\invaliddestinationpathexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 13,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -70,15 +62,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CreateTemplate.cs",
-              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CreateTemplate.cs",
-              "RelativeDocumentMoniker": "Commands\\CreateTemplate.cs",
-              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CreateTemplate.cs",
-              "RelativeToolTip": "Commands\\CreateTemplate.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAABIAAAA6AAAA",
+              "DocumentIndex": 0,
+              "Title": "SystemInfo.cs",
+              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\SystemInfo.cs",
+              "RelativeDocumentMoniker": "Commands\\SystemInfo.cs",
+              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\SystemInfo.cs",
+              "RelativeToolTip": "Commands\\SystemInfo.cs",
+              "ViewState": "AQIAACcAAAAAAAAAAAAowDsAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T19:49:35.943Z"
+              "WhenOpened": "2024-06-12T18:26:26.497Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -88,45 +81,21 @@
               "RelativeDocumentMoniker": "Commands\\CommandsConfig.cs",
               "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CommandsConfig.cs",
               "RelativeToolTip": "Commands\\CommandsConfig.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAA6wB0AAAAMAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T18:30:04.078Z"
+              "WhenOpened": "2024-06-07T23:27:14.826Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CommandsInfo.cs",
-              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CommandsInfo.cs",
-              "RelativeDocumentMoniker": "Commands\\CommandsInfo.cs",
-              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CommandsInfo.cs",
-              "RelativeToolTip": "Commands\\CommandsInfo.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAAAEMAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-28T19:07:22.526Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "InvalidDestinationPathException.cs",
-              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Exceptions\\InvalidDestinationPathException.cs",
-              "RelativeDocumentMoniker": "Exceptions\\InvalidDestinationPathException.cs",
-              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Exceptions\\InvalidDestinationPathException.cs",
-              "RelativeToolTip": "Exceptions\\InvalidDestinationPathException.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T18:04:55.706Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAOQBAAAAAAAAAAAAAPQBAAApAAAA",
+              "ViewState": "AQIAAJ4CAAAAAAAAAAAUwK4CAABTAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-01T19:33:45.888Z",
+              "WhenOpened": "2024-06-07T23:18:37.836Z",
               "EditorCaption": ""
             }
           ]
