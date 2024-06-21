@@ -160,7 +160,6 @@ namespace DirectoryCLI.Commands
                         }
                     }
 
-
                     else if (arguments[0] != "open-site")
                     {
                         command = arguments[0];
@@ -174,19 +173,25 @@ namespace DirectoryCLI.Commands
 
                     command = arguments[1];
 
-                    if (Directory.Exists(arguments[0]))
-                    {
-                        //Todos os comandos que usam diretórios
-                        //(zip, rename, create-folder/file, delete-folder/file, extract, move, ct)
-                        bool directoryCommands = arguments[1] != "create-file" && arguments[1] != "zip" && arguments[1] != "extract" && arguments[1] != "delete-file" && arguments[1] != "create-folder" && arguments[1] != "delete-folder" && arguments[1] != "move" && arguments[1] != "rename" && arguments[1] != "ct" && arguments[1] != "open";
+                    //Todos os comandos que usam diretórios
+                    //(zip, rename, create-folder/file, delete-folder/file, extract, move, ct)
+                    bool directoryCommands = arguments[1] != "create-file" && arguments[1] != "zip" && arguments[1] != "extract" && arguments[1] != "delete-file" && arguments[1] != "create-folder" && arguments[1] != "delete-folder" && arguments[1] != "move" && arguments[1] != "rename" && arguments[1] != "ct" && arguments[1] != "open";
 
+                    if (!Directory.Exists(arguments[0]))
+                    {
+                        
                         if (directoryCommands)
                         {
                             throw new ArgumentException($"Comando '{command}' inválido: ");
                         }
                     }
 
-                break;
+                    else if (directoryCommands)
+                    {
+                        throw new ArgumentException($"Comando '{command}' inválido: ");
+                    }
+
+                    break;
 
             }
         }

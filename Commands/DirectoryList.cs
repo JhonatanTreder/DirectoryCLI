@@ -25,12 +25,12 @@ namespace DirectoryCLI.Commands
             Console.Write("Total folders: ");
             colors.DarkGray();
             Console.WriteLine(directories.Length);
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("Total files: ");
             colors.DarkGray();
             Console.WriteLine(files.Length);
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.WriteLine();
 
@@ -40,8 +40,8 @@ namespace DirectoryCLI.Commands
                 Console.Write("Folder: ");
                 colors.DarkGray();
 
-                Console.WriteLine($"[{ Path.GetFileName(folder) }]");
-                Console.ResetColor();
+                Console.WriteLine($"{ Path.GetFileName(folder) }");
+                Colors.WhiteText();
             }
 
             foreach (string item in files)
@@ -49,8 +49,8 @@ namespace DirectoryCLI.Commands
                 Console.Write("File: ");
                 colors.DarkGray();
 
-                Console.WriteLine($"[{ Path.GetFileName(item) }]");
-                Console.ResetColor();
+                Console.WriteLine($"{ Path.GetFileName(item) }");
+                Colors.WhiteText();
             }
 
             Console.WriteLine();

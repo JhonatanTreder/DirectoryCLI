@@ -26,7 +26,16 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("Zipa um arquivo ou pasta para um arquivo zipado de destino");
-            Console.ResetColor();
+            Colors.WhiteText();
+
+            Console.Write("[move]");
+
+            colors.DarkPurple();
+            Console.Write(" - ");
+
+            colors.DarkGray();
+            Console.WriteLine("Move um arquivo ou pasta para um diretório de destino");
+            Colors.WhiteText();
 
             Console.Write("[list]");
 
@@ -35,7 +44,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("Lista todos os arquivos/pastas em um diretório");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[scan]");
 
@@ -44,7 +53,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("Escaneia um diretório/arquivo mostrando o tamanho total");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[open]");
 
@@ -53,7 +62,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("Abre uma pasta ou um arquivo específico");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[exit]");
 
@@ -62,7 +71,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("Encerra o programa");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[clear]");
 
@@ -71,7 +80,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("Limpa a tela do terminal");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[rename]");
 
@@ -80,7 +89,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("Renomeia um arquivo ou pasta");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[extract]");
 
@@ -89,7 +98,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("Extrai o conteúdo de um arquivo zipado para um diretório de destino");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[open-site]");
 
@@ -98,7 +107,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("Acessa um site através do DNS");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[create-file]");
 
@@ -107,7 +116,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("Cria um arquivo em um diretório especifico");
-            Console.ResetColor();   
+            Colors.WhiteText();   
 
             Console.Write("[delete-file]");
 
@@ -116,7 +125,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("Deleta um arquivo em um diretório especifico");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[create-folder]");
 
@@ -125,7 +134,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("Cria uma pasta em um diretório específico");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[delete-folder]");
 
@@ -134,7 +143,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("Deleta uma pasta em um diretório especifico");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.WriteLine();
         }
@@ -154,7 +163,22 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("<file/folder> to <zip archive>");
-            Console.ResetColor();
+            Colors.WhiteText();
+
+            Console.Write("[move]");
+
+            colors.DarkPurple();
+            Console.Write(" - ");
+
+            colors.DarkGray();
+            Console.Write("<diretório>");
+
+            colors.Blue();
+            Console.Write(" <move> ");
+
+            colors.DarkGray();
+            Console.WriteLine("<arquivo/pasta> to <diretório de destino>");
+            Colors.WhiteText();
 
             Console.Write("[list]");
 
@@ -166,7 +190,7 @@ namespace DirectoryCLI.Commands
             colors.Blue();
 
             Console.WriteLine(" <list>");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[scan]");
 
@@ -180,7 +204,7 @@ namespace DirectoryCLI.Commands
             Console.WriteLine(" <scan>");
             colors.DarkPurple();
 
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[open]");
 
@@ -195,7 +219,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("<arquivo/pasta>");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[exit]");
 
@@ -204,7 +228,7 @@ namespace DirectoryCLI.Commands
 
             colors.Blue();
             Console.WriteLine("<exit>");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[clear]");
 
@@ -213,7 +237,7 @@ namespace DirectoryCLI.Commands
 
             colors.Blue();
             Console.WriteLine("<clear>");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[rename]");
 
@@ -221,14 +245,14 @@ namespace DirectoryCLI.Commands
             Console.Write(" - ");
 
             colors.DarkGray();
-            Console.Write("<directory>");
+            Console.Write("<diretório>");
 
             colors.Blue();
             Console.Write(" <rename>");
 
             colors.DarkGray();
-            Console.WriteLine(" <file/folder> to <final name>");
-            Console.ResetColor();
+            Console.WriteLine(" <arquivo/pasta> to <nome final>");
+            Colors.WhiteText();
 
             Console.Write("[extract]");
 
@@ -236,14 +260,14 @@ namespace DirectoryCLI.Commands
             Console.Write(" - ");
 
             colors.DarkGray();
-            Console.Write("<directory>");
+            Console.Write("<diretório>");
 
             colors.Blue();
             Console.Write(" <extract> ");
 
             colors.DarkGray();
-            Console.WriteLine("<zip file> to <final directory>");
-            Console.ResetColor();
+            Console.WriteLine("<arquivo zip> to <diretório final>");
+            Colors.WhiteText();
 
             Console.Write("[open-site]");
 
@@ -255,7 +279,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("<site/nome de domínio>");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[create-file]");
 
@@ -270,7 +294,7 @@ namespace DirectoryCLI.Commands
             colors.DarkGray();
 
             Console.WriteLine("<nome do arquivo>");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[delete-file]");
 
@@ -285,7 +309,7 @@ namespace DirectoryCLI.Commands
             colors.DarkGray();
 
             Console.WriteLine("<nome do arquivo>");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[create-folder]");
 
@@ -300,7 +324,7 @@ namespace DirectoryCLI.Commands
             colors.DarkGray();
 
             Console.WriteLine("<nome da pasta>");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.Write("[delete-folder]");
 
@@ -315,7 +339,7 @@ namespace DirectoryCLI.Commands
 
             colors.DarkGray();
             Console.WriteLine("<nome da pasta>");
-            Console.ResetColor();
+            Colors.WhiteText();
 
             Console.WriteLine();
         }

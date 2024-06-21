@@ -2,7 +2,8 @@
 using DirectoryCLI.CommandStyles;
 using DirectoryCLI.Exceptions;
 using System;
-using System.Management;
+using System.Drawing;
+using Spectre.Console.Cli;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -16,12 +17,12 @@ namespace DirectoryCLI
 
         static void Main()
         {
+            Colors.BlackBG();
+            Console.Clear();
 
             //Classe para formatar a CLI no final de cada comando
             FormatLogs formatLogs = new FormatLogs();
-
             formatLogs.UserAndMachineName();
-
 
             //----------------------------------------------------------------------------------------
             //Uso do "while" para deixar o programa rodando em looping
@@ -34,6 +35,7 @@ namespace DirectoryCLI
 
                 //Classe para facilitar o acesso às cores
                 Colors colors = new Colors();
+                Colors.BlackBG();
 
                 string[] arguments = Console.ReadLine().Split(' ');
                 string command;
@@ -141,13 +143,13 @@ namespace DirectoryCLI
                                     if (File.Exists(Path.Combine(directoryPath.FullName, arguments[2 + i])))
                                     {
                                         Console.WriteLine($"This directory has a file without extension.");
-                                        Console.ResetColor();
+                                        Colors.WhiteText();
                                     }
 
                                     else
                                     {
                                         Console.WriteLine($"The '{arguments[2 + i]}' folder already exists in this directory.");
-                                        Console.ResetColor();
+                                        Colors.WhiteText();
                                     }
                                 }
                             }
@@ -188,7 +190,7 @@ namespace DirectoryCLI
                                     colors.Red();
 
                                     Console.WriteLine($"The '{arguments[2 + i]}' folder does not exist in this directory.");
-                                    Console.ResetColor();
+                                    Colors.WhiteText();
                                 }
                             }
 
@@ -227,7 +229,7 @@ namespace DirectoryCLI
                                         colors.Green();
 
                                         Console.WriteLine($"File [{arguments[2 + i]}] created in [{arguments[0]}].");
-                                        Console.ResetColor();
+                                        Colors.WhiteText();
                                     }
 
                                     else
@@ -242,12 +244,11 @@ namespace DirectoryCLI
 
                                     Console.Write(ex.Message);
 
-                                    colors.Red();
+                                    Colors.WhiteText();
 
                                     Console.WriteLine($"The file '{arguments[2 + i]}' already exists in this directory.");
 
-                                    Console.WriteLine($"This directory already has a folder with that name.");
-                                    Console.ResetColor();
+                                    Colors.WhiteText();
 
                                 }
 
@@ -261,7 +262,7 @@ namespace DirectoryCLI
                                     colors.Red();
 
                                     Console.WriteLine($"This directory already has a folder with that name.");
-                                    Console.ResetColor();
+                                    Colors.WhiteText();
                                 }
                             }
 
@@ -300,7 +301,7 @@ namespace DirectoryCLI
                                     colors.Red();
 
                                     Console.WriteLine($"The '{arguments[2 + i]}' file does not exist in this directory.");
-                                    Console.ResetColor();
+                                    Colors.WhiteText();
                                 }
                             }
 
@@ -373,7 +374,7 @@ namespace DirectoryCLI
                             colors.DarkGray();
 
                             Console.WriteLine(size + formatedBytes);
-                            Console.ResetColor();
+                            Colors.WhiteText();
                             Console.WriteLine();
 
                             LogAndReset(command);
@@ -460,7 +461,7 @@ namespace DirectoryCLI
 
                                     Console.Write($" [{item}] moved to [{arguments[0]}\\{destiny}]");
                                     Console.WriteLine();
-                                    Console.ResetColor();
+                                    Colors.WhiteText();
 
                                     Console.WriteLine();
 
@@ -477,7 +478,7 @@ namespace DirectoryCLI
                                     colors.Red();
 
                                     Console.WriteLine($"The item '{arguments[i]}' already exists in the final directory");
-                                    Console.ResetColor();
+                                    Colors.WhiteText();
 
                                     LogAndReset(command);
                                 }
@@ -486,7 +487,7 @@ namespace DirectoryCLI
                                     colors.DarkRed();
                                     Console.Write("Erro ao mover um item: ");
 
-                                    Console.ResetColor();
+                                    Colors.WhiteText();
                                     Console.WriteLine(ex.Message);
 
                                     LogAndReset(command);
@@ -534,7 +535,7 @@ namespace DirectoryCLI
 
                                     Console.Write($" [{item}] extracted to [{arguments[0]}\\{destiny}]");
                                     Console.WriteLine();
-                                    Console.ResetColor();
+                                    Colors.WhiteText();
 
                                     Console.WriteLine();
 
@@ -546,7 +547,7 @@ namespace DirectoryCLI
                                     colors.DarkRed();
                                     Console.Write("Erro ao extrair um arquivo: ");
 
-                                    Console.ResetColor();
+                                    Colors.WhiteText();
                                     Console.WriteLine(ex.Message);
 
                                     LogAndReset(command);
@@ -599,7 +600,7 @@ namespace DirectoryCLI
 
                                 foreach (string element in elements)
                                 {
-                                    Console.ResetColor();
+                                    Colors.WhiteText();
                                     Console.Write("Item:");
 
                                     colors.DarkGray();
@@ -615,7 +616,7 @@ namespace DirectoryCLI
                                 colors.DarkRed();
                                 Console.Write("Erro ao zipar um item: ");
 
-                                Console.ResetColor();
+                                Colors.WhiteText();
                                 Console.WriteLine(ex.Message);
 
                                 LogAndReset(command);
@@ -634,7 +635,7 @@ namespace DirectoryCLI
 
                             rename.Execute(directoryPath, atualName, finalName);
 
-                            Console.ResetColor();
+                            Colors.WhiteText();
                             Console.Write("Item:");
 
                             colors.DarkGray();
@@ -680,11 +681,59 @@ namespace DirectoryCLI
                             Console.WriteLine("Informações do sistema: ");
                             Console.WriteLine();
 
-                            colors.DarkGray();
+                            //Nome do computador
+                            Console.Write("Nome do dispositivo: ");
 
-                            Console.WriteLine($"Nome do dispositivo: {SystemInfo.DeviceName()}");
-                            Console.WriteLine($"Processador: {SystemInfo.ProcessorName()}");
-                            Console.WriteLine($"RAM instalada: {SystemInfo.TotalRAM()}");
+                            colors.DarkGray();
+                            Console.WriteLine($"{SystemInfo.DeviceName()}");
+                            Colors.WhiteText();
+                            //-----------------------------------------------
+
+                            //Versão
+                            Console.Write("Versão: ");
+
+                            colors.DarkGray();
+                            Console.WriteLine($"{SystemInfo.MachineVersion()}");
+                            Colors.WhiteText();
+                            //-----------------------------------------------
+
+                            //Processador
+                            Console.Write("Processador: ");
+
+                            colors.DarkGray();
+                            Console.WriteLine($"{SystemInfo.ProcessorName()}");
+                            Colors.WhiteText();
+                            //-----------------------------------------------
+
+                            //Memória RAM
+                            Console.Write("RAM instalada: ");
+
+                            colors.DarkGray();
+                            Console.WriteLine($"{SystemInfo.TotalRAM()}");
+                            Colors.WhiteText();
+                            //-----------------------------------------------
+
+                            //Placa de vídeo
+                            Console.Write("Placa de vídeo: ");
+
+                            colors.DarkGray();
+                            Console.WriteLine($"{SystemInfo.GraphicCard()}");
+                            Colors.WhiteText();
+                            //-----------------------------------------------
+
+                            //Armazenamento
+                            SystemInfo.Drive();
+
+                            Colors.WhiteText();
+                            //-----------------------------------------------
+
+                            //Tipo do sistema
+                            Console.Write("Tipo do sistema: ");
+
+                            colors.DarkGray();
+                            Console.WriteLine($"Sistema operacional de {SystemInfo.SystemType()}, {SystemInfo.ProcessorType()}");
+                            Colors.WhiteText();
+                            //-----------------------------------------------
 
                             Console.WriteLine();
 
@@ -705,7 +754,7 @@ namespace DirectoryCLI
                     colors.DarkRed();
 
                     Console.WriteLine($"Directory '{arguments[0]}' not found!");
-                    Console.ResetColor();
+                    Colors.WhiteText();
                     Console.WriteLine();
 
                     formatLogs.UserAndMachineName();
@@ -716,10 +765,7 @@ namespace DirectoryCLI
                 {
                     colors.DarkRed();
                     Console.Write(ex.Message);
-
-                    
-
-                    Console.ResetColor();
+                    Colors.WhiteText();
 
                     Console.WriteLine($"O item '{arguments[2]}' não existe neste diretório.");
 
@@ -731,9 +777,9 @@ namespace DirectoryCLI
 
                     Console.Write(ex.Message);
 
-                    Console.ResetColor();
+                    Colors.WhiteText();
                     Console.WriteLine("Escreva 'commands' para ver a lista de comandos ou 'commands-sintaxe' para ver a sua sintaxe.");
-                    Console.ResetColor();
+                    Colors.WhiteText();
 
                     Console.WriteLine();
 
@@ -742,7 +788,6 @@ namespace DirectoryCLI
                 //----------------------------------------------------------------------------------------
             }
         }
-
 
         public static void LogAndReset(string command)
         {
@@ -801,5 +846,6 @@ namespace DirectoryCLI
                 break;
             }
         }
+        
     }
 }
