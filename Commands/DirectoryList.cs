@@ -15,7 +15,7 @@ namespace DirectoryCLI.Commands
 
         }
 
-        public void Execute(string directory)
+        public static void Execute(string directory)
         {
             Colors colors = new Colors();
             string[] files = Directory.GetFiles(directory);

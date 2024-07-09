@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,16 +15,60 @@ namespace DirectoryCLI.Commands
 
         }
 
-        public void CreateAspNetCoreMvcTemplate(string version, string outputDir, Dictionary<string, string> additionalParams)
+        public static void Execute(string[] arguments)
         {
-            string command = $"dotnet new mvc --framework {version} -o {outputDir}";
+            string identifierCommand = arguments[0];
+            string action = arguments[1];
 
-            foreach (var param in additionalParams)
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+
+            for (int i = 0; i < arguments.Length - 2; i += 2)
             {
-                command += $" --{param.Key} {param.Value}";
+                parameters.Add(arguments[i + 1], arguments[i + 2]);
             }
 
-            System.Diagnostics.Process.Start("CMD.exe", "/C " + command);
+            string commandString = string.Join(" ", parameters.Select(kvp => $"{kvp.Key} {kvp.Value}"));
+
+            CreateAspNetCoreMvcTemplate(commandString, identifierCommand);
+        }
+
+        private static void CreateAspNetCoreMvcTemplate(string commandString, string identifierCommand)
+        {
+            ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd", $"/c {identifierCommand} " + commandString) 
+            {
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            Process process = new Process
+            {
+                StartInfo = processStartInfo
+            };
+
+            try
+            {
+                process.Start();
+
+                string output = process.StandardOutput.ReadToEnd();
+                string error = process.StandardError.ReadToEnd();
+
+                process.WaitForExit();
+
+                // Exibindo a saída
+                Console.WriteLine("Output:");
+                Console.WriteLine(output);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Exception: {e.Message}");
+            }
+            finally
+            {
+                process.Close();
+            }
         }
     }
 }

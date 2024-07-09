@@ -28,7 +28,6 @@ namespace DirectoryCLI.CommandStyles
 
             colors.DarkGray();
             Console.WriteLine("arguments used: <directory> <command> <conclusion>");
-            Console.WriteLine();
         }
 
         public void SiteLog()
@@ -42,14 +41,18 @@ namespace DirectoryCLI.CommandStyles
         {
             colors.DarkGray();
             Console.WriteLine("arguments used: <directory> <command>");
-            Console.WriteLine();
         }
 
         public void CommandLog()
         {
             colors.DarkGray();
             Console.WriteLine("argument used: <command>");
-            Console.WriteLine();
+        }
+
+        public void TemplateCommandLog()
+        {
+            colors.DarkGray();
+            Console.WriteLine("arguments used: <command> <action> <parameters>");
         }
     }
 }

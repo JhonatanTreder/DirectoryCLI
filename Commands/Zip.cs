@@ -1,6 +1,10 @@
-﻿using System;
+﻿using DirectoryCLI.CommandStyles;
+using DirectoryCLI.Exceptions;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Xml.Linq;
 
 namespace DirectoryCLI.Commands
 {
@@ -11,26 +15,83 @@ namespace DirectoryCLI.Commands
 
         }
 
-        public void Execute(FileInfo directoryPath, FileInfo item, FileInfo destiny)
+        public static void Execute(FileInfo directoryPath, string command, string[] arguments)
         {
-            string itemPath = Path.Combine(directoryPath.FullName, item.Name);
-            string destinyPath = Path.Combine(directoryPath.FullName, destiny.Name);
+            List<string> elements = new List<string>();
 
-            using (ZipArchive archive = ZipFile.Open(destinyPath, ZipArchiveMode.Update))
+            try
             {
-                if (File.Exists(itemPath))
+
+                for (int i = 2; i  < arguments.Length - 2; i++)
                 {
-                    archive.CreateEntryFromFile(itemPath, item.Name, CompressionLevel.Optimal);
+                    FileInfo item = new FileInfo(arguments[i]);
+                    FileInfo destiny = new FileInfo(arguments[arguments.Length - 1]);
+
+                    string itemPath = Path.Combine(directoryPath.FullName, item.Name);
+                    string destinyPath = Path.Combine(directoryPath.FullName, destiny.Name);
+
+                    //-------------------------------------------------------------------------------------------------------------------------------------------------
+                    //Variável para identificar se o usuário digitou outra coisa além de 'to'.
+                    bool userArgument = arguments[arguments.Length - 2] != "to";
+
+                    if (userArgument && File.Exists(itemPath))
+                    {
+                        throw new ArgumentException($"Erro ao tentar zipar um arquivo, '{arguments[arguments.Length - 2]}' não é um identificador válido: ");
+                    }
+
+                    else if (userArgument && Directory.Exists(itemPath))
+                    {
+                        throw new ArgumentException($"Erro ao tentar zipar uma pasta, '{arguments[arguments.Length - 2]}' não é um identificador válido: ");
+                    }
+                    //-------------------------------------------------------------------------------------------------------------------------------------------------
+                    //-----------------------------------------------------------------------
+                    //Validação dos dados (item, destiny) - ZIP
+
+                    DataValidation(command, directoryPath, item, destiny);
+
+                    //------------------------------------------------------------------------
+
+                    elements.Add(arguments[i]);
+
+                    using (ZipArchive archive = ZipFile.Open(destinyPath, ZipArchiveMode.Update))
+                    {
+                        if (File.Exists(itemPath))
+                        {
+                            archive.CreateEntryFromFile(itemPath, item.Name, CompressionLevel.Optimal);
+                        }
+
+                        else if (Directory.Exists(itemPath))
+                        {
+                            AddDirectoryToZip(archive, itemPath, item.Name);
+                        }
+                    }
                 }
 
-                else if (Directory.Exists(itemPath))
+                colors.Blue();
+
+                foreach (string element in elements)
                 {
-                    AddDirectoryToZip(archive, itemPath, item.Name);
+                    Colors.WhiteText();
+                    Console.Write("Item:");
+
+                    colors.DarkGray();
+
+                    Console.WriteLine($" [{element}] zipado para [{arguments[0]}\\{arguments[arguments.Length - 1]}]");
                 }
+
             }
+            catch (InvalidDestinationPathException ex)
+            {
+                colors.DarkRed();
+                Console.Write("Erro ao zipar um item: ");
+
+                Colors.WhiteText();
+                Console.WriteLine(ex.Message);
+            }
+
         }
 
-        private void AddDirectoryToZip(ZipArchive archive, string sourceDir, string entryName)
+        private static void AddDirectoryToZip(ZipArchive archive, string sourceDir, string entryName)
         {
             DirectoryInfo dirInfo = new DirectoryInfo(sourceDir);
 

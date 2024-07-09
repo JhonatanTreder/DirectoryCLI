@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 
 namespace DirectoryCLI.Commands
 {
-    internal class CommandsInfo
+    internal class CommandsInfo : CommandsConfig
     {
-        Colors colors = new Colors();
         
         public CommandsInfo()
         {
 
         }
 
-        public void Execute()
+        public static void Execute()
         {
 
             Console.Write("[zip]");
@@ -148,7 +147,7 @@ namespace DirectoryCLI.Commands
             Console.WriteLine();
         }
 
-        public void CommandSintaxe()
+        public static void CommandSintaxe()
         {
             Console.Write("[zip]");
 
@@ -341,7 +340,6 @@ namespace DirectoryCLI.Commands
             Console.WriteLine("<nome da pasta>");
             Colors.WhiteText();
 
-            Console.WriteLine();
         }
     }
 }

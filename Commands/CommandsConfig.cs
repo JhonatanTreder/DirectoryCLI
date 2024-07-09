@@ -12,6 +12,9 @@ namespace DirectoryCLI.Commands
 {
     internal class CommandsConfig
     {
+
+        public static Colors colors = new Colors();
+
         public string DirectoryPath { get; set; }
 
         public static bool PathValidation(FileInfo path)
@@ -36,7 +39,7 @@ namespace DirectoryCLI.Commands
             {
                 case "zip":
 
-                    if (!Directory.Exists(itemPath))
+                    if (!Directory.Exists(itemPath) && !File.Exists(itemPath))
                     {
                         throw new InvalidDestinationPathException($"O item '{item}' não existe neste diretório.");
                     }
@@ -44,7 +47,6 @@ namespace DirectoryCLI.Commands
                     if (!File.Exists(destinyPath))
                     {
                         throw new InvalidDestinationPathException($"O lugar de destino '{destiny}' não existe neste diretório.");
-
                     }
 
                     if (destiny.Extension != ".zip")
@@ -123,7 +125,7 @@ namespace DirectoryCLI.Commands
             {
                 if (string.IsNullOrWhiteSpace(args) || string.IsNullOrWhiteSpace(args))
                 {
-                    throw new ArgumentException("Comando inválido: ");
+                    throw new ArgumentException("Argumento inválido: ");
                 }
             }
         }
@@ -175,7 +177,7 @@ namespace DirectoryCLI.Commands
 
                     //Todos os comandos que usam diretórios
                     //(zip, rename, create-folder/file, delete-folder/file, extract, move, ct)
-                    bool directoryCommands = arguments[1] != "create-file" && arguments[1] != "zip" && arguments[1] != "extract" && arguments[1] != "delete-file" && arguments[1] != "create-folder" && arguments[1] != "delete-folder" && arguments[1] != "move" && arguments[1] != "rename" && arguments[1] != "ct" && arguments[1] != "open";
+                    bool directoryCommands = arguments[1] != "create-file" && arguments[1] != "zip" && arguments[1] != "extract" && arguments[1] != "delete-file" && arguments[1] != "create-folder" && arguments[1] != "delete-folder" && arguments[1] != "move" && arguments[1] != "rename" && arguments[1] != "dotnet" && arguments[1] != "open";
 
                     if (!Directory.Exists(arguments[0]))
                     {
@@ -193,6 +195,74 @@ namespace DirectoryCLI.Commands
 
                     break;
 
+            }
+        }
+
+        public static void LogAndReset(string command)
+        {
+            FormatLogs formatLogs = new FormatLogs();
+
+            switch (command)
+            {
+                /*
+                   Casos específicos:
+
+                   'scan'
+                   'commands'
+                   'open-site' 
+
+                 */
+
+                //Log para o comando 'scan'
+                case "scan":
+
+                    formatLogs.ScanAndListLogs();
+                    formatLogs.UserAndMachineName();
+
+                    break;
+
+                //Log para o comando 'list'
+                case "list":
+
+                    formatLogs.ScanAndListLogs();
+                    formatLogs.UserAndMachineName();
+
+                    break;
+
+                //Log para o comando 'commands'
+                case "commands":
+
+                    formatLogs.CommandLog();
+                    formatLogs.UserAndMachineName();
+
+                    break;
+
+                //Log para o comando 'open-site'
+                case "open-site":
+
+                    formatLogs.SiteLog();
+                    formatLogs.UserAndMachineName();
+
+                    break;
+
+
+                //Log para os comandos de diretórios
+                default:
+
+                    if (Directory.Exists(command))
+                    {
+                        Console.WriteLine();
+                        formatLogs.DirectoryLog();
+                        formatLogs.UserAndMachineName();
+                    }
+
+                    else
+                    {
+                        formatLogs.TemplateCommandLog();
+                        formatLogs.UserAndMachineName();
+                    }
+
+                    break;
             }
         }
     }

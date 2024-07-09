@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DirectoryCLI.CommandStyles;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,13 +10,25 @@ namespace DirectoryCLI.Commands
 {
     internal class Scan : CommandsConfig
     {
-        public long Execute(string directory)
+        public static void Execute(string directory)
+        {
+
+            Console.Write("Tamanho do diretório: ");
+
+            colors.DarkGray();
+            Console.WriteLine(FormatBytes(Storage(directory)));
+            Console.WriteLine();
+
+            Colors.WhiteText();
+        }
+
+        private static long Storage(string directory)
         {
             long size = 0;
 
             string[] files = Directory.GetFiles(directory);
 
-            foreach(string file in files)
+            foreach (string file in files)
             {
                 size += new FileInfo(file).Length;
             }
@@ -24,26 +37,22 @@ namespace DirectoryCLI.Commands
 
             foreach (string folder in directories)
             {
-                size += Execute(folder);
+                size += Storage(folder);
             }
 
             return size;
         }
 
-        public string FormatBytes(long size)
+        private static string FormatBytes(long bytes)
         {
-            string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
+            if (bytes >= 0x1000000000000000) { return ((double)(bytes >> 50) / 1024).ToString("0.### EB"); }
+            if (bytes >= 0x4000000000000) { return ((double)(bytes >> 40) / 1024).ToString("0.### PB"); }
+            if (bytes >= 0x10000000000) { return ((double)(bytes >> 30) / 1024).ToString("0.### TB"); }
+            if (bytes >= 0x40000000) { return ((double)(bytes >> 20) / 1024).ToString("0.### GB"); }
+            if (bytes >= 0x100000) { return ((double)(bytes >> 10) / 1024).ToString("0.### MB"); }
+            if (bytes >= 0x400) { return ((double)(bytes) / 1024).ToString("0.###") + " KB"; }
 
-            int index = 0;
-
-            long bytes = size;
-
-            for (; bytes >= 1024 && index < suffixes.Length - 1; index++)
-            {
-                bytes /= 1024;
-            }
-
-            return $" {suffixes[index]}";
+            return bytes.ToString("0 Bytes");
         }
     }
 }

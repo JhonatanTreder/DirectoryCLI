@@ -1,4 +1,5 @@
-﻿using DirectoryCLI.Exceptions;
+﻿using DirectoryCLI.CommandStyles;
+using DirectoryCLI.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,24 +11,25 @@ namespace DirectoryCLI.Commands
 {
     internal class DeleteFolder : CommandsConfig
     {
-        public string DirectoryName { get; }
-        public DeleteFolder(string directoryName)
+        public static void Execute(FileInfo directoryPath, string[] arguments)
         {
-            DirectoryName = directoryName;
-        }
-        public void Execute(FileInfo directoryPath)
-        {
-            if (PathValidation(directoryPath) == true)
+            for (int i = 0; i <= arguments.Length - 3; i++)
             {
-                string fullPath = Path.Combine(directoryPath.FullName, DirectoryName);
-                Directory.Delete(fullPath, true);
-            }
+                try
+                {
+                    string fullPath = Path.Combine(directoryPath.FullName, arguments[2 + i]);
 
-            else
-            {
-                throw new DirectoryNotFoundException();
-            }
+                    Directory.Delete(fullPath, true);
 
+                    colors.Red();
+                    Console.WriteLine($"Pasta [{arguments[2 + i]}] deletada em [{arguments[0]}]");
+                }
+
+                catch 
+                {
+
+                }
+            }
         }
     }
 }

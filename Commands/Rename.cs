@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DirectoryCLI.CommandStyles;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,10 +15,13 @@ namespace DirectoryCLI.Commands
 
         }
 
-        public void Execute(FileInfo directoryPath, FileInfo name, FileInfo nameFinal)
+        public static void Execute(FileInfo directoryPath, string[] arguments)
         {
-            string namePath = Path.Combine(directoryPath.FullName, name.Name);
-            string finalNamePath = Path.Combine(directoryPath.FullName, nameFinal.Name);
+            string atualName = arguments[2];
+            string finalName = arguments[4];
+
+            string namePath = Path.Combine(directoryPath.FullName, atualName);
+            string finalNamePath = Path.Combine(directoryPath.FullName, finalName);
 
             if (Directory.Exists(namePath))
             {
@@ -28,6 +32,14 @@ namespace DirectoryCLI.Commands
             {
                 File.Move(namePath, finalNamePath);
             }
+
+            Colors.WhiteText();
+            Console.Write("Item:");
+
+            colors.DarkGray();
+
+            Console.WriteLine($" '{atualName}' renomeado para '{finalName}'.");
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DirectoryCLI.CommandStyles;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -10,14 +11,31 @@ namespace DirectoryCLI.Commands
 {
     internal class OpenSite : CommandsConfig
     {
-        public OpenSite() 
+
+        public static void Execute(string domain)
         {
-            
+            string url = "https://www." + domain + ".com";
+            Process.Start( new ProcessStartInfo(url) { UseShellExecute = true });
+
+            colors.Blue();
+            Console.Write("Abrindo: ");
+
+            Colors.WhiteText();
+            Console.WriteLine($"{FormatWord(domain)}");
+            Console.WriteLine();
         }
 
-        public void Execute(string domain)
+        static string FormatWord(string word)
         {
-            Process.Start("https://www." + domain + ".com");
+            string formatedWord = "";
+            formatedWord += char.ToUpper(word[0]);
+
+            for (int i = 1; i < word.Length; i++)
+            {
+                formatedWord += word[i];
+            }
+
+            return formatedWord;
         }
     }
 }
