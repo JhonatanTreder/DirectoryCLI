@@ -25,6 +25,7 @@ namespace DirectoryCLI.Commands
             {
                 try
                 {
+
                     FileInfo item = new FileInfo(arguments[i]);
                     FileInfo destiny = new FileInfo(arguments[arguments.Length - 1]);
 
@@ -34,9 +35,14 @@ namespace DirectoryCLI.Commands
                     //Variável para identificar se o usuário digitou outra coisa além de 'to'.
                     bool userArgument = arguments[arguments.Length - 2] != "to";
 
-                    if (userArgument && File.Exists(itemPath))
+                    if (userArgument)
                     {
                         throw new ArgumentException($"Erro ao tentar extrair um arquivo, '{arguments[arguments.Length - 2]}' não é um identificador válido: ");
+                    }
+
+                    else if (arguments[arguments.Length - 1] != "--here" && !Directory.Exists(destinyPath))
+                    {
+                        throw new ArgumentException($"Erro ao tentar extrair um arquivo, '{arguments[arguments.Length - 1]}' não é um identificador válido: ");
                     }
 
                     //-----------------------------------------------------------------------
@@ -46,9 +52,12 @@ namespace DirectoryCLI.Commands
 
                     //------------------------------------------------------------------------
 
+                    ZipFile.ExtractToDirectory(itemPath, destinyPath);
+
                     using (ZipArchive archive = ZipFile.OpenRead(itemPath))
                     {
                         Console.WriteLine("Extracted contents:");
+                        Console.WriteLine();
 
                         foreach (ZipArchiveEntry entry in archive.Entries)
                         {
@@ -57,19 +66,21 @@ namespace DirectoryCLI.Commands
                             {
                                 Console.Write("Folder:");
                                 colors.DarkGray();
-                                Console.WriteLine($" [{entry.FullName}]");
+
+                                Console.WriteLine($" [{entry.FullName.Remove(arguments.Length - 1)}]");
+                                Colors.WhiteText();
                             }
 
                             else
                             {
                                 Console.Write("File:");
                                 colors.DarkGray();
+
                                 Console.WriteLine($" [{entry.FullName}]");
+                                Colors.WhiteText();
                             }
                         }
                     }
-
-                    ZipFile.ExtractToDirectory(itemPath, destinyPath);
                 }
                 catch (InvalidDestinationPathException ex)
                 {
@@ -80,7 +91,17 @@ namespace DirectoryCLI.Commands
                     Console.WriteLine(ex.Message);
 
                 }
+                catch (IOException ex)
+                {
+                    colors.DarkRed();
+                    Console.Write("Erro ao extrair um arquivo: ");
+
+                    Colors.WhiteText();
+                    Console.WriteLine(ex.Message);
+                }
             }
+
+            Console.WriteLine();
         }
     }
 }

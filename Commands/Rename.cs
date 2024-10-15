@@ -17,29 +17,36 @@ namespace DirectoryCLI.Commands
 
         public static void Execute(FileInfo directoryPath, string[] arguments)
         {
-            string atualName = arguments[2];
-            string finalName = arguments[4];
-
-            string namePath = Path.Combine(directoryPath.FullName, atualName);
-            string finalNamePath = Path.Combine(directoryPath.FullName, finalName);
-
-            if (Directory.Exists(namePath))
+            try
             {
-                Directory.Move(namePath, finalNamePath);
+                string atualName = arguments[2];
+                string finalName = arguments[4];
+
+                string namePath = Path.Combine(directoryPath.FullName, atualName);
+                string finalNamePath = Path.Combine(directoryPath.FullName, finalName);
+
+                if (Directory.Exists(namePath))
+                {
+                    Directory.Move(namePath, finalNamePath);
+                }
+
+                else
+                {
+                    File.Move(namePath, finalNamePath);
+                }
+
+                Colors.WhiteText();
+                Console.Write("Item:");
+
+                colors.DarkGray();
+
+                Console.WriteLine($"'{atualName}' renomeado para '{finalName}'.");
             }
 
-            else
+            catch (FileNotFoundException ex)
             {
-                File.Move(namePath, finalNamePath);
+                Console.WriteLine(ex.Message);
             }
-
-            Colors.WhiteText();
-            Console.Write("Item:");
-
-            colors.DarkGray();
-
-            Console.WriteLine($" '{atualName}' renomeado para '{finalName}'.");
-
         }
     }
 }

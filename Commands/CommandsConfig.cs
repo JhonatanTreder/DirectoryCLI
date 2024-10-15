@@ -15,6 +15,7 @@ namespace DirectoryCLI.Commands
 
         public static Colors colors = new Colors();
 
+        public static FormatLogs formatLogs = new FormatLogs();
         public string DirectoryPath { get; set; }
 
         public static bool PathValidation(FileInfo path)
@@ -133,7 +134,7 @@ namespace DirectoryCLI.Commands
         public static void CommandValidation(string[] arguments)
         {
             string command;
-            
+
             switch (arguments.Length)
             {
                 case 1:
@@ -148,7 +149,7 @@ namespace DirectoryCLI.Commands
                         throw new ArgumentException($"Comando '{command}' inválido: ");
                     }
 
-                break;
+                    break;
 
                 case 2:
 
@@ -169,7 +170,7 @@ namespace DirectoryCLI.Commands
                         throw new ArgumentException($"Comando '{command}' inválido: ");
                     }
 
-                break;
+                    break;
 
                 default:
 
@@ -177,11 +178,11 @@ namespace DirectoryCLI.Commands
 
                     //Todos os comandos que usam diretórios
                     //(zip, rename, create-folder/file, delete-folder/file, extract, move, ct)
-                    bool directoryCommands = arguments[1] != "create-file" && arguments[1] != "zip" && arguments[1] != "extract" && arguments[1] != "delete-file" && arguments[1] != "create-folder" && arguments[1] != "delete-folder" && arguments[1] != "move" && arguments[1] != "rename" && arguments[1] != "dotnet" && arguments[1] != "open";
+                    bool directoryCommands = arguments[1] != "create-file" && arguments[1] != "zip" && arguments[1] != "extract" && arguments[1] != "delete-file" && arguments[1] != "create-folder" && arguments[1] != "delete-folder" && arguments[1] != "move" && arguments[1] != "rename" && arguments[0] != "dotnet" && arguments[1] != "open";
 
                     if (!Directory.Exists(arguments[0]))
                     {
-                        
+
                         if (directoryCommands)
                         {
                             throw new ArgumentException($"Comando '{command}' inválido: ");
@@ -200,7 +201,6 @@ namespace DirectoryCLI.Commands
 
         public static void LogAndReset(string command)
         {
-            FormatLogs formatLogs = new FormatLogs();
 
             switch (command)
             {
@@ -249,20 +249,25 @@ namespace DirectoryCLI.Commands
                 //Log para os comandos de diretórios
                 default:
 
-                    if (Directory.Exists(command))
-                    {
-                        Console.WriteLine();
-                        formatLogs.DirectoryLog();
-                        formatLogs.UserAndMachineName();
-                    }
-
-                    else
-                    {
-                        formatLogs.TemplateCommandLog();
-                        formatLogs.UserAndMachineName();
-                    }
+                    Console.WriteLine();
+                    formatLogs.DirectoryLog();
+                    formatLogs.UserAndMachineName();
 
                     break;
+            }
+        }
+
+        public static void LogAndReset(string command, string[] arguments)
+        {
+            switch (command) 
+            {
+
+                default:
+
+                    formatLogs.TemplateCommandLog();
+                    formatLogs.UserAndMachineName();
+
+                break;
             }
         }
     }

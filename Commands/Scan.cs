@@ -24,20 +24,45 @@ namespace DirectoryCLI.Commands
 
         private static long Storage(string directory)
         {
+           
             long size = 0;
 
             string[] files = Directory.GetFiles(directory);
 
             foreach (string file in files)
             {
-                size += new FileInfo(file).Length;
+
+                try
+                {
+                    if (file != "D:\\$RECYCLE.BIN\\")
+                    {
+                        size += new FileInfo(file).Length;
+                    }
+                }
+
+                catch (UnauthorizedAccessException ex)
+                {
+                    Console.WriteLine(ex);
+                }
             }
 
             string[] directories = Directory.GetDirectories(directory);
 
             foreach (string folder in directories)
             {
-                size += Storage(folder);
+
+                try
+                {
+                    if (folder != "D:\\$RECYCLE.BIN\\")
+                    {
+                        size += Storage(folder);
+                    }
+                }
+
+                catch (UnauthorizedAccessException ex)
+                {
+                    Console.WriteLine(ex);
+                }
             }
 
             return size;

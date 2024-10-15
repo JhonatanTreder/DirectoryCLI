@@ -1,0 +1,7 @@
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\obj\Debug\net8.0\Debug.csproj.AssemblyReference.cache
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\obj\Debug\net8.0\Debug.GeneratedMSBuildEditorConfig.editorconfig
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\obj\Debug\net8.0\Debug.AssemblyInfoInputs.cache
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\obj\Debug\net8.0\Debug.AssemblyInfo.cs
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\obj\Debug\net8.0\Debug.csproj.CoreCompileInputs.cache
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\obj\Debug\net8.0\Debug.MvcApplicationPartsAssemblyInfo.cs
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\obj\Debug\net8.0\Debug.MvcApplicationPartsAssemblyInfo.cache

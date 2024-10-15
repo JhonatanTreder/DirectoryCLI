@@ -32,6 +32,11 @@ namespace DirectoryCLI.Commands
                 System.Diagnostics.Process.Start(fullPath);
             }
 
+            else if (Directory.Exists(arguments[0]) && arguments[2] == "--this")
+            {
+                System.Diagnostics.Process.Start(directoryPath.FullName);
+            }
+
             //----------------------------------------------------------------------------------------
 
             //Lança uma exceção personalizada se isso não ocorrer

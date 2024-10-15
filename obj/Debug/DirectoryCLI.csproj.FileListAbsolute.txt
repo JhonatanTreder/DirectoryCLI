@@ -17,3 +17,17 @@ D:\[projetos]\directorycli\obj\Debug\DirectoryCLI.exe
 D:\[projetos]\directorycli\obj\Debug\DirectoryCLI.pdb
 D:\[PROJETOS]\DirectoryCLI\bin\Debug\CommandLine.dll
 D:\[PROJETOS]\DirectoryCLI\bin\Debug\CommandLine.xml
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\lib\win32\x86\git2-a418d9d.dll
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\lib\win32\x64\git2-a418d9d.dll
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\lib\win32\arm64\git2-a418d9d.dll
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\lib\linux-arm64\libgit2-a418d9d.so
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\lib\linux-arm\libgit2-a418d9d.so
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\lib\linux-musl-arm64\libgit2-a418d9d.so
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\lib\linux-musl-arm\libgit2-a418d9d.so
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\lib\linux-musl-x64\libgit2-a418d9d.so
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\lib\linux-x64\libgit2-a418d9d.so
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\lib\osx-arm64\libgit2-a418d9d.dylib
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\lib\osx-x64\libgit2-a418d9d.dylib
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\LibGit2Sharp.dll.config
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\LibGit2Sharp.dll
+D:\[PROJETOS]\DirectoryCLI\bin\Debug\LibGit2Sharp.xml

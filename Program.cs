@@ -76,15 +76,15 @@ namespace DirectoryCLI
 
                         default:
 
-                            if (arguments[0] == "dotnet")
+                            if (Directory.Exists(arguments[0]))
                             {
-                                command = arguments[0];
+                                command = arguments[1];
                                 Console.WriteLine();
                             }
 
                             else
                             {
-                                command = arguments[1];
+                                command = arguments[0];
                                 Console.WriteLine();
                             }
                             break;
@@ -100,7 +100,7 @@ namespace DirectoryCLI
 
                         //----------------------------------------------------------------------------------------
                         //Verificação do comando fornecido
-                        // CommandsConfig.CommandValidation(arguments);
+                        CommandsConfig.CommandValidation(arguments);
                         //----------------------------------------------------------------------------------------
 
                         //Essa variável do tipo "FileInfo" será usada apenas nos comandos que usam diretórios
@@ -148,7 +148,7 @@ namespace DirectoryCLI
                             case "open":
 
                                 Open.Execute(directoryPath, arguments);
-                                CommandsConfig.LogAndReset(command);
+                                CommandsConfig.LogAndReset(command, arguments);
 
                                 break;
 
@@ -245,65 +245,7 @@ namespace DirectoryCLI
                             //SYSTEM-INFO
                             case "system-info":
 
-                                Console.WriteLine("Informações do sistema: ");
-                                Console.WriteLine();
-
-                                //Nome do computador
-                                Console.Write("Nome do dispositivo: ");
-
-                                colors.DarkGray();
-                                Console.WriteLine($"{SystemInfo.DeviceName()}");
-                                Colors.WhiteText();
-                                //-----------------------------------------------
-
-                                //Versão
-                                Console.Write("Versão: ");
-
-                                colors.DarkGray();
-                                Console.WriteLine($"{SystemInfo.MachineVersion()}");
-                                Colors.WhiteText();
-                                //-----------------------------------------------
-
-                                //Processador
-                                Console.Write("Processador: ");
-
-                                colors.DarkGray();
-                                Console.WriteLine($"{SystemInfo.ProcessorName()}");
-                                Colors.WhiteText();
-                                //-----------------------------------------------
-
-                                //Memória RAM
-                                Console.Write("RAM instalada: ");
-
-                                colors.DarkGray();
-                                Console.WriteLine($"{SystemInfo.TotalRAM()}");
-                                Colors.WhiteText();
-                                //-----------------------------------------------
-
-                                //Placa de vídeo
-                                Console.Write("Placa de vídeo: ");
-
-                                colors.DarkGray();
-                                Console.WriteLine($"{SystemInfo.GraphicCard()}");
-                                Colors.WhiteText();
-                                //-----------------------------------------------
-
-                                //Armazenamento
-                                SystemInfo.Drive();
-
-                                Colors.WhiteText();
-                                //-----------------------------------------------
-
-                                //Tipo do sistema
-                                Console.Write("Tipo do sistema: ");
-
-                                colors.DarkGray();
-                                Console.WriteLine($"Sistema operacional de {SystemInfo.SystemType()}, {SystemInfo.ProcessorType()}");
-                                Colors.WhiteText();
-                                //-----------------------------------------------
-
-                                Console.WriteLine();
-
+                                SystemInfo.Execute();
                                 formatLogs.UserAndMachineName();
 
                                 break;

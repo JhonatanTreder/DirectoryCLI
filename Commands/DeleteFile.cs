@@ -12,12 +12,7 @@ namespace DirectoryCLI.Commands
 {
     internal class DeleteFile : CommandsConfig
     {
-        static  string ArchiveName { get; set; }
 
-        public DeleteFile(string archiveName)
-        {
-            ArchiveName = archiveName;
-        }
         public static void Execute(FileInfo directoryPath, string[] arguments)
         {
             for (int i = 0; i <= arguments.Length - 3; i++)
@@ -26,7 +21,7 @@ namespace DirectoryCLI.Commands
                 {
                     if (File.Exists(Path.Combine(directoryPath.FullName, arguments[2 + i])))
                     {
-                        string fullPath = Path.Combine(directoryPath.FullName, ArchiveName);
+                        string fullPath = Path.Combine(directoryPath.FullName, arguments[2 + i]);
                         File.Delete(fullPath);
 
                         colors.Red();

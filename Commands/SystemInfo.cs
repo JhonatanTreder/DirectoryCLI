@@ -14,6 +14,68 @@ namespace DirectoryCLI.Commands
 {
     internal class SystemInfo : CommandsConfig
     {
+
+        public static void Execute ()
+        {
+            Console.WriteLine("Informações do sistema: ");
+            Console.WriteLine();
+
+            //Nome do computador
+            Console.Write("Nome do dispositivo: ");
+
+            colors.DarkGray();
+            Console.WriteLine(DeviceName());
+            Colors.WhiteText();
+            //-----------------------------------------------
+
+            //Versão
+            Console.Write("Versão: ");
+
+            colors.DarkGray();
+            Console.WriteLine(MachineVersion());
+            Colors.WhiteText();
+            //-----------------------------------------------
+
+            //Processador
+            Console.Write("Processador: ");
+
+            colors.DarkGray();
+            Console.WriteLine(ProcessorName());
+            Colors.WhiteText();
+            //-----------------------------------------------
+
+            //Memória RAM
+            Console.Write("RAM instalada: ");
+
+            colors.DarkGray();
+            Console.WriteLine(TotalRAM());
+            Colors.WhiteText();
+            //-----------------------------------------------
+
+            //Placa de vídeo
+            Console.Write("Placa de vídeo: ");
+
+            colors.DarkGray();
+            Console.WriteLine(GraphicCard());
+            Colors.WhiteText();
+            //-----------------------------------------------
+
+            //Armazenamento
+            Drive();
+
+            Colors.WhiteText();
+            //-----------------------------------------------
+
+            //Tipo do sistema
+            Console.Write("Tipo do sistema: ");
+
+            colors.DarkGray();
+            Console.WriteLine($"Sistema operacional de {SystemType()}, {ProcessorType()}");
+            Colors.WhiteText();
+            //-----------------------------------------------
+
+            Console.WriteLine();
+        }
         public static string DeviceName()
         {
             using (var query = new ManagementObjectSearcher("SELECT CSName FROM Win32_OperatingSystem"))
@@ -172,7 +234,7 @@ namespace DirectoryCLI.Commands
                     Console.Write("Espaço disponível livre: ");
 
                     colors.DarkGray();
-                    Console.WriteLine($"{FormatBytes(drive.AvailableFreeSpace)}");
+                    Console.WriteLine(FormatBytes(drive.AvailableFreeSpace));
 
                     Colors.WhiteText();
                     Console.Write("Espaço total Livre: ");
