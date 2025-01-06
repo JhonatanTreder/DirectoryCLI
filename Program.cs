@@ -1,37 +1,40 @@
 ﻿using DirectoryCLI.Commands;
 using DirectoryCLI.CommandStyles;
 using DirectoryCLI.Exceptions;
-using System;
-using CommandLine;
-using System.Windows.Input;
-using System.Drawing;
-using System.Collections.Generic;
-using System.Diagnostics;
+using DirectoryCLI.Handlers;
+using DirectoryCLI.Interfaces;
 using System.IO;
-using System.Threading;
-using System.Xml.Linq;
-using Console = Colorful.Console;
-using System.ComponentModel;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
+using System.Runtime.Versioning;
+using System.Security;
+using System.Text;
+using System;
+using Console = Colorful.Console;
+
 namespace DirectoryCLI
 {
     internal class Program
     {//----------------------------------------------------------------------------------------
-
-        static void Main()
+        [SupportedOSPlatform("Linux")]
+        [SupportedOSPlatform("MacOS")]
+        [SupportedOSPlatform("Windows")]
+        static async Task Main()
         {
+            Console.Title = $"@Zenith - {Environment.CurrentDirectory}";
+
+            ILogHandler logHandler = new LogHandler();
+            IFileHandler fileHandler = new FileHandler();
+            ISystemHandler systemHandler = new SystemHandler();
+            ICommandHelper commandHelper = new CommandHelper();
+            ICommandValidator commandValidator = new CommandValidator();
+            IFolderHandler folderHandler = new FolderHandler(commandValidator, logHandler);
+            IDirectoryHandler directoryHandler = new DirectoryHandler(commandHelper, commandValidator, logHandler);
+
             Colors.BlackBG();
             Console.Clear();
+            logHandler.UserAndMachineName();
 
-
-            //Classe para formatar a CLI no final de cada comando
-            FormatLogs formatLogs = new FormatLogs();
-
-            //Classe para facilitar o acesso às cores
-            Colors colors = new Colors();
-
-            formatLogs.UserAndMachineName();
+            bool log = true;
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
@@ -43,68 +46,20 @@ namespace DirectoryCLI
                     //----------------------------------------------------------------------------------------
                     Colors.BlackBG();
                     Console.Write("$ ");
+
                     string[] arguments = Console.ReadLine().Split(' ');
-                    string command;
 
+                    arguments = commandHelper.RemoveNullOrEmpty(arguments);
+
+                    string command = commandHelper.AddCommand(arguments).ToLower();
+
+                    Console.WriteLine();
                     //----------------------------------------------------------------------------------------
-                    //Switch para atribuir qual é o comando para a variável "cmd"
-
-                    switch (arguments.Length)
-                    {
-                        case 2:
-
-                            if (arguments[1] == "scan" || arguments[1] == "list")
-                            {
-                                command = arguments[1];
-                                Console.WriteLine();
-                            }
-
-                            else
-                            {
-                                command = arguments[0];
-                                Console.WriteLine();
-                            }
-
-                            break;
-
-                        case 1:
-
-                            command = arguments[0];
-                            Console.WriteLine();
-
-                            break;
-
-                        default:
-
-                            if (Directory.Exists(arguments[0]))
-                            {
-                                command = arguments[1];
-                                Console.WriteLine();
-                            }
-
-                            else
-                            {
-                                command = arguments[0];
-                                Console.WriteLine();
-                            }
-                            break;
-
-                    }
 
                     try
                     {
-                        //----------------------------------------------------------------------------------------
                         //Verificação dos argumentos fornecidos
-                        CommandsConfig.ArgumentsValidation(arguments);
-                        //----------------------------------------------------------------------------------------
-
-                        //----------------------------------------------------------------------------------------
-                        //Verificação do comando fornecido
-                        CommandsConfig.CommandValidation(arguments);
-                        //----------------------------------------------------------------------------------------
-
-                        //Essa variável do tipo "FileInfo" será usada apenas nos comandos que usam diretórios
-                        FileInfo directoryPath = new FileInfo(arguments[0]);
+                        commandValidator.ArgumentsValidation(arguments);
 
                         //EXECUÇÃO DOS COMANDOS
                         switch (command)
@@ -114,124 +69,153 @@ namespace DirectoryCLI
                             //CREATE-FOLDER
                             case "create-folder":
 
-
-                                CreateFolder.Execute(directoryPath, arguments);
-                                CommandsConfig.LogAndReset(command);
+                                folderHandler.Create(arguments);
+                                logHandler.ShowLog(log, command);
 
                                 break;
 
                             //DELETE-FOLDER
                             case "delete-folder":
 
-                                DeleteFolder.Execute(directoryPath, arguments);
-                                CommandsConfig.LogAndReset(command);
+                                folderHandler.Delete(arguments);
+                                logHandler.ShowLog(log, command);
 
                                 break;
 
                             //CREATE-FILE
                             case "create-file":
 
-                                CreateFile.Execute(directoryPath, arguments);
-                                CommandsConfig.LogAndReset(command);
+                                fileHandler.Create(arguments);
+                                logHandler.ShowLog(log, command);
 
                                 break;
 
                             //DELETE-FILE
                             case "delete-file":
 
-                                DeleteFile.Execute(directoryPath, arguments);
-                                CommandsConfig.LogAndReset(command);
+                                fileHandler.Delete(arguments);
+                                logHandler.ShowLog(log, command);
 
                                 break;
 
                             //OPEN
                             case "open":
 
-                                Open.Execute(directoryPath, arguments);
-                                CommandsConfig.LogAndReset(command, arguments);
+                                directoryHandler.Open(arguments);
+                                logHandler.ShowLog(log, command);
 
                                 break;
 
                             //OPEN-SITE
                             case "open-site":
 
-
-                                OpenSite.Execute(arguments[1]);
-                                CommandsConfig.LogAndReset(command);
+                                await systemHandler.OpenSite(arguments[1]);
+                                logHandler.ShowLog(log, command);
 
                                 break;
 
                             //SCAN
                             case "scan":
 
-                                Scan.Execute(arguments[0]);
-                                CommandsConfig.LogAndReset(command);
-
-                                break;
-
-                            //COMMANDS
-                            case "commands":
-
-                                CommandsInfo.Execute();
-                                CommandsConfig.LogAndReset(command);
-
-                                break;
-
-                            //CMD-SINTAXE
-                            case "commands-sintaxe":
-
-                                CommandsInfo.CommandSintaxe();
-                                CommandsConfig.LogAndReset(command);
+                                directoryHandler.ScanSize(arguments[0]);
+                                logHandler.ShowLog(log, command);
 
                                 break;
 
                             //LIST
                             case "list":
 
-                                DirectoryList.Execute(arguments[0]);
-                                CommandsConfig.LogAndReset(command);
+                                directoryHandler.ListItems(arguments);
+                                logHandler.ShowLog(log, command);
 
                                 break;
 
                             //MOVE
                             case "move":
 
-                                Move.Execute(directoryPath, command, arguments);
-                                CommandsConfig.LogAndReset(command);
+                                directoryHandler.MoveItem(arguments);
+                                logHandler.ShowLog(log, command);
 
                                 break;
 
                             //EXTRACT
                             case "extract":
 
-                                Extract.Execute(directoryPath, command, arguments);
-                                CommandsConfig.LogAndReset(command);
+                                directoryHandler.ExtractZipFile(arguments);
+                                logHandler.ShowLog(log, command);
 
                                 break;
 
                             //ZIP
                             case "zip":
 
-                                Zip.Execute(directoryPath, command, arguments);
-                                CommandsConfig.LogAndReset(command);
-
+                                directoryHandler.ZipItem(arguments);
+                                logHandler.ShowLog(log, command);
                                 break;
 
                             //RENAME
                             case "rename":
 
-                                Rename.Execute(directoryPath, arguments);
-                                CommandsConfig.LogAndReset(command);
+                                directoryHandler.Rename(arguments);
+                                logHandler.ShowLog(log, command);
 
                                 break;
-                            //----------------------------------------------------------------------------------------
-                            //Comandos simples
+
+                            case "del-files":
+
+                                fileHandler.DeleteAllFiles(arguments);
+                                logHandler.ShowLog(log, command);
+
+                                break;
+
+                            //DEL-FOLDERS
+                            case "del-folders":
+
+                                folderHandler.DeleteSubdirectories(arguments[0]);
+                                logHandler.ShowLog(log, command);
+
+                                break;
+
+                            case "log-off":
+
+                                if (log == false)
+                                {
+                                    Console.WriteLine("Os logs já estão desativados.");
+                                }
+
+                                else
+                                {
+                                    log = false;
+                                    Console.WriteLine("Logs desativados.");
+                                }
+
+                                logHandler.LogCommand(command);
+
+                                break;
+
+
+                            case "log-on":
+
+                                if (log == true)
+                                {
+                                    Console.WriteLine("Os logs já estão ativados.");
+                                }
+
+                                else
+                                {
+                                    log = true;
+                                    Console.WriteLine("Logs ativados");
+                                }
+
+                                logHandler.ShowLog(log, command);
+
+                                break;
 
                             //CLEAR
                             case "clear":
 
                                 Console.Clear();
-                                formatLogs.UserAndMachineName();
+                                logHandler.UserAndMachineName();
 
                                 break;
 
@@ -245,18 +229,34 @@ namespace DirectoryCLI
                             //SYSTEM-INFO
                             case "system-info":
 
-                                SystemInfo.Execute();
-                                formatLogs.UserAndMachineName();
+                                systemHandler.SystemInfo();
+                                logHandler.ShowLog(log, command);
 
                                 break;
 
+                            //COMMANDS
+                            case "commands":
 
+                                CommandsInfo.Commands();
+                                logHandler.ShowLog(log, command);
 
-                            //CREATE-TEMPLATE
+                                break;
+
+                            //CMD-SINTAXE
+                            case "commands-sintaxe":
+
+                                CommandsInfo.CommandSintaxe();
+                                logHandler.ShowLog(log, command);
+
+                                break;
+
                             default:
 
-                                CreateTemplate.Execute(arguments);
-                                CommandsConfig.LogAndReset(command);
+                                if (arguments[0] == "dotnet" || arguments[0] == "docker" || arguments[0] == "git")
+                                {
+                                    CommandsTemplate.ExecuteCommandTemplate(arguments);
+                                    logHandler.ShowLog(log, command);
+                                }
 
                                 break;
                                 //----------------------------------------------------------------------------------------
@@ -267,135 +267,132 @@ namespace DirectoryCLI
                     //----------------------------------------------------------------------------------------
                     //Tratando exceções
 
-                    //Quando o programa não encontra um diretório
-                    catch (DirectoryNotFoundException)
+                    //Quando os logs estão desativados os logs de erros aparecem mesmo assim
+                    //(talvez não era para isso acontecer)
+
+                    catch (FormatException ex)
                     {
-                        colors.DarkRed();
-
-                        Console.WriteLine($"Diretório '{arguments[0]}' não encontrado!");
-                        Colors.WhiteText();
-                        Console.WriteLine();
-
-                        formatLogs.UserAndMachineName();
+                        logHandler.LogError(ex, log);
                     }
 
-                    //Quando o prorama não encontra algo para abrir
-                    catch (OpenCommandException ex)
-                    {
-                        colors.DarkRed();
-                        Console.Write(ex.Message);
-                        Colors.WhiteText();
-
-                        Console.WriteLine($"O item '{arguments[2]}' não existe neste diretório.");
-
-                        CommandsConfig.LogAndReset(command);
-                    }
                     catch (ArgumentException ex)
                     {
-                        colors.DarkRed();
-
-                        Console.Write(ex.Message);
-
-                        Colors.WhiteText();
-                        Console.WriteLine("Escreva 'commands' para ver a lista de comandos ou 'commands-sintaxe' para ver a sua sintaxe.");
-                        Colors.WhiteText();
-
-                        Console.WriteLine();
-
-                        formatLogs.UserAndMachineName();
+                        logHandler.LogError(ex, log);
                     }
+
+                    catch (FileNotFoundException ex)
+                    {
+                        logHandler.LogError(ex, log);
+                    }
+
+                    catch (DirectoryNotFoundException ex)
+                    {
+                        logHandler.LogError(ex, log);
+                    }
+
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        logHandler.LogError(ex, log);
+                    }
+
+                    catch (PlatformNotSupportedException ex)
+                    {
+                        logHandler.LogError(ex, log);
+                    }
+
+                    catch (SecurityException ex)
+                    {
+                        logHandler.LogError(ex, log);
+                    }
+
+                    catch (IOException ex)
+                    {
+                        logHandler.LogError(ex, log);
+                    }
+
+                    catch (Exception ex)
+                    {
+                        logHandler.LogError(ex, log);
+                    }
+
                     //----------------------------------------------------------------------------------------
                 }
             }
-
             //-------------------------------------------------LINUX-PLATFORM----------------------------------------------------------------------------------------------
             //-----------------------------------------------------------------------------------------------------------------------------------------------
 
             //Plataforma Linux
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                //----------------------------------------------------------------------------------------
                 Colors.BlackBG();
+                Console.Write("$ ");
 
                 string[] arguments = Console.ReadLine().Split(' ');
-                string command;
 
-                //----------------------------------------------------------------------------------------
-                //Switch para atribuir qual é o comando para a variável "cmd"
-                while (true)
+                arguments = commandHelper.RemoveNullOrEmpty(arguments);
+
+                string command = commandHelper.AddCommand(arguments).ToLower();
+
+                Console.WriteLine();
+
+                try
                 {
-                    switch (arguments.Length)
+                    //Verificação dos argumentos fornecidos
+                    commandValidator.ArgumentsValidation(arguments);
+
+                    switch (command)
                     {
-                        case 2:
+                        case "-c-sd":
 
-                            if (arguments[1] == "scan" || arguments[1] == "list")
-                            {
-                                command = arguments[1];
-                                Console.WriteLine();
-                            }
-
-                            else
-                            {
-                                command = arguments[0];
-                                Console.WriteLine();
-                            }
+                            folderHandler.Create(arguments);
+                            logHandler.LogCommand(command);
 
                             break;
 
-                        case 1:
+                        case "-d-sd":
 
-                            command = arguments[0];
+                            folderHandler.Delete(arguments);
+                            logHandler.LogCommand(command);
 
                             break;
-
-                        default:
-
-                            if (arguments[0] == "ct")
-                            {
-                                command = arguments[0];
-                                Console.WriteLine();
-                            }
-
-                            else
-                            {
-                                command = arguments[1];
-                                Console.WriteLine();
-                            }
-                            break;
-
                     }
+                }
+                catch (FormatException ex)
+                {
+                    logHandler.LogError(ex, log);
+                }
+                catch (ArgumentException ex)
+                {
+                    logHandler.LogError(ex, log);
+                }
+                catch (FileNotFoundException ex)
+                {
+                    logHandler.LogError(ex, log);
+                }
+                catch (DirectoryNotFoundException ex)
+                {
+                    logHandler.LogError(ex, log);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    logHandler.LogError(ex, log);
+                }
+                catch (PlatformNotSupportedException ex)
+                {
+                    logHandler.LogError(ex, log);
+                }
 
-                    try
-                    {
-                        //Essa variável do tipo "FileInfo" será usada apenas nos comandos que usam diretórios
-                        FileInfo directoryPath = new FileInfo(arguments[0]);
-                        //----------------------------------------------------------------------------------------
-                        //Verificação dos argumentos fornecidos
-                        CommandsConfig.ArgumentsValidation(arguments);
-                        //----------------------------------------------------------------------------------------
-
-                        switch (command)
-                        {
-
-                            case "-c-sd":
-
-                                CreateFolder.Execute(directoryPath, arguments);
-                                CommandsConfig.LogAndReset(command);
-
-                                break;
-
-                            case "-d-sd":
-
-                                DeleteFolder.Execute(directoryPath, arguments);
-                                CommandsConfig.LogAndReset(command);
-
-                                break;
-                        }
-                    }
-                    catch (Exception)
-                    {
-
-                    }
+                catch (SecurityException ex)
+                {
+                    logHandler.LogError(ex, log);
+                }
+                catch (IOException ex)
+                {
+                    logHandler.LogError(ex, log);
+                }
+                catch (Exception ex)
+                {
+                    logHandler.LogError(ex, log);
                 }
             }
         }
