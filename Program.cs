@@ -1,6 +1,4 @@
-﻿using DirectoryCLI.Commands;
-using DirectoryCLI.CommandStyles;
-using DirectoryCLI.Exceptions;
+﻿using DirectoryCLI.CommandStyles;
 using DirectoryCLI.Handlers;
 using DirectoryCLI.Interfaces;
 using System.IO;
@@ -14,20 +12,24 @@ using Console = Colorful.Console;
 namespace DirectoryCLI
 {
     internal class Program
-    {//----------------------------------------------------------------------------------------
+    {
+        //----------------------------------------------------------------------------------------
+        //Plataformas suportadas
         [SupportedOSPlatform("Linux")]
         [SupportedOSPlatform("MacOS")]
         [SupportedOSPlatform("Windows")]
+        //--------------------------------
         static async Task Main()
         {
             Console.Title = $"@Zenith - {Environment.CurrentDirectory}";
 
+            //Instanciando os Handlers
             ILogHandler logHandler = new LogHandler();
-            IFileHandler fileHandler = new FileHandler();
+            IFileSystemHandler fileHandler = new FileHandler(logHandler);
             ISystemHandler systemHandler = new SystemHandler();
             ICommandHelper commandHelper = new CommandHelper();
             ICommandValidator commandValidator = new CommandValidator();
-            IFolderHandler folderHandler = new FolderHandler(commandValidator, logHandler);
+            IFileSystemHandler folderHandler = new FolderHandler(commandValidator, logHandler);
             IDirectoryHandler directoryHandler = new DirectoryHandler(commandHelper, commandValidator, logHandler);
 
             Colors.BlackBG();
@@ -43,23 +45,27 @@ namespace DirectoryCLI
 
                 while (true)
                 {
-                    //----------------------------------------------------------------------------------------
                     Colors.BlackBG();
                     Console.Write("$ ");
 
+                    //--------------------------------------------------------------
+                    //Atribuindo o comando e melhorando a leitura dos argumentos
+                    //(mesmo se forem separados por mais de um espaço)
                     string[] arguments = Console.ReadLine().Split(' ');
-
                     arguments = commandHelper.RemoveNullOrEmpty(arguments);
-
                     string command = commandHelper.AddCommand(arguments).ToLower();
+                    //---------------------------------------------------------------
 
                     Console.WriteLine();
-                    //----------------------------------------------------------------------------------------
 
                     try
                     {
+                        if (commandValidator.ArgumentsValidation(arguments, command) == false)
+                        {
+                            command = "none";
+                        }
                         //Verificação dos argumentos fornecidos
-                        commandValidator.ArgumentsValidation(arguments);
+
 
                         //EXECUÇÃO DOS COMANDOS
                         switch (command)
@@ -70,7 +76,7 @@ namespace DirectoryCLI
                             case "create-folder":
 
                                 folderHandler.Create(arguments);
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
@@ -78,7 +84,7 @@ namespace DirectoryCLI
                             case "delete-folder":
 
                                 folderHandler.Delete(arguments);
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
@@ -86,7 +92,7 @@ namespace DirectoryCLI
                             case "create-file":
 
                                 fileHandler.Create(arguments);
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
@@ -94,7 +100,7 @@ namespace DirectoryCLI
                             case "delete-file":
 
                                 fileHandler.Delete(arguments);
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
@@ -102,7 +108,7 @@ namespace DirectoryCLI
                             case "open":
 
                                 directoryHandler.Open(arguments);
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
@@ -110,7 +116,7 @@ namespace DirectoryCLI
                             case "open-site":
 
                                 await systemHandler.OpenSite(arguments[1]);
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
@@ -118,7 +124,7 @@ namespace DirectoryCLI
                             case "scan":
 
                                 directoryHandler.ScanSize(arguments[0]);
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
@@ -126,7 +132,7 @@ namespace DirectoryCLI
                             case "list":
 
                                 directoryHandler.ListItems(arguments);
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
@@ -134,7 +140,7 @@ namespace DirectoryCLI
                             case "move":
 
                                 directoryHandler.MoveItem(arguments);
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
@@ -142,7 +148,7 @@ namespace DirectoryCLI
                             case "extract":
 
                                 directoryHandler.ExtractZipFile(arguments);
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
@@ -150,29 +156,29 @@ namespace DirectoryCLI
                             case "zip":
 
                                 directoryHandler.ZipItem(arguments);
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
                                 break;
 
                             //RENAME
                             case "rename":
 
                                 directoryHandler.Rename(arguments);
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
                             case "del-files":
 
-                                fileHandler.DeleteAllFiles(arguments);
-                                logHandler.ShowLog(log, command);
+                                fileHandler.DeleteRecursive(arguments);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
                             //DEL-FOLDERS
                             case "del-folders":
 
-                                folderHandler.DeleteSubdirectories(arguments[0]);
-                                logHandler.ShowLog(log, command);
+                                folderHandler.DeleteRecursive(arguments);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
@@ -199,15 +205,17 @@ namespace DirectoryCLI
                                 if (log == true)
                                 {
                                     Console.WriteLine("Os logs já estão ativados.");
+                                    Console.WriteLine();
                                 }
 
                                 else
                                 {
                                     log = true;
                                     Console.WriteLine("Logs ativados");
+                                    Console.WriteLine();
                                 }
 
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
@@ -230,33 +238,44 @@ namespace DirectoryCLI
                             case "system-info":
 
                                 systemHandler.SystemInfo();
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
                             //COMMANDS
-                            case "commands":
+                            case "cmds":
 
                                 CommandsInfo.Commands();
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
                             //CMD-SINTAXE
-                            case "commands-sintaxe":
+                            case "cmds-sintaxe":
 
                                 CommandsInfo.CommandSintaxe();
-                                logHandler.ShowLog(log, command);
+                                logHandler.ShowLog(command, log);
 
                                 break;
 
+                            case "dir-cmds":
+
+                                CommandsInfo.DirectoryCommands();
+                                logHandler.ShowLog(command, log);
+
+                                break;
+
+
                             default:
 
-                                if (arguments[0] == "dotnet" || arguments[0] == "docker" || arguments[0] == "git")
+                                if ((string.IsNullOrEmpty(command) || (Directory.Exists(arguments[0]) && command == "none")))
                                 {
-                                    CommandsTemplate.ExecuteCommandTemplate(arguments);
-                                    logHandler.ShowLog(log, command);
+                                    logHandler.ShowLog(command, log);
+                                    break;
                                 }
+
+                                SystemHandler.ExecCommand(arguments);
+                                logHandler.ShowLog(command, log);
 
                                 break;
                                 //----------------------------------------------------------------------------------------
@@ -269,46 +288,6 @@ namespace DirectoryCLI
 
                     //Quando os logs estão desativados os logs de erros aparecem mesmo assim
                     //(talvez não era para isso acontecer)
-
-                    catch (FormatException ex)
-                    {
-                        logHandler.LogError(ex, log);
-                    }
-
-                    catch (ArgumentException ex)
-                    {
-                        logHandler.LogError(ex, log);
-                    }
-
-                    catch (FileNotFoundException ex)
-                    {
-                        logHandler.LogError(ex, log);
-                    }
-
-                    catch (DirectoryNotFoundException ex)
-                    {
-                        logHandler.LogError(ex, log);
-                    }
-
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        logHandler.LogError(ex, log);
-                    }
-
-                    catch (PlatformNotSupportedException ex)
-                    {
-                        logHandler.LogError(ex, log);
-                    }
-
-                    catch (SecurityException ex)
-                    {
-                        logHandler.LogError(ex, log);
-                    }
-
-                    catch (IOException ex)
-                    {
-                        logHandler.LogError(ex, log);
-                    }
 
                     catch (Exception ex)
                     {
@@ -338,7 +317,7 @@ namespace DirectoryCLI
                 try
                 {
                     //Verificação dos argumentos fornecidos
-                    commandValidator.ArgumentsValidation(arguments);
+                    commandValidator.ArgumentsValidation(arguments, command);
 
                     switch (command)
                     {
@@ -356,39 +335,6 @@ namespace DirectoryCLI
 
                             break;
                     }
-                }
-                catch (FormatException ex)
-                {
-                    logHandler.LogError(ex, log);
-                }
-                catch (ArgumentException ex)
-                {
-                    logHandler.LogError(ex, log);
-                }
-                catch (FileNotFoundException ex)
-                {
-                    logHandler.LogError(ex, log);
-                }
-                catch (DirectoryNotFoundException ex)
-                {
-                    logHandler.LogError(ex, log);
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    logHandler.LogError(ex, log);
-                }
-                catch (PlatformNotSupportedException ex)
-                {
-                    logHandler.LogError(ex, log);
-                }
-
-                catch (SecurityException ex)
-                {
-                    logHandler.LogError(ex, log);
-                }
-                catch (IOException ex)
-                {
-                    logHandler.LogError(ex, log);
                 }
                 catch (Exception ex)
                 {

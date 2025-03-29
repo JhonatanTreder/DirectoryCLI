@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DirectoryCLI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0275d0308227871e658b2ba97fddddef0a6fa4a8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+143467c8c47904833b543f9a470360a82f338ccc")]
 [assembly: System.Reflection.AssemblyProductAttribute("DirectoryCLI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DirectoryCLI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

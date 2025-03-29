@@ -10,7 +10,7 @@ namespace DirectoryCLI.Handlers
 {
     internal class LogHandler : ILogHandler
     {
-
+        //Método para gerenciar o tipo de log de cada comando.
         public void LogCommand(string command)
         {
 
@@ -49,18 +49,28 @@ namespace DirectoryCLI.Handlers
 
                     break;
 
+                case "exec":
+
+                    CLICommands();
+
+                    break;
+
                 //Log para os comandos de diretórios
                 default:
 
-                    DirectoryLog();
+                    if (command != "none")
+                    {
+                        DirectoryLog();
+                    }
 
                     break;
             }
         }
 
-        public void ShowLog(bool log, string command)
+        //Método para mostrar log de comando.
+        public void ShowLog(string command, bool log)
         {
-            if (log == true)
+            if (log == true && !string.IsNullOrEmpty(command))
             {
                 LogCommand(command);
             }
@@ -68,13 +78,14 @@ namespace DirectoryCLI.Handlers
             UserAndMachineName();
         }
 
+        //Método para mostrar log de erro
         public void LogError(Exception ex, bool log)
         {
             if (log == true) 
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine();
-                Console.WriteLine($"Usage error: [{ex.GetType().Name}]");
+                Console.WriteLine($"Usage error: [{ex.GetType()}]");
                 UserAndMachineName();
             }
 
@@ -83,9 +94,9 @@ namespace DirectoryCLI.Handlers
                 UserAndMachineName();
                 return;
             }
-
         }
 
+        //Método para renderizar o nome do usuário e da máquina.
         public void UserAndMachineName()
         {
             Colors.WhiteText();
@@ -98,35 +109,41 @@ namespace DirectoryCLI.Handlers
             Colors.WhiteText();
         }
 
-        public void DirectoryLog()
+        //Log de comandos que usam diretório.
+        private void DirectoryLog()
         {
             Colors.WhiteText();
             Console.WriteLine("Usage: [directory] [command] [parameters]");
         }
 
-        public void SiteLog()
+        //Log do comando 'open-site'.
+        private void SiteLog()
         {
             Console.WriteLine("Usage: [command] [site/domain name]");
             Colors.WhiteText();
         }
 
-        public void ScanAndListLogs()
+        //Log dos comandos 'scan' e 'list'.
+        private void ScanAndListLogs()
         {
             Console.WriteLine("Usage: [directory] [command]");
         }
 
+        //Log para comandos de CLI.
         public void CommandLog()
         {
             Console.WriteLine("Usage: [command]");
         }
 
-        public void TemplateCommandLog()
+        public void CLICommands()
         {
-            Console.WriteLine("Usage: [command] [action] [parameters]");
+            Console.WriteLine("Usage: <exec> [command] [arguments...]");
         }
 
+        //Método para mostrar a saída de um comando em uma tabela.
         public void ShowResult(string title, HashSet<string> items)
         {
+            //Uso do 'OutputEncoding' para garantir a renderização correta da tabela.
             Console.OutputEncoding = Encoding.UTF8;
 
             ICommandHelper commandHelper = new CommandHelper();

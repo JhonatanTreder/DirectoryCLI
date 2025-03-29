@@ -2,7 +2,7 @@
 {
     internal interface ICommandValidator
     {
-        void ArgumentsValidation(string[] arguments);
+        bool ArgumentsValidation(string[] arguments, string command);
         bool IsValidZipCommand(string[] arguments);
         bool IsValidListCommand(string[] arguments);
         bool IsValidOpenCommand(string parameter);

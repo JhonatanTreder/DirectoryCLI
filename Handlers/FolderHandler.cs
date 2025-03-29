@@ -2,20 +2,22 @@
 
 namespace DirectoryCLI.Handlers
 {
-    internal class FolderHandler : IFolderHandler
+    internal class FolderHandler : IFileSystemHandler
     {
-        ICommandValidator CommandValidator;
+        //Injeção de dependência por meio do construtor.
+
         ILogHandler LogHandler;
+        //-----------------------------------------------------------------------------
 
         public FolderHandler(ICommandValidator commandValidator, ILogHandler logHandler)
         {
-            CommandValidator = commandValidator;
             LogHandler = logHandler;
         }
+        //-----------------------------------------------------------------------
 
+        //Comando 'create-folder'.
         public void Create(string[] arguments)
         {
-
             HashSet<string> folders = new HashSet<string>();
             HashSet<string> existingFile = new HashSet<string>();
             HashSet<string> existingFolder = new HashSet<string>();
@@ -48,6 +50,7 @@ namespace DirectoryCLI.Handlers
             LogHandler.ShowResult($" Arquivos com o mesmo nome de pastas", existingFile);
         }
 
+        //Comando 'delete-folder'.
         public void Delete(string[] arguments)
         {
 
@@ -63,6 +66,12 @@ namespace DirectoryCLI.Handlers
 
                 try
                 {
+                    if (arguments[2] == "-p")
+                    {
+                        string[] directories = Directory.GetDirectories(directoryPath.FullName);
+                        int index = int.Parse(arguments[3 + i]);
+                    }
+
                     if (Directory.Exists(fullPath))
                     {
                         Directory.Delete(fullPath, true);
@@ -71,13 +80,8 @@ namespace DirectoryCLI.Handlers
 
                     else
                     {
-                        throw new DirectoryNotFoundException();
+                      nonExistingFolders.Add(fullPath);
                     }
-                }
-
-                catch (DirectoryNotFoundException)
-                {
-                    nonExistingFolders.Add(fullPath);
                 }
                 catch (UnauthorizedAccessException)
                 {
@@ -90,10 +94,11 @@ namespace DirectoryCLI.Handlers
             LogHandler.ShowResult("Pastas com problemas de permissão", unauthorizedFolders);
         }
 
-        public void DeleteSubdirectories(string directory)
+        //Comando 'del-folders'.
+        public void DeleteRecursive(string[] arguments)
         {
 
-            string[] directories = Directory.GetDirectories(directory);
+            string[] directories = Directory.GetDirectories(arguments[0]);
 
             HashSet<string> folders = new HashSet<string>();
             HashSet<string> unauthorizedFolders = new HashSet<string>();
@@ -109,6 +114,7 @@ namespace DirectoryCLI.Handlers
                         Directory.Delete(dir, true);
                         folders.Add(dir);
                     }
+
                     catch (UnauthorizedAccessException)
                     {
                         unauthorizedFolders.Add(dir);
@@ -124,6 +130,11 @@ namespace DirectoryCLI.Handlers
                 Console.WriteLine("Não existe pastas para serem deletadas neste diretório");
                 Console.WriteLine();
             }
+        }
+
+        public void DeleteInPosition(string[] arguments)
+        {
+
         }
     }
 }

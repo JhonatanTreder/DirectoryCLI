@@ -1,26 +1,38 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\[PROJETOS]\\DirectoryCLI\\",
+  "WorkspaceRootPath": "D:\\Projetos\\DirectoryCLI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\handlers\\commandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|solutionrelative:handlers\\commandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|d:\\projetos\\directorycli\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\commands\\commandstemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|solutionrelative:commands\\commandstemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\handlers\\directoryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|d:\\projetos\\directorycli\\handlers\\directoryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|solutionrelative:handlers\\directoryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|d:\\[projetos]\\directorycli\\handlers\\filehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|solutionrelative:handlers\\filehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|d:\\projetos\\directorycli\\handlers\\loghandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|solutionrelative:handlers\\loghandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|d:\\projetos\\directorycli\\interfaces\\iloghandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|solutionrelative:interfaces\\iloghandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|d:\\projetos\\directorycli\\handlers\\systemhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|solutionrelative:handlers\\systemhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|d:\\projetos\\directorycli\\handlers\\commandhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|solutionrelative:handlers\\commandhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|d:\\projetos\\directorycli\\handlers\\commandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|solutionrelative:handlers\\commandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|d:\\projetos\\directorycli\\handlers\\commandsinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64D35457-D67E-46A9-B869-7FB3C1F8C09D}|DirectoryCLI.csproj|solutionrelative:handlers\\commandsinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,24 +42,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 14,
+          "SelectedChildIndex": 17,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1a46fd64-28d5-434c-8eb3-17a02d419b53}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CommandsTemplate.cs",
-              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CommandsTemplate.cs",
-              "RelativeDocumentMoniker": "Commands\\CommandsTemplate.cs",
-              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Commands\\CommandsTemplate.cs",
-              "RelativeToolTip": "Commands\\CommandsTemplate.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T20:11:27.249Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -60,14 +59,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Bookmark",
@@ -87,56 +78,107 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FileHandler.cs",
-              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Handlers\\FileHandler.cs",
-              "RelativeDocumentMoniker": "Handlers\\FileHandler.cs",
-              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Handlers\\FileHandler.cs",
-              "RelativeToolTip": "Handlers\\FileHandler.cs",
-              "ViewState": "AgIAAJoAAAAAAAAAAAAAAG4AAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T17:52:41.035Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "DirectoryHandler.cs",
-              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Handlers\\DirectoryHandler.cs",
-              "RelativeDocumentMoniker": "Handlers\\DirectoryHandler.cs",
-              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Handlers\\DirectoryHandler.cs",
-              "RelativeToolTip": "Handlers\\DirectoryHandler.cs",
-              "ViewState": "AgIAALECAAAAAAAAAAAiwMECAAAAAAAAAAAAAA==",
+              "Title": "ILogHandler.cs",
+              "DocumentMoniker": "D:\\Projetos\\DirectoryCLI\\Interfaces\\ILogHandler.cs",
+              "RelativeDocumentMoniker": "Interfaces\\ILogHandler.cs",
+              "ToolTip": "D:\\Projetos\\DirectoryCLI\\Interfaces\\ILogHandler.cs",
+              "RelativeToolTip": "Interfaces\\ILogHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T17:50:59.708Z"
+              "WhenOpened": "2025-02-14T23:21:27.661Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CommandValidator.cs",
-              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Handlers\\CommandValidator.cs",
-              "RelativeDocumentMoniker": "Handlers\\CommandValidator.cs",
-              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Handlers\\CommandValidator.cs",
-              "RelativeToolTip": "Handlers\\CommandValidator.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAAAEAAAAAcAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "LogHandler.cs",
+              "DocumentMoniker": "D:\\Projetos\\DirectoryCLI\\Handlers\\LogHandler.cs",
+              "RelativeDocumentMoniker": "Handlers\\LogHandler.cs",
+              "ToolTip": "D:\\Projetos\\DirectoryCLI\\Handlers\\LogHandler.cs",
+              "RelativeToolTip": "Handlers\\LogHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFYAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T17:44:56.417Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-14T23:19:56.901Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\[PROJETOS]\\DirectoryCLI\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\[PROJETOS]\\DirectoryCLI\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAOoAAAAAAAAAAAAAAP4AAAByAAAAAAAAAA==",
+              "Title": "DirectoryHandler.cs",
+              "DocumentMoniker": "D:\\Projetos\\DirectoryCLI\\Handlers\\DirectoryHandler.cs",
+              "RelativeDocumentMoniker": "Handlers\\DirectoryHandler.cs",
+              "ToolTip": "D:\\Projetos\\DirectoryCLI\\Handlers\\DirectoryHandler.cs",
+              "RelativeToolTip": "Handlers\\DirectoryHandler.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAtwDYAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T02:03:28.016Z",
+              "WhenOpened": "2025-02-14T22:08:36.2Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CommandsInfo.cs",
+              "DocumentMoniker": "D:\\Projetos\\DirectoryCLI\\Handlers\\CommandsInfo.cs",
+              "RelativeDocumentMoniker": "Handlers\\CommandsInfo.cs",
+              "ToolTip": "D:\\Projetos\\DirectoryCLI\\Handlers\\CommandsInfo.cs",
+              "RelativeToolTip": "Handlers\\CommandsInfo.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAAADEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T22:05:23.651Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CommandValidator.cs",
+              "DocumentMoniker": "D:\\Projetos\\DirectoryCLI\\Handlers\\CommandValidator.cs",
+              "RelativeDocumentMoniker": "Handlers\\CommandValidator.cs",
+              "ToolTip": "D:\\Projetos\\DirectoryCLI\\Handlers\\CommandValidator.cs",
+              "RelativeToolTip": "Handlers\\CommandValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T22:05:22.956Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CommandHelper.cs",
+              "DocumentMoniker": "D:\\Projetos\\DirectoryCLI\\Handlers\\CommandHelper.cs",
+              "RelativeDocumentMoniker": "Handlers\\CommandHelper.cs",
+              "ToolTip": "D:\\Projetos\\DirectoryCLI\\Handlers\\CommandHelper.cs",
+              "RelativeToolTip": "Handlers\\CommandHelper.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAvwDAAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T22:04:49.6Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SystemHandler.cs",
+              "DocumentMoniker": "D:\\Projetos\\DirectoryCLI\\Handlers\\SystemHandler.cs",
+              "RelativeDocumentMoniker": "Handlers\\SystemHandler.cs",
+              "ToolTip": "D:\\Projetos\\DirectoryCLI\\Handlers\\SystemHandler.cs",
+              "RelativeToolTip": "Handlers\\SystemHandler.cs",
+              "ViewState": "AgIAAIgAAAAAAAAAAAAUwJUAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-29T22:51:29.713Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Projetos\\DirectoryCLI\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\Projetos\\DirectoryCLI\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAANQAAAAAAAAAAAAAAEwBAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-02T22:47:26.187Z",
               "EditorCaption": ""
             }
           ]

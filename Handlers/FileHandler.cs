@@ -1,14 +1,25 @@
-﻿using DirectoryCLI.Exceptions;
-using DirectoryCLI.Interfaces;
+﻿using DirectoryCLI.Interfaces;
 using Spectre.Console;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace DirectoryCLI.Handlers
 {
-    internal class FileHandler : IFileHandler
+    internal class FileHandler : IFileSystemHandler
     {
+        //Injeção de dependência por do construtor.
+
+        readonly ILogHandler LogHandler;
+        //----------------------------------------
+        public FileHandler(ILogHandler logHandler)
+        {
+            LogHandler = logHandler;
+        }
+        //-----------------------------------------------------------------------
+
+        //Comando 'create-file'
         public void Create(string[] arguments)
         {
-            ILogHandler logHandler = new LogHandler();
 
             HashSet<string> createdFiles = new HashSet<string>();
             HashSet<string> existingFiles = new HashSet<string>();
@@ -42,16 +53,15 @@ namespace DirectoryCLI.Handlers
                 }
             }
 
-            logHandler.ShowResult("Arquivos criados", createdFiles);
-            logHandler.ShowResult("Arquivos já existentes", existingFiles);
-            logHandler.ShowResult("Pastas com o mesmo nome de arquivos", invalidFiles);
+            LogHandler.ShowResult("Arquivos criados", createdFiles);
+            LogHandler.ShowResult("Arquivos já existentes", existingFiles);
+            LogHandler.ShowResult("Pastas com o mesmo nome de arquivos", invalidFiles);
         }
 
+        //Comando 'delete-file'.
         public void Delete(string[] arguments)
         {
             Console.WriteLine();
-
-            ILogHandler logHandler = new LogHandler();
 
             HashSet<string> deletedFiles = new HashSet<string>();
             HashSet<string> nonExistingFiles = new HashSet<string>();
@@ -79,25 +89,19 @@ namespace DirectoryCLI.Handlers
                 }
             }
 
-            logHandler.ShowResult(" Arquivos deletados", deletedFiles);
-            logHandler.ShowResult(" Arquivos não encontrados", nonExistingFiles);
-            logHandler.ShowResult(" Arquivos sem permissão para deleção", unauthorizedFiles);
+            LogHandler.ShowResult(" Arquivos deletados", deletedFiles);
+            LogHandler.ShowResult(" Arquivos não encontrados", nonExistingFiles);
+            LogHandler.ShowResult(" Arquivos sem permissão para deleção", unauthorizedFiles);
         }
 
-        public void DeleteAllFiles(string[] arguments)
+        //Comando 'del-files'.
+        public void DeleteRecursive(string[] arguments)
         {
-
-            ILogHandler logHandler = new LogHandler();
-            HashSet<string> list = new HashSet<string>();
+            HashSet<string> archives = new HashSet<string>();
             string[] files = Directory.GetFiles(arguments[0]);
 
             switch (arguments.Length)
             {
-                case 0:
-
-                    Console.WriteLine("Nenhum arquivo para ser deletado.");
-
-                    break;
 
                 case 3:
 
@@ -122,7 +126,7 @@ namespace DirectoryCLI.Handlers
                             if (File.Exists(fullPath))
                             {
                                 File.Delete(fullPath);
-                                list.Add(fullPath);
+                                archives.Add(fullPath);
                             }
                         }
 
@@ -135,23 +139,24 @@ namespace DirectoryCLI.Handlers
                                 if (File.Exists(fullPath))
                                 {
                                     File.Delete(fullPath);
-                                    list.Add(fullPath);
+                                    archives.Add(fullPath);
                                 }
-                                else list.Add(fullPath);
+
+                                else archives.Add(fullPath);
                             }
                         }
                     }
 
-                    if (list.Count != 0)
+                    if (archives.Count != 0)
                     {
                         if (isNullParameter)
                         {
-                            logHandler.ShowResult($"Arquivos sem extensão deletados", list);
+                            LogHandler.ShowResult($"Arquivos sem extensão deletados", archives);
                         }
 
                         else
                         {
-                            logHandler.ShowResult($"Arquivos '{parameter}' deletados", list);
+                            LogHandler.ShowResult($"Arquivos '{parameter}' deletados", archives);
                         }
                     }
 
@@ -180,17 +185,18 @@ namespace DirectoryCLI.Handlers
 
                     foreach (string file in files)
                     {
-                        list.Add(file);
+                        archives.Add(file);
                     }
 
-                    if (list.Count != 0)
+                    if (archives.Count != 0)
                     {
-                        logHandler.ShowResult($"Arquivos deletados", list);
+                        LogHandler.ShowResult($"Arquivos deletados", archives);
                     }
 
                     else
                     {
-                        Console.WriteLine($"Nenhum arquivo encontrado");
+                        Console.WriteLine("Não existe arquivos para serem deletados neste diretório.");
+                        Console.WriteLine();
                     }
 
                     foreach (string file in files)
@@ -200,6 +206,11 @@ namespace DirectoryCLI.Handlers
 
                     break;
             }
+        }
+
+        public void DeleteInPosition(string[] arguments)
+        {
+
         }
     }
 }

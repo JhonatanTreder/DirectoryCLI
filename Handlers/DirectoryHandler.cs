@@ -1,5 +1,4 @@
 ﻿using DirectoryCLI.CommandStyles;
-using DirectoryCLI.Exceptions;
 using DirectoryCLI.Interfaces;
 using Spectre.Console;
 using System.Diagnostics;
@@ -13,17 +12,26 @@ namespace DirectoryCLI.Handlers
 {
     internal class DirectoryHandler : IDirectoryHandler
     {
-        ICommandHelper CommandHelper;
-        ICommandValidator CommandValidator;
-        ILogHandler LogHandler;
+        //-----------------------------------------------------------------------
+        //Injeção de dependência por meio do construtor.
 
-        public DirectoryHandler(ICommandHelper commandHelper, ICommandValidator commandValidator, ILogHandler logHandler)
+        readonly ICommandHelper CommandHelper;
+        readonly ICommandValidator CommandValidator;
+        readonly ILogHandler LogHandler;
+        //-----------------------------------------------------------------------
+        public DirectoryHandler
+
+            (ICommandHelper commandHelper,
+            ICommandValidator commandValidator,
+            ILogHandler logHandler)
         {
             CommandHelper = commandHelper;
             CommandValidator = commandValidator;
             LogHandler = logHandler;
         }
+        //-----------------------------------------------------------------------
 
+        //Comando 'list'.
         public void ListItems(string[] arguments)
         {
             Console.OutputEncoding = Encoding.UTF8;
@@ -42,7 +50,10 @@ namespace DirectoryCLI.Handlers
             }
             catch (UnauthorizedAccessException ex)
             {
-                Console.WriteLine("Erro de permissão: " + ex.Message);
+                Console.WriteLine("Erro de permissão: ");
+                Console.WriteLine($"acesso ao diretório '{arguments[0]}' negado.");
+                Console.WriteLine();
+
                 return;
             }
             catch (Exception ex)
@@ -178,7 +189,7 @@ namespace DirectoryCLI.Handlers
             Colors.WhiteText();
         }
 
-
+        //Comando 'zip'.
         public void ZipItem(string[] arguments)
         {
 
@@ -247,10 +258,11 @@ namespace DirectoryCLI.Handlers
             }
 
             LogHandler.ShowResult(" Itens zipados", items);
-            LogHandler.ShowResult(" Itens não existentes", nonExistingItems);
+            LogHandler.ShowResult(" Itens inexistentes", nonExistingItems);
             LogHandler.ShowResult(" Arquivos não zipáveis", zipFiles);
         }
 
+        //Método auxiliar para o comando 'zip'.
         private void AddDirectoryToZip(ZipArchive archive, string sourceDir, string entryName)
         {
             DirectoryInfo dirInfo = new DirectoryInfo(sourceDir);
@@ -273,6 +285,7 @@ namespace DirectoryCLI.Handlers
             }
         }
 
+        //Comando 'extract'.
         public void ExtractZipFile(string[] arguments)
         {
             if (CommandValidator.IsValidExtractCommand(arguments) == false) return;
@@ -286,54 +299,94 @@ namespace DirectoryCLI.Handlers
             HashSet<string> existingFolders = new HashSet<string>();
 
             string destinyPath;
-            string parameterTo = arguments[arguments.Length - 2];
-
-            if (parameterTo == "to")
-            {
-                FileInfo destiny = new FileInfo(arguments[arguments.Length - 1]);
-                destinyPath = Path.Combine(directoryPath.FullName, destiny.Name);
-            }
-
-            else if (parameterTo == "to-new")
-            {
-
-                FileInfo destiny = new FileInfo(arguments[arguments.Length - 1]);
-                destinyPath = Path.Combine(directoryPath.FullName, destiny.Name);
-
-                Directory.CreateDirectory(destinyPath);
-            }
-
-            else if (arguments[arguments.Length - 1] == "to-here")
-            {
-                destinyPath = directoryPath.FullName;
-            }
-
-            else
-            {
-                Console.WriteLine("Comando inválido.");
-                return;
-            }
 
             for (int i = 0; i < arguments.Length; i++)
             {
-                if (i < arguments.Length)
+                string parameterTo = arguments[arguments.Length - 2];
+                string destinyPosition = arguments[arguments.Length - 1];
+
+                if (parameterTo == "to")
                 {
-                    FileInfo item = new FileInfo(arguments[2 + i]);
+                    FileInfo destiny = new FileInfo(destinyPosition);
+                    destinyPath = Path.Combine(directoryPath.FullName, destiny.Name);
+                }
+
+                else if (parameterTo == "to-new")
+                {
+                    //D:\Test extract a.zip to-new folder
+                    FileInfo destiny = new FileInfo(destinyPosition);
+                    destinyPath = Path.Combine(directoryPath.FullName, destiny.Name);
+
+                    Directory.CreateDirectory(destinyPath);
+                }
+
+                else
+                {
+                    destinyPath = directoryPath.FullName;
+                }
+
+                FileInfo item;
+                HashSet<string> files = new HashSet<string>();
+                //D:\Test extract a.zip b.zip to-here
+                if (destinyPosition == "to-here" && i < arguments.Length - 3)
+                {
+                    item = new FileInfo(arguments[2 + i]);
 
                     if (item.Extension == ".zip")
                     {
-
                         string itemPath = Path.Combine(directoryPath.FullName, item.Name);
+                        files.Add(itemPath);
+                    }
 
-                        using (ZipArchive archive = ZipFile.OpenRead(itemPath))
+                    else filesWithOtherExtension.Add(item.FullName);
+                }
+
+                else
+                {
+
+                    if (i < arguments.Length - 4)
+                    {
+                        item = new FileInfo(arguments[2 + i]);
+
+                        if (item.Extension == ".zip")
                         {
-                            foreach (ZipArchiveEntry entry in archive.Entries)
-                            {
-                                string finalPath = Path.Combine(destinyPath, entry.FullName);
+                            string itemPath = Path.Combine(directoryPath.FullName, item.Name);
+                            files.Add(itemPath);
+                        }
 
+                        else filesWithOtherExtension.Add(item.FullName);
+                    }
+
+                }
+
+                foreach (string file in files)
+                {
+
+                    //Dá erro quando o arquivo '.zip não possui items.
+                    using (ZipArchive archive = ZipFile.OpenRead(file))
+                    {
+
+                        if (archive.Entries.Count == 0)
+                        {
+                            Console.WriteLine($"O arquivo '{file}' não possui itens.");
+                            Console.WriteLine();
+                            continue;
+                        }
+
+                        foreach (ZipArchiveEntry entry in archive.Entries)
+                        {
+                            string finalPath = Path.Combine(destinyPath, entry.FullName);
+
+                            bool existFile = File.Exists(finalPath);
+                            bool existFolder = Directory.Exists(finalPath);
+
+                            if (existFile) existingFiles.Add(finalPath);
+                            if (existFolder) existingFolders.Add(finalPath);
+
+                            if (!existFolder || !existFile)
+                            {
                                 if (entry.FullName.EndsWith("/"))
                                 {
-
                                     if (!Directory.Exists(finalPath))
                                     {
                                         Directory.CreateDirectory(finalPath);
@@ -341,12 +394,10 @@ namespace DirectoryCLI.Handlers
                                     }
 
                                     else existingFolders.Add(finalPath);
-
                                 }
 
                                 else
                                 {
-
                                     if (!File.Exists(finalPath))
                                     {
                                         entry.ExtractToFile(finalPath);
@@ -354,26 +405,21 @@ namespace DirectoryCLI.Handlers
                                     }
 
                                     else existingFiles.Add(finalPath);
-
                                 }
                             }
-
-                            Console.WriteLine("Extração concluída.");
-                            break;
                         }
                     }
-
-                    else filesWithOtherExtension.Add(item.FullName);
                 }
             }
 
             LogHandler.ShowResult("Diretórios extraídos ", zipFolders);
             LogHandler.ShowResult("Diretórios já existentes", existingFolders);
-            LogHandler.ShowResult("Arquivos extraídos", zipFiles);
+            LogHandler.ShowResult("Arquivo extraído", zipFiles);
             LogHandler.ShowResult("Arquivos já existentes", existingFiles);
             LogHandler.ShowResult("Arquivos sem a extensão '.zip' ", filesWithOtherExtension);
         }
 
+        //Comando 'scan'.
         public void ScanSize(string directory)
         {
             Storage(directory);
@@ -381,7 +427,9 @@ namespace DirectoryCLI.Handlers
             Colors.WhiteText();
         }
         //-------------------------------------------------------------
+        //Métodos auxiliares para o comando 'scan'.
 
+        //Storage()
         private void Storage(string directory)
         {
             long totalSize = GetDirectorySize(directory);
@@ -395,6 +443,7 @@ namespace DirectoryCLI.Handlers
         }
         //----------------------------------------------------------
 
+        //GetDirectorySize()
         private long GetDirectorySize(string directory)
         {
             long size = 0; ;
@@ -447,9 +496,9 @@ namespace DirectoryCLI.Handlers
 
             return size;
         }
+        //-------------------------------------------------------------
 
-        //---------------------------------------------
-
+        //Comando 'move'.
         public void MoveItem(string[] arguments)
         {
 
@@ -548,10 +597,9 @@ namespace DirectoryCLI.Handlers
             LogHandler.ShowResult("Arquivos já existentes", existingFiles);
             LogHandler.ShowResult("Itens não existentes", nonExistingItems);
         }
+        //-------------------------------------------------------------
 
-
-        //------------------------------------------------------------------------
-        //OPEN
+        //Comando 'open'.
         public void Open(string[] arguments)
         {
 
@@ -592,6 +640,7 @@ namespace DirectoryCLI.Handlers
                         if (!itemExists)
                         {
                             Console.WriteLine($"Item '{itemPath}' inexistente.");
+                            Console.WriteLine();
                             return;
                         }
 
@@ -599,6 +648,7 @@ namespace DirectoryCLI.Handlers
                         {
                             Console.WriteLine($"Abrindo o arquivo '{arguments[2]}'");
                             Console.WriteLine();
+
                             ExecuteProcess(itemPath);
                             break;
                         }
@@ -607,6 +657,7 @@ namespace DirectoryCLI.Handlers
                         {
                             Console.WriteLine($"Abrindo o diretório '{arguments[2]}'");
                             Console.WriteLine();
+
                             ExecuteProcess(itemPath);
                             break;
                         }
@@ -668,6 +719,8 @@ namespace DirectoryCLI.Handlers
         }
 
         //-----------------------------------------------------------------
+
+        //Método auxiliar para o comando 'open'.
         private void ExecuteProcess(string path)
         {
             try
@@ -694,7 +747,7 @@ namespace DirectoryCLI.Handlers
                 Console.WriteLine($"Erro ao abrir o caminho: {ex.Message}");
             }
         }
-        //------------------------------------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------
 
         public void Rename(string[] arguments)
         {

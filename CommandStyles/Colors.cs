@@ -4,6 +4,7 @@ using Console = Colorful.Console;
 
 namespace DirectoryCLI.CommandStyles
 {
+    //Classe para facilitar o acessar as cores.
     internal class Colors
     {
         public static void DarkPurple()

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rzvRYPkiUqQ=",
+  "dgSpecHash": "DqST72Hffrc=",
   "success": true,
-  "projectFilePath": "D:\\[PROJETOS]\\DirectoryCLI\\DirectoryCLI.csproj",
+  "projectFilePath": "D:\\Projetos\\DirectoryCLI\\DirectoryCLI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Jhonatan\\.nuget\\packages\\colorful.console\\1.2.15\\colorful.console.1.2.15.nupkg.sha512",
     "C:\\Users\\Jhonatan\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",

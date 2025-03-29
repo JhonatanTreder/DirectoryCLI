@@ -4,7 +4,10 @@ namespace DirectoryCLI.Handlers
 {
     internal class CommandValidator : ICommandValidator
     {
-        public void ArgumentsValidation(string[] arguments)
+        //Valida os argumentos escritos pelo usuário.
+
+        //-----------------------------------------------------------------------------------------
+        public bool ArgumentsValidation(string[] arguments, string command) //Verifica se as strings são válidas.
         {
             foreach (string args in arguments)
             {
@@ -13,81 +16,19 @@ namespace DirectoryCLI.Handlers
                     throw new ArgumentException("Argumento inválido: ");
                 }
             }
+            //--------------------------------------------------------------------------------------
 
-            string command;
 
-            switch (arguments.Length)
+            //--------------------------------------------------------------------------------------
+            //Verificação de cada comando.
+
+
+            if (Directory.Exists(arguments[0]))
             {
-                case 1:
-
-                    command = arguments[0];
-
-                    HashSet<string> extraCommands = new HashSet<string> {
-
-                        "exit",
-                        "clear",
-                        "commands",
-                        "commands-sintaxe",
-                        "system-info",
-                        "log-on",
-                        "log-off"
-
-                    };
-
-                    if (!extraCommands.Contains(command))
-                    {
-                        throw new ArgumentException($" Comando '{command}' inválido: ");
-                    }
-
-                    break;
-
-                case 2:
-
-                    if (!Directory.Exists(arguments[0]))
-                    {
-                        command = arguments[0].ToLower();
-                    }
-
-                    else
-                    {
-                        command = arguments[1].ToLower();
-                    }
-
-                    HashSet<string> twoArgumentsCommands = new HashSet<string> {
-
+                HashSet<string> directoryCommands = new HashSet<string>
+                {
                         "scan",
                         "list",
-                        "open-site",
-                        "del-files",
-                        "del-folders",
-                        "dotnet",
-                        "docker",
-                        "git"
-
-                    };
-
-                    if (!twoArgumentsCommands.Contains(command))
-                    {
-                        throw new ArgumentException($" Comando '{command}' inválido: ");
-                    }
-
-                    break;
-
-                default:
-
-                    if (!Directory.Exists(arguments[0]))
-                    {
-                        command = arguments[0];
-                    }
-
-                    else
-                    {
-                        command = arguments[1];
-                    }
-
-
-                    HashSet<string> directoryCommands = new HashSet<string> {
-
                         "create-file",
                         "zip",
                         "extract",
@@ -96,25 +37,50 @@ namespace DirectoryCLI.Handlers
                         "delete-folder",
                         "move",
                         "rename",
-                        "dotnet",
                         "open",
                         "del-files",
                         "del-folders",
-                        "list",
-                        "docker",
-                        "git"
-                    };
+                };
 
-                    if (!directoryCommands.Contains(command))
-                    {
-                        throw new ArgumentException($" Comando '{command}' inválido: ");
-                    }
+                if (!directoryCommands.Contains(command))
+                {
+                    Console.WriteLine("Erro: ");
+                    Console.WriteLine($"O comando '{command}' não é reconhecido como um comando válido para uso em diretórios.");
+                    Console.WriteLine("Escreva 'dir-cmds' para ver a lista de comandos válidos.");
+                    Console.WriteLine();
+                    return false;
+                }
 
-                    break;
-
+                return true;
             }
+
+            else
+            {
+                HashSet<string> extraCommands = new HashSet<string>()
+                {
+                    "exit",
+                    "system-info",
+                    "clear",
+                    "open-site",
+                    "log-on",
+                    "log-off",
+                    "cmds-sintaxe",
+                    "cmds",
+                    "dir-cmds"
+
+                };
+
+                if (extraCommands.Contains(command))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            //--------------------------------------------------------------------------------------
         }
 
+        //Validação básica para o comando 'zip'.
         public bool IsValidZipCommand(string[] arguments)
         {
             string destiny = arguments[arguments.Length - 1];
@@ -158,6 +124,7 @@ namespace DirectoryCLI.Handlers
             return false;
         }
 
+        //Validação básica para o comando 'list'.
         public bool IsValidListCommand(string[] arguments)
         {
             if (arguments.Length < 2)
@@ -200,6 +167,7 @@ namespace DirectoryCLI.Handlers
             return true;
         }
 
+        //Validação básica para o comando 'open'.
         public bool IsValidOpenCommand(string parameter)
         {
             if (parameter == "-d" || parameter == "-f") return true;
@@ -210,8 +178,15 @@ namespace DirectoryCLI.Handlers
             return false;
         }
 
+        //Validação básica para o comando 'extract'.
         public bool IsValidExtractCommand(string[] arguments)
         {
+            if (arguments.Length < 4 || arguments.Length > 6)
+            {
+                Console.WriteLine("Número de argumentos inválidos.");
+                Console.WriteLine();
+                return false;
+            }
 
             if (!Directory.Exists(arguments[0]))
             {
@@ -220,19 +195,15 @@ namespace DirectoryCLI.Handlers
                 return false;
             }
 
-            if (arguments.Length < 4)
-            {
-                Console.WriteLine("Número de argumentos inválidos.");
-                Console.WriteLine();
-                return false;
-            }
-
             if (arguments[arguments.Length - 1] == "to-here" || arguments[arguments.Length - 2] == "to" || arguments[arguments.Length - 2] == "to-new")
                 return true;
 
+            Console.WriteLine($"Parâmetro inválido.");
+            Console.WriteLine();
             return false;
         }
 
+        //Validação básica para o comando 'rename'.
         public bool IsValidRenameCommand(string[] arguments)
         {
             DirectoryInfo directoryPath = new DirectoryInfo(arguments[0]);
