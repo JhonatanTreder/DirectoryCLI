@@ -158,6 +158,7 @@ namespace DirectoryCLI.Handlers
             {
                 return ExecuteShellCommand("sw_vers -productVersion")?.Trim() ?? "Versão não encontrada!";
             }
+
             return "Versão não encontrada!";
         }
 

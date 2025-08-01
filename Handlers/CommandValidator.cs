@@ -18,7 +18,6 @@ namespace DirectoryCLI.Handlers
             }
             //--------------------------------------------------------------------------------------
 
-
             //--------------------------------------------------------------------------------------
             //Verificação de cada comando.
 
@@ -40,6 +39,7 @@ namespace DirectoryCLI.Handlers
                         "open",
                         "del-files",
                         "del-folders",
+                        "search"
                 };
 
                 if (!directoryCommands.Contains(command))

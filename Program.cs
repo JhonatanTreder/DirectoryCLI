@@ -21,16 +21,20 @@ namespace DirectoryCLI
         //--------------------------------
         static async Task Main()
         {
+
+
             Console.Title = $"@Zenith - {Environment.CurrentDirectory}";
 
             //Instanciando os Handlers
             ILogHandler logHandler = new LogHandler();
             IFileSystemHandler fileHandler = new FileHandler(logHandler);
             ISystemHandler systemHandler = new SystemHandler();
+            ICodeRefactor codeRefactor = new RoslynCodeRefactor();
             ICommandHelper commandHelper = new CommandHelper();
             ICommandValidator commandValidator = new CommandValidator();
             IFileSystemHandler folderHandler = new FolderHandler(commandValidator, logHandler);
             IDirectoryHandler directoryHandler = new DirectoryHandler(commandHelper, commandValidator, logHandler);
+
 
             Colors.BlackBG();
             Console.Clear();
@@ -51,9 +55,13 @@ namespace DirectoryCLI
                     //--------------------------------------------------------------
                     //Atribuindo o comando e melhorando a leitura dos argumentos
                     //(mesmo se forem separados por mais de um espaço)
+
+
                     string[] arguments = Console.ReadLine().Split(' ');
                     arguments = commandHelper.RemoveNullOrEmpty(arguments);
                     string command = commandHelper.AddCommand(arguments).ToLower();
+
+
                     //---------------------------------------------------------------
 
                     Console.WriteLine();
@@ -238,6 +246,12 @@ namespace DirectoryCLI
                             case "system-info":
 
                                 systemHandler.SystemInfo();
+                                logHandler.ShowLog(command, log);
+
+                                break;
+
+                            case "search":
+                                codeRefactor.DelegateFunction(arguments);
                                 logHandler.ShowLog(command, log);
 
                                 break;
