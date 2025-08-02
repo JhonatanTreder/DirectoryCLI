@@ -64,15 +64,28 @@ namespace DirectoryCLI.Handlers
                     string attributeName = attributeDeclaration.Name.ToFullString().Trim();
                     var argumentList = attributeDeclaration.ArgumentList;
 
-                    if (attributeName == dataAnnotation && argumentList != null)
+                    if (attributeName.Equals(dataAnnotation, StringComparison.OrdinalIgnoreCase))
                     {
-                        foreach (var value in argumentList.Arguments)
+                        if (argumentList is null)
                         {
                             if (!filesWithAttributes.ContainsKey(csFile))
                                 filesWithAttributes[csFile] = new List<string>();
 
                             filesWithAttributes[csFile]
-                                .Add(attributeDeclaration.ToFullString().Trim());
+                                .Add(attributeDeclaration
+                                .ToFullString().Trim());
+                        }
+
+                        else
+                        {
+                            foreach (var value in argumentList.Arguments)
+                            {
+                                if (!filesWithAttributes.ContainsKey(csFile))
+                                    filesWithAttributes[csFile] = new List<string>();
+
+                                filesWithAttributes[csFile]
+                                    .Add(attributeDeclaration.ToFullString().Trim());
+                            }
                         }
                     }
                 }
