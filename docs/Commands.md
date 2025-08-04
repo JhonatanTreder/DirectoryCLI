@@ -58,7 +58,7 @@ Tabela referente a exemplos de como pode se utilizar os comandos.
 | `cmds`          | cmds |
 | `zip`           | D:\Test zip Pasta1 arquivo1.txt to arquivo_example.zip |
 | `move`          | D:\Test move arquivo1.txt to Pasta1 |
-| `list`          | D:\Test list` |
+| `list`          | D:\Test list |
 | `scan`          | D:\Test scan |
 | `open`          | D:\Test open Pasta1 `ou` D:\Test open --this |
 | `exit`          | exit |
@@ -67,11 +67,11 @@ Tabela referente a exemplos de como pode se utilizar os comandos.
 | `search`        | D:\Test search Authorize list-props |
 | `extract`       | D:\Test extract arquivo_example.zip to Pasta1 |
 | `open-site`     | open-site github |
-| `create-file`   | D:\Test create-file arquivo1.txt arquivo2.txt arquivo3.html` |
+| `create-file`   | D:\Test create-file arquivo1.txt arquivo2.txt arquivo3.html |
 | `cmds-sintaxe`  | cmds-sintaxe |
 | `delete-files`  | D:\Test delete-files arquivo1.txt arquivo2.txt |
 | `create-folder` | D:\Test create-folder Pasta2 |
-| `delete-folder` | D:\Test delete-folder Pasta2. |
+| `delete-folder` | D:\Test delete-folder Pasta2 |
 | `del-files`     | D:\Test del-files `ou` D:\Test del-files .txt |
 | `del-folders`   | D:\Test del-folders |
 | `system-info`   | system-info |
