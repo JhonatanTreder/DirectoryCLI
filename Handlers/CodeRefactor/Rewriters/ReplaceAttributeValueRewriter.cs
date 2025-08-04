@@ -34,8 +34,8 @@ namespace DirectoryCLI.Handlers.CodeRefactor.Rewriters
                     return node;
 
                 var oldArgument = node.ArgumentList.Arguments
-                    .FirstOrDefault(argument => argument.NameEquals?.Name
-                    .ToString() == _propertyName);
+                    .FirstOrDefault(argument => string.Equals(argument.NameEquals?.Name
+                    .ToString(), _propertyName, StringComparison.OrdinalIgnoreCase));
 
                 if (oldArgument is null)
                     return node;

@@ -65,7 +65,7 @@ namespace DirectoryCLI.Handlers
 
                     if (attributeName.Equals(dataAnnotation, StringComparison.OrdinalIgnoreCase))
                     {
-                        if (argumentList is null)
+                        if (argumentList is null || argumentList.Arguments.Count == 0)
                         {
                             if (!filesWithAttributes.ContainsKey(csFile))
                                 filesWithAttributes[csFile] = new List<string>();
@@ -142,7 +142,6 @@ namespace DirectoryCLI.Handlers
 
             var parameter = arguments[3];
             var dataAnnotation = ValidateString(arguments[2]);
-            var propertyName = ValidateString(arguments[4]);
             var filteredFiles = GenerateFilteredFiles(arguments);
 
             foreach (var csFile in filteredFiles)
@@ -153,8 +152,10 @@ namespace DirectoryCLI.Handlers
 
                 switch (parameter)
                 {
+
                     case "remove-props":
 
+                        var propertyName = ValidateString(arguments[4]);
                         var singleAttributeRewriter = new RemoveSingleAttributePropertyRewriter(dataAnnotation,
                             propertyName);
 
@@ -193,7 +194,11 @@ namespace DirectoryCLI.Handlers
 
             var dataAnnotation = ValidateString(arguments[2]);
             var propertyName = ValidateString(arguments[4]);
-            var propertyValue = arguments[6].Replace("\"", "");
+            string propertyValue = "";
+
+            if (arguments.Length >= 7)
+                propertyValue = arguments[6].Replace("\"", "");
+
             var filteredFiles = GenerateFilteredFiles(arguments);
 
             foreach (var csFile in filteredFiles)
