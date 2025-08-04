@@ -24,8 +24,8 @@ Tabela referente aos comandos que podem ser utilzados com explicação ao lado.
 | `del-folders`   | Deleta todas as pastas de um diretório específico. |
 | `system-info`   | Fornece informações sobre o computador **(armazenamento, processador, placa de vídeo, etc...)** |
 
-# Sintaxde de Uso
-Table referente a sintaxe de cada comando.
+# Sintax de de Uso
+Tabela referente a sintaxe de cada comando.
 
 | Comando         | Sintaxe |
 |-----------------|-----------|
@@ -34,7 +34,7 @@ Table referente a sintaxe de cada comando.
 | `move`          | `[diretório]` `<move>` `[arquivo/pasta]` `<to>` `[diretório de destino]`. |
 | `list`          | `[diretório]` `<list>` `[parâmetro opcional: <-e> (tipo de extensão)]`. |
 | `scan`          | `[diretório]` `<scan>`. |
-| `open`          | `[diretório]` `<>`. |
+| `open`          | `[diretório]` `<open>` `[arquivo/pasta]` ou `[--this]`. |
 | `exit`          | `<exit>` |
 | `clear`         | `<clear>` |
 | `rename`        | `[diretório]` `<rename>` `[arquivo/pasta]` `<to>` `[nome final]`. |
