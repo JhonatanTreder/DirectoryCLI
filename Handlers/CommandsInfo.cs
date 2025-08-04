@@ -24,7 +24,7 @@ namespace DirectoryCLI.Handlers
             table.AddRow(Markup.Escape("[exit]"), "Fecha o programa.");
             table.AddRow(Markup.Escape("[clear]"), "Limpa o terminal.");
             table.AddRow(Markup.Escape("[rename]"), "Renomeia um arquivo/pasta (podendo alterar sua extensão).");
-            table.AddRow(Markup.Escape("[replace]"), "Substitui um elemento do código por outro em específico (DataAnnotations, Reserved Words, etc...)");
+            table.AddRow(Markup.Escape("[search]"), "Busca por algo em um arquivo '.cs' para manipulá-lo (DataAnnotations, Reserved Words, etc...)");
             table.AddRow(Markup.Escape("[extract]"), "Extrai o conteúdo de um arquivo zipado para um diretório especificado.");
             table.AddRow(Markup.Escape("[open-site]"), "Abre um site através do seu DNS.");
             table.AddRow(Markup.Escape("[create-file]"), "Cria um ou mais arquivos em um diretório específico.");

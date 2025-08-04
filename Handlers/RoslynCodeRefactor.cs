@@ -45,8 +45,7 @@ namespace DirectoryCLI.Handlers
 
         public void ListAttributeProperties(string[] arguments)
         {
-            string projectPath = arguments[0];
-            string dataAnnotation = ValidateDataAnnotation(arguments[2]);
+            string dataAnnotation = ValidateString(arguments[2]);
             var filteredFiles = GenerateFilteredFiles(arguments);
 
             var filesWithAttributes = new Dictionary<string, List<string>>();
@@ -141,9 +140,9 @@ namespace DirectoryCLI.Handlers
             //D:/Projetos/ProductsAPI search "[Authorize]" --remove-prop "Roles" --from-dir "Controller"
             //D:/Projetos/ProductsAPI search "[Authorize]" --remove-prop "Roles" --from-dir --this
 
-
-            string projectPath = arguments[0];
-            string dataAnnotation = ValidateDataAnnotation(arguments[2]);
+            var parameter = arguments[3];
+            var dataAnnotation = ValidateString(arguments[2]);
+            var propertyName = ValidateString(arguments[4]);
             var filteredFiles = GenerateFilteredFiles(arguments);
 
             foreach (var csFile in filteredFiles)
@@ -152,14 +151,35 @@ namespace DirectoryCLI.Handlers
                 var tree = CSharpSyntaxTree.ParseText(code);
                 var root = tree.GetCompilationUnitRoot();
 
-                var dataAnnotations = root.DescendantNodes().OfType<AttributeSyntax>();
-
-                RemoveAttributeArgumentsRewriter rewriter = new(dataAnnotation);
-                CompilationUnitSyntax newRoot = (CompilationUnitSyntax)rewriter.Visit(root);
-
-                if (newRoot.ToFullString() != root.ToFullString())
+                switch (parameter)
                 {
-                    File.WriteAllText(csFile, newRoot.ToFullString());
+                    case "remove-props":
+
+                        var singleAttributeRewriter = new RemoveSingleAttributePropertyRewriter(dataAnnotation,
+                            propertyName);
+
+                        CompilationUnitSyntax singleAttributeRoot = (CompilationUnitSyntax)singleAttributeRewriter
+                            .Visit(root);
+
+                        if (singleAttributeRoot.ToFullString() != root.ToFullString())
+                        {
+                            File.WriteAllText(csFile, singleAttributeRoot.ToFullString());
+                        }
+
+                        break;
+
+                    case "remove-all-props":
+
+                        RemoveAttributeArgumentsRewriter AttributesRewriter = new(dataAnnotation);
+                        CompilationUnitSyntax attributesRoot = (CompilationUnitSyntax)AttributesRewriter.Visit(root);
+
+                        if (attributesRoot.ToFullString() != root.ToFullString())
+                        {
+                            File.WriteAllText(csFile, attributesRoot.ToFullString());
+                        }
+
+                        break;
+                        //FAZER VERIFICAÇÃO DE COMANDOS DEPOIS
                 }
             }
         }
@@ -171,9 +191,8 @@ namespace DirectoryCLI.Handlers
             //D:/Projetos/ProductsAPI search "[Authorize]" add-prop "Roles" value "user,admin" from-files "AuthController.cs"
             //D:/Projetos/ProductsAPI search "[Authorize]" add-prop "Roles" value "user,admin" from-dir Controllers
 
-            var projectPath = arguments[0];
-            var dataAnnotation = ValidateDataAnnotation(arguments[2]);
-            var propertyName = arguments[4].Replace("\"", "");
+            var dataAnnotation = ValidateString(arguments[2]);
+            var propertyName = ValidateString(arguments[4]);
             var propertyValue = arguments[6].Replace("\"", "");
             var filteredFiles = GenerateFilteredFiles(arguments);
 
@@ -195,8 +214,7 @@ namespace DirectoryCLI.Handlers
 
         public void ReplaceAnnotationAttribute(string[] arguments)
         {
-            var projectPath = arguments[0];
-            var dataAnnotation = ValidateDataAnnotation(arguments[2]);
+            var dataAnnotation = ValidateString(arguments[2]);
             var propertyName = arguments[4].Replace("\"","");
             var newPropertyValue = arguments[6].Replace("\"","");
             var filteredFiles = GenerateFilteredFiles(arguments);
@@ -216,7 +234,7 @@ namespace DirectoryCLI.Handlers
             }
         }
 
-        private string ValidateDataAnnotation(string dataAnnotation)
+        private string ValidateString(string dataAnnotation)
         {
             dataAnnotation = dataAnnotation.Replace("\"[", string.Empty)
                                            .Replace("]\"", string.Empty)
