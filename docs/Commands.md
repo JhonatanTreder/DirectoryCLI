@@ -75,3 +75,15 @@ Tabela referente a exemplos de como pode se utilizar os comandos.
 | `del-files`     | D:\Test del-files `ou` D:\Test del-files .txt |
 | `del-folders`   | D:\Test del-folders |
 | `system-info`   | system-info |
+
+# Parâmetros de Comandos
+Tabela para os comandos que utilizam parâmetros (opcionais ou não).
+
+| Comando         | Parâmetros |
+|-----------------|-----------|
+| `move`          | `[to]`, `[to-new]`  |
+| `list`          | `[-e]` |
+| `open`          | `[--this]`, `[<-f> valor]`, `[<-d> valor]` OBS: "-f" e "-d" especifica 'arquivo' ou 'diretório', e "valor" especifica a posição deles (use o comando 'list' no diretório para melhor entendimento). |
+| `search`        | `[list-props]`, `[remove-all-props]`, `[remove-prop]`, `[add-prop]`, `[replace-prop]` |
+| `extract`       | `[to]`, `[to-new]`, `[to-here]`|
+| `del-files`     | `[<tipo de extensão>, ex: "D:\Test del-files .txt"]` |
