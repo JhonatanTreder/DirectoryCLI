@@ -1,5 +1,5 @@
 # Comandos Utilizados
-Tabela referente aos comandos que podem ser utilzados com explicação ao lado.
+Tabela referente aos comandos que podem ser utilizados com explicação ao lado.
 
 | Comando         | Descrição |
 |-----------------|-----------|
@@ -24,7 +24,7 @@ Tabela referente aos comandos que podem ser utilzados com explicação ao lado.
 | `del-folders`   | Deleta todas as pastas de um diretório específico. |
 | `system-info`   | Fornece informações sobre o computador **(armazenamento, processador, placa de vídeo, etc...)** |
 
-# Sintaxe de de Uso
+# Sintaxe de Uso
 Tabela referente a sintaxe de cada comando.
 
 | Comando         | Sintaxe |
@@ -41,7 +41,7 @@ Tabela referente a sintaxe de cada comando.
 | `search`        | `[diretório]` `<search>` `[DataAnnotation]` `<parâmetros e valores...>`.|
 | `extract`       | `[diretório]` `<extract>` `[arquivo .zip]` `<to>` `[diretório de destino]`. |
 | `open-site`     | `<open-site>` `[nome DNS, ex: "github"]`. |
-| `create-file`   | `[diretório]` `<create-file>` `[arquivo] (pode especificar mais de um aqruivo)`. |
+| `create-file`   | `[diretório]` `<create-file>` `[arquivo] (pode especificar mais de um arquivo)`. |
 | `cmds-sintaxe`  | `<cmds-sintaxe>`. |
 | `delete-files`  | `[diretório]` `<delete-files>` `[arquivo] (pode especificar mais de um arquivo)`.|
 | `create-folder` | `[diretório]` `<create-folder>` `[pasta] (pode epecificar mais de uma pasta)`. |
